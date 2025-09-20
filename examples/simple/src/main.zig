@@ -19,6 +19,8 @@ pub fn main() !void {
 
     try gl.init(glfw.opengl.getProcAddress);
 
+    std.debug.print("{d}\n", .{@sizeOf(gl.Procs)});
+
     while (!window.shouldClose()) {
         glfw.io.events.poll();
         gl.clearColor(0.1, 0.5, 0.3, 1.0);
