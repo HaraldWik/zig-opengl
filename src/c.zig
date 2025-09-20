@@ -1,17 +1,18 @@
-pub const c = @import("c");
-pub const procs = @import("root.zig").procs;
+pub const Procs = @import("Procs.zig");
 
-pub const Sync = @import("Procs.zig").Sync;
-pub const Enum = @import("Procs.zig").Enum;
-pub const Bitfield = @import("Procs.zig").Bitfield;
-pub const Boolean = @import("Procs.zig").Boolean;
+pub var procs: *Procs = undefined;
 
-pub const GLDEBUGPROC = @import("Procs.zig").GLDEBUGPROC;
-pub const GLDEBUGPROCARB = @import("Procs.zig").GLDEBUGPROCARB;
-pub const struct__cl_context = @import("Procs.zig").struct__cl_context;
-pub const struct__cl_event = @import("Procs.zig").struct__cl_event;
-pub const GLeglImageOES = @import("Procs.zig").GLeglImageOES;
-pub const GLVULKANPROCNV = @import("Procs.zig").GLVULKANPROCNV;
+pub const Sync = Procs.Sync;
+pub const @"enum" = Procs.@"enum";
+pub const Bitfield = Procs.Bitfield;
+pub const @"bool" = Procs.bool;
+
+pub const GLDEBUGPROC = Procs.GLDEBUGPROC;
+pub const GLDEBUGPROCARB = Procs.GLDEBUGPROCARB;
+pub const struct__cl_context = Procs.struct__cl_context;
+pub const struct__cl_event = Procs.struct__cl_event;
+pub const GLeglImageOES = Procs.GLeglImageOES;
+pub const GLVULKANPROCNV = Procs.GLVULKANPROCNV;
 
 pub const GL_FALSE: c_int = 0;
 pub const GL_TRUE: c_int = 1;
@@ -2395,13 +2396,13 @@ pub const GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: c_int = 0x9632;
 pub const GL_MAX_VIEWS_OVR: c_int = 0x9631;
 pub const GL_FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: c_int = 0x9633;
 
-pub inline fn glCullFace(mode: Enum) void {
+pub inline fn glCullFace(mode: @"enum") void {
     procs.glCullFace(mode);
 }
-pub inline fn glFrontFace(mode: Enum) void {
+pub inline fn glFrontFace(mode: @"enum") void {
     procs.glFrontFace(mode);
 }
-pub inline fn glHint(target: Enum, mode: Enum) void {
+pub inline fn glHint(target: @"enum", mode: @"enum") void {
     procs.glHint(target, mode);
 }
 pub inline fn glLineWidth(width: f32) void {
@@ -2410,31 +2411,31 @@ pub inline fn glLineWidth(width: f32) void {
 pub inline fn glPointSize(size: f32) void {
     procs.glPointSize(size);
 }
-pub inline fn glPolygonMode(face: Enum, mode: Enum) void {
+pub inline fn glPolygonMode(face: @"enum", mode: @"enum") void {
     procs.glPolygonMode(face, mode);
 }
 pub inline fn glScissor(x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glScissor(x, y, width, height);
 }
-pub inline fn glTexParameterf(target: Enum, pname: Enum, param: f32) void {
+pub inline fn glTexParameterf(target: @"enum", pname: @"enum", param: f32) void {
     procs.glTexParameterf(target, pname, param);
 }
-pub inline fn glTexParameterfv(target: Enum, pname: Enum, params: [*c]const f32) void {
+pub inline fn glTexParameterfv(target: @"enum", pname: @"enum", params: [*c]const f32) void {
     procs.glTexParameterfv(target, pname, params);
 }
-pub inline fn glTexParameteri(target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glTexParameteri(target: @"enum", pname: @"enum", param: c_int) void {
     procs.glTexParameteri(target, pname, param);
 }
-pub inline fn glTexParameteriv(target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glTexParameteriv(target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glTexParameteriv(target, pname, params);
 }
-pub inline fn glTexImage1D(target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexImage1D(target: @"enum", level: c_int, internalformat: c_int, width: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexImage1D(target, level, internalformat, width, border, format, @"type", pixels);
 }
-pub inline fn glTexImage2D(target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexImage2D(target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexImage2D(target, level, internalformat, width, height, border, format, @"type", pixels);
 }
-pub inline fn glDrawBuffer(buf: Enum) void {
+pub inline fn glDrawBuffer(buf: @"enum") void {
     procs.glDrawBuffer(buf);
 }
 pub inline fn glClear(mask: Bitfield) void {
@@ -2452,16 +2453,16 @@ pub inline fn glClearDepth(depth: f64) void {
 pub inline fn glStencilMask(mask: c_uint) void {
     procs.glStencilMask(mask);
 }
-pub inline fn glColorMask(red: Boolean, green: Boolean, blue: Boolean, alpha: Boolean) void {
+pub inline fn glColorMask(red: @"bool", green: @"bool", blue: @"bool", alpha: @"bool") void {
     procs.glColorMask(red, green, blue, alpha);
 }
-pub inline fn glDepthMask(flag: Boolean) void {
+pub inline fn glDepthMask(flag: @"bool") void {
     procs.glDepthMask(flag);
 }
-pub inline fn glDisable(cap: Enum) void {
+pub inline fn glDisable(cap: @"enum") void {
     procs.glDisable(cap);
 }
-pub inline fn glEnable(cap: Enum) void {
+pub inline fn glEnable(cap: @"enum") void {
     procs.glEnable(cap);
 }
 pub inline fn glFinish() void {
@@ -2470,67 +2471,67 @@ pub inline fn glFinish() void {
 pub inline fn glFlush() void {
     procs.glFlush();
 }
-pub inline fn glBlendFunc(sfactor: Enum, dfactor: Enum) void {
+pub inline fn glBlendFunc(sfactor: @"enum", dfactor: @"enum") void {
     procs.glBlendFunc(sfactor, dfactor);
 }
-pub inline fn glLogicOp(opcode: Enum) void {
+pub inline fn glLogicOp(opcode: @"enum") void {
     procs.glLogicOp(opcode);
 }
-pub inline fn glStencilFunc(func: Enum, ref: c_int, mask: c_uint) void {
+pub inline fn glStencilFunc(func: @"enum", ref: c_int, mask: c_uint) void {
     procs.glStencilFunc(func, ref, mask);
 }
-pub inline fn glStencilOp(fail: Enum, zfail: Enum, zpass: Enum) void {
+pub inline fn glStencilOp(fail: @"enum", zfail: @"enum", zpass: @"enum") void {
     procs.glStencilOp(fail, zfail, zpass);
 }
-pub inline fn glDepthFunc(func: Enum) void {
+pub inline fn glDepthFunc(func: @"enum") void {
     procs.glDepthFunc(func);
 }
-pub inline fn glPixelStoref(pname: Enum, param: f32) void {
+pub inline fn glPixelStoref(pname: @"enum", param: f32) void {
     procs.glPixelStoref(pname, param);
 }
-pub inline fn glPixelStorei(pname: Enum, param: c_int) void {
+pub inline fn glPixelStorei(pname: @"enum", param: c_int) void {
     procs.glPixelStorei(pname, param);
 }
-pub inline fn glReadBuffer(src: Enum) void {
+pub inline fn glReadBuffer(src: @"enum") void {
     procs.glReadBuffer(src);
 }
-pub inline fn glReadPixels(x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) void {
+pub inline fn glReadPixels(x: c_int, y: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", pixels: ?*anyopaque) void {
     procs.glReadPixels(x, y, width, height, format, @"type", pixels);
 }
-pub inline fn glGetBooleanv(pname: Enum, data: [*c]Boolean) void {
+pub inline fn glGetBooleanv(pname: @"enum", data: [*c]@"bool") void {
     procs.glGetBooleanv(pname, data);
 }
-pub inline fn glGetDoublev(pname: Enum, data: [*c]f64) void {
+pub inline fn glGetDoublev(pname: @"enum", data: [*c]f64) void {
     procs.glGetDoublev(pname, data);
 }
-pub inline fn glGetError() Enum {
+pub inline fn glGetError() @"enum" {
     return procs.glGetError();
 }
-pub inline fn glGetFloatv(pname: Enum, data: [*c]f32) void {
+pub inline fn glGetFloatv(pname: @"enum", data: [*c]f32) void {
     procs.glGetFloatv(pname, data);
 }
-pub inline fn glGetIntegerv(pname: Enum, data: [*c]c_int) void {
+pub inline fn glGetIntegerv(pname: @"enum", data: [*c]c_int) void {
     procs.glGetIntegerv(pname, data);
 }
-pub inline fn glGetString(name: Enum) [*c]const u8 {
+pub inline fn glGetString(name: @"enum") [*c]const u8 {
     return procs.glGetString(name);
 }
-pub inline fn glGetTexImage(target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) void {
+pub inline fn glGetTexImage(target: @"enum", level: c_int, format: @"enum", @"type": @"enum", pixels: ?*anyopaque) void {
     procs.glGetTexImage(target, level, format, @"type", pixels);
 }
-pub inline fn glGetTexParameterfv(target: Enum, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTexParameterfv(target: @"enum", pname: @"enum", params: [*c]f32) void {
     procs.glGetTexParameterfv(target, pname, params);
 }
-pub inline fn glGetTexParameteriv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTexParameteriv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetTexParameteriv(target, pname, params);
 }
-pub inline fn glGetTexLevelParameterfv(target: Enum, level: c_int, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTexLevelParameterfv(target: @"enum", level: c_int, pname: @"enum", params: [*c]f32) void {
     procs.glGetTexLevelParameterfv(target, level, pname, params);
 }
-pub inline fn glGetTexLevelParameteriv(target: Enum, level: c_int, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTexLevelParameteriv(target: @"enum", level: c_int, pname: @"enum", params: [*c]c_int) void {
     procs.glGetTexLevelParameteriv(target, level, pname, params);
 }
-pub inline fn glIsEnabled(cap: Enum) Boolean {
+pub inline fn glIsEnabled(cap: @"enum") @"bool" {
     return procs.glIsEnabled(cap);
 }
 pub inline fn glDepthRange(n: f64, f: f64) void {
@@ -2539,37 +2540,37 @@ pub inline fn glDepthRange(n: f64, f: f64) void {
 pub inline fn glViewport(x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glViewport(x, y, width, height);
 }
-pub inline fn glDrawArrays(mode: Enum, first: c_int, count: c_int) void {
+pub inline fn glDrawArrays(mode: @"enum", first: c_int, count: c_int) void {
     procs.glDrawArrays(mode, first, count);
 }
-pub inline fn glDrawElements(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque) void {
+pub inline fn glDrawElements(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque) void {
     procs.glDrawElements(mode, count, @"type", indices);
 }
-pub inline fn glGetPointerv(pname: Enum, params: [*c]?*anyopaque) void {
+pub inline fn glGetPointerv(pname: @"enum", params: [*c]?*anyopaque) void {
     procs.glGetPointerv(pname, params);
 }
 pub inline fn glPolygonOffset(factor: f32, units: f32) void {
     procs.glPolygonOffset(factor, units);
 }
-pub inline fn glCopyTexImage1D(target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) void {
+pub inline fn glCopyTexImage1D(target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, border: c_int) void {
     procs.glCopyTexImage1D(target, level, internalformat, x, y, width, border);
 }
-pub inline fn glCopyTexImage2D(target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
+pub inline fn glCopyTexImage2D(target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
     procs.glCopyTexImage2D(target, level, internalformat, x, y, width, height, border);
 }
-pub inline fn glCopyTexSubImage1D(target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
+pub inline fn glCopyTexSubImage1D(target: @"enum", level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
     procs.glCopyTexSubImage1D(target, level, xoffset, x, y, width);
 }
-pub inline fn glCopyTexSubImage2D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyTexSubImage2D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
 }
-pub inline fn glTexSubImage1D(target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexSubImage1D(target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexSubImage1D(target, level, xoffset, width, format, @"type", pixels);
 }
-pub inline fn glTexSubImage2D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexSubImage2D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, @"type", pixels);
 }
-pub inline fn glBindTexture(target: Enum, texture: c_uint) void {
+pub inline fn glBindTexture(target: @"enum", texture: c_uint) void {
     procs.glBindTexture(target, texture);
 }
 pub inline fn glDeleteTextures(n: c_int, textures: [*c]const c_uint) void {
@@ -2578,73 +2579,73 @@ pub inline fn glDeleteTextures(n: c_int, textures: [*c]const c_uint) void {
 pub inline fn glGenTextures(n: c_int, textures: [*c]c_uint) void {
     procs.glGenTextures(n, textures);
 }
-pub inline fn glIsTexture(texture: c_uint) Boolean {
+pub inline fn glIsTexture(texture: c_uint) @"bool" {
     return procs.glIsTexture(texture);
 }
-pub inline fn glDrawRangeElements(mode: Enum, start: c_uint, end: c_uint, count: c_int, @"type": Enum, indices: ?*const anyopaque) void {
+pub inline fn glDrawRangeElements(mode: @"enum", start: c_uint, end: c_uint, count: c_int, @"type": @"enum", indices: ?*const anyopaque) void {
     procs.glDrawRangeElements(mode, start, end, count, @"type", indices);
 }
-pub inline fn glTexImage3D(target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexImage3D(target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexImage3D(target, level, internalformat, width, height, depth, border, format, @"type", pixels);
 }
-pub inline fn glTexSubImage3D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTexSubImage3D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", pixels);
 }
-pub inline fn glCopyTexSubImage3D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyTexSubImage3D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
-pub inline fn glActiveTexture(texture: Enum) void {
+pub inline fn glActiveTexture(texture: @"enum") void {
     procs.glActiveTexture(texture);
 }
-pub inline fn glSampleCoverage(value: f32, invert: Boolean) void {
+pub inline fn glSampleCoverage(value: f32, invert: @"bool") void {
     procs.glSampleCoverage(value, invert);
 }
-pub inline fn glCompressedTexImage3D(target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexImage3D(target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data);
 }
-pub inline fn glCompressedTexImage2D(target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexImage2D(target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 }
-pub inline fn glCompressedTexImage1D(target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexImage1D(target: @"enum", level: c_int, internalformat: @"enum", width: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, data);
 }
-pub inline fn glCompressedTexSubImage3D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexSubImage3D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 }
-pub inline fn glCompressedTexSubImage2D(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexSubImage2D(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data);
 }
-pub inline fn glCompressedTexSubImage1D(target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTexSubImage1D(target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data);
 }
-pub inline fn glGetCompressedTexImage(target: Enum, level: c_int, img: ?*anyopaque) void {
+pub inline fn glGetCompressedTexImage(target: @"enum", level: c_int, img: ?*anyopaque) void {
     procs.glGetCompressedTexImage(target, level, img);
 }
-pub inline fn glBlendFuncSeparate(sfactorRGB: Enum, dfactorRGB: Enum, sfactorAlpha: Enum, dfactorAlpha: Enum) void {
+pub inline fn glBlendFuncSeparate(sfactorRGB: @"enum", dfactorRGB: @"enum", sfactorAlpha: @"enum", dfactorAlpha: @"enum") void {
     procs.glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
 }
-pub inline fn glMultiDrawArrays(mode: Enum, first: [*c]const c_int, count: [*c]const c_int, drawcount: c_int) void {
+pub inline fn glMultiDrawArrays(mode: @"enum", first: [*c]const c_int, count: [*c]const c_int, drawcount: c_int) void {
     procs.glMultiDrawArrays(mode, first, count, drawcount);
 }
-pub inline fn glMultiDrawElements(mode: Enum, count: [*c]const c_int, @"type": Enum, indices: [*c]const ?*const anyopaque, drawcount: c_int) void {
+pub inline fn glMultiDrawElements(mode: @"enum", count: [*c]const c_int, @"type": @"enum", indices: [*c]const ?*const anyopaque, drawcount: c_int) void {
     procs.glMultiDrawElements(mode, count, @"type", indices, drawcount);
 }
-pub inline fn glPointParameterf(pname: Enum, param: f32) void {
+pub inline fn glPointParameterf(pname: @"enum", param: f32) void {
     procs.glPointParameterf(pname, param);
 }
-pub inline fn glPointParameterfv(pname: Enum, params: [*c]const f32) void {
+pub inline fn glPointParameterfv(pname: @"enum", params: [*c]const f32) void {
     procs.glPointParameterfv(pname, params);
 }
-pub inline fn glPointParameteri(pname: Enum, param: c_int) void {
+pub inline fn glPointParameteri(pname: @"enum", param: c_int) void {
     procs.glPointParameteri(pname, param);
 }
-pub inline fn glPointParameteriv(pname: Enum, params: [*c]const c_int) void {
+pub inline fn glPointParameteriv(pname: @"enum", params: [*c]const c_int) void {
     procs.glPointParameteriv(pname, params);
 }
 pub inline fn glBlendColor(red: f32, green: f32, blue: f32, alpha: f32) void {
     procs.glBlendColor(red, green, blue, alpha);
 }
-pub inline fn glBlendEquation(mode: Enum) void {
+pub inline fn glBlendEquation(mode: @"enum") void {
     procs.glBlendEquation(mode);
 }
 pub inline fn glGenQueries(n: c_int, ids: [*c]c_uint) void {
@@ -2653,25 +2654,25 @@ pub inline fn glGenQueries(n: c_int, ids: [*c]c_uint) void {
 pub inline fn glDeleteQueries(n: c_int, ids: [*c]const c_uint) void {
     procs.glDeleteQueries(n, ids);
 }
-pub inline fn glIsQuery(id: c_uint) Boolean {
+pub inline fn glIsQuery(id: c_uint) @"bool" {
     return procs.glIsQuery(id);
 }
-pub inline fn glBeginQuery(target: Enum, id: c_uint) void {
+pub inline fn glBeginQuery(target: @"enum", id: c_uint) void {
     procs.glBeginQuery(target, id);
 }
-pub inline fn glEndQuery(target: Enum) void {
+pub inline fn glEndQuery(target: @"enum") void {
     procs.glEndQuery(target);
 }
-pub inline fn glGetQueryiv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetQueryiv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetQueryiv(target, pname, params);
 }
-pub inline fn glGetQueryObjectiv(id: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetQueryObjectiv(id: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetQueryObjectiv(id, pname, params);
 }
-pub inline fn glGetQueryObjectuiv(id: c_uint, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetQueryObjectuiv(id: c_uint, pname: @"enum", params: [*c]c_uint) void {
     procs.glGetQueryObjectuiv(id, pname, params);
 }
-pub inline fn glBindBuffer(target: Enum, buffer: c_uint) void {
+pub inline fn glBindBuffer(target: @"enum", buffer: c_uint) void {
     procs.glBindBuffer(target, buffer);
 }
 pub inline fn glDeleteBuffers(n: c_int, buffers: [*c]const c_uint) void {
@@ -2680,43 +2681,43 @@ pub inline fn glDeleteBuffers(n: c_int, buffers: [*c]const c_uint) void {
 pub inline fn glGenBuffers(n: c_int, buffers: [*c]c_uint) void {
     procs.glGenBuffers(n, buffers);
 }
-pub inline fn glIsBuffer(buffer: c_uint) Boolean {
+pub inline fn glIsBuffer(buffer: c_uint) @"bool" {
     return procs.glIsBuffer(buffer);
 }
-pub inline fn glBufferData(target: Enum, size: c_ulong, data: ?*const anyopaque, usage: Enum) void {
+pub inline fn glBufferData(target: @"enum", size: c_ulong, data: ?*const anyopaque, usage: @"enum") void {
     procs.glBufferData(target, size, data, usage);
 }
-pub inline fn glBufferSubData(target: Enum, offset: c_long, size: c_ulong, data: ?*const anyopaque) void {
+pub inline fn glBufferSubData(target: @"enum", offset: c_long, size: c_ulong, data: ?*const anyopaque) void {
     procs.glBufferSubData(target, offset, size, data);
 }
-pub inline fn glGetBufferSubData(target: Enum, offset: c_long, size: c_ulong, data: ?*anyopaque) void {
+pub inline fn glGetBufferSubData(target: @"enum", offset: c_long, size: c_ulong, data: ?*anyopaque) void {
     procs.glGetBufferSubData(target, offset, size, data);
 }
-pub inline fn glMapBuffer(target: Enum, access: Enum) ?*anyopaque {
+pub inline fn glMapBuffer(target: @"enum", access: @"enum") ?*anyopaque {
     return procs.glMapBuffer(target, access);
 }
-pub inline fn glUnmapBuffer(target: Enum) Boolean {
+pub inline fn glUnmapBuffer(target: @"enum") @"bool" {
     return procs.glUnmapBuffer(target);
 }
-pub inline fn glGetBufferParameteriv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetBufferParameteriv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetBufferParameteriv(target, pname, params);
 }
-pub inline fn glGetBufferPointerv(target: Enum, pname: Enum, params: [*c]?*anyopaque) void {
+pub inline fn glGetBufferPointerv(target: @"enum", pname: @"enum", params: [*c]?*anyopaque) void {
     procs.glGetBufferPointerv(target, pname, params);
 }
-pub inline fn glBlendEquationSeparate(modeRGB: Enum, modeAlpha: Enum) void {
+pub inline fn glBlendEquationSeparate(modeRGB: @"enum", modeAlpha: @"enum") void {
     procs.glBlendEquationSeparate(modeRGB, modeAlpha);
 }
-pub inline fn glDrawBuffers(n: c_int, bufs: [*c]const Enum) void {
+pub inline fn glDrawBuffers(n: c_int, bufs: [*c]const @"enum") void {
     procs.glDrawBuffers(n, bufs);
 }
-pub inline fn glStencilOpSeparate(face: Enum, sfail: Enum, dpfail: Enum, dppass: Enum) void {
+pub inline fn glStencilOpSeparate(face: @"enum", sfail: @"enum", dpfail: @"enum", dppass: @"enum") void {
     procs.glStencilOpSeparate(face, sfail, dpfail, dppass);
 }
-pub inline fn glStencilFuncSeparate(face: Enum, func: Enum, ref: c_int, mask: c_uint) void {
+pub inline fn glStencilFuncSeparate(face: @"enum", func: @"enum", ref: c_int, mask: c_uint) void {
     procs.glStencilFuncSeparate(face, func, ref, mask);
 }
-pub inline fn glStencilMaskSeparate(face: Enum, mask: c_uint) void {
+pub inline fn glStencilMaskSeparate(face: @"enum", mask: c_uint) void {
     procs.glStencilMaskSeparate(face, mask);
 }
 pub inline fn glAttachShader(program: c_uint, shader: c_uint) void {
@@ -2731,7 +2732,7 @@ pub inline fn glCompileShader(shader: c_uint) void {
 pub inline fn glCreateProgram() c_uint {
     return procs.glCreateProgram();
 }
-pub inline fn glCreateShader(@"type": Enum) c_uint {
+pub inline fn glCreateShader(@"type": @"enum") c_uint {
     return procs.glCreateShader(@"type");
 }
 pub inline fn glDeleteProgram(program: c_uint) void {
@@ -2749,10 +2750,10 @@ pub inline fn glDisableVertexAttribArray(index: c_uint) void {
 pub inline fn glEnableVertexAttribArray(index: c_uint) void {
     procs.glEnableVertexAttribArray(index);
 }
-pub inline fn glGetActiveAttrib(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) void {
+pub inline fn glGetActiveAttrib(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]@"enum", name: [*c]u8) void {
     procs.glGetActiveAttrib(program, index, bufSize, length, size, @"type", name);
 }
-pub inline fn glGetActiveUniform(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) void {
+pub inline fn glGetActiveUniform(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]@"enum", name: [*c]u8) void {
     procs.glGetActiveUniform(program, index, bufSize, length, size, @"type", name);
 }
 pub inline fn glGetAttachedShaders(program: c_uint, maxCount: c_int, count: [*c]c_int, shaders: [*c]c_uint) void {
@@ -2761,13 +2762,13 @@ pub inline fn glGetAttachedShaders(program: c_uint, maxCount: c_int, count: [*c]
 pub inline fn glGetAttribLocation(program: c_uint, name: [*c]const u8) c_int {
     return procs.glGetAttribLocation(program, name);
 }
-pub inline fn glGetProgramiv(program: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetProgramiv(program: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetProgramiv(program, pname, params);
 }
 pub inline fn glGetProgramInfoLog(program: c_uint, bufSize: c_int, length: [*c]c_int, infoLog: [*c]u8) void {
     procs.glGetProgramInfoLog(program, bufSize, length, infoLog);
 }
-pub inline fn glGetShaderiv(shader: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetShaderiv(shader: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetShaderiv(shader, pname, params);
 }
 pub inline fn glGetShaderInfoLog(shader: c_uint, bufSize: c_int, length: [*c]c_int, infoLog: [*c]u8) void {
@@ -2785,22 +2786,22 @@ pub inline fn glGetUniformfv(program: c_uint, location: c_int, params: [*c]f32) 
 pub inline fn glGetUniformiv(program: c_uint, location: c_int, params: [*c]c_int) void {
     procs.glGetUniformiv(program, location, params);
 }
-pub inline fn glGetVertexAttribdv(index: c_uint, pname: Enum, params: [*c]f64) void {
+pub inline fn glGetVertexAttribdv(index: c_uint, pname: @"enum", params: [*c]f64) void {
     procs.glGetVertexAttribdv(index, pname, params);
 }
-pub inline fn glGetVertexAttribfv(index: c_uint, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetVertexAttribfv(index: c_uint, pname: @"enum", params: [*c]f32) void {
     procs.glGetVertexAttribfv(index, pname, params);
 }
-pub inline fn glGetVertexAttribiv(index: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetVertexAttribiv(index: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetVertexAttribiv(index, pname, params);
 }
-pub inline fn glGetVertexAttribPointerv(index: c_uint, pname: Enum, pointer: [*c]?*anyopaque) void {
+pub inline fn glGetVertexAttribPointerv(index: c_uint, pname: @"enum", pointer: [*c]?*anyopaque) void {
     procs.glGetVertexAttribPointerv(index, pname, pointer);
 }
-pub inline fn glIsProgram(program: c_uint) Boolean {
+pub inline fn glIsProgram(program: c_uint) @"bool" {
     return procs.glIsProgram(program);
 }
-pub inline fn glIsShader(shader: c_uint) Boolean {
+pub inline fn glIsShader(shader: c_uint) @"bool" {
     return procs.glIsShader(shader);
 }
 pub inline fn glLinkProgram(program: c_uint) void {
@@ -2860,13 +2861,13 @@ pub inline fn glUniform3iv(location: c_int, count: c_int, value: [*c]const c_int
 pub inline fn glUniform4iv(location: c_int, count: c_int, value: [*c]const c_int) void {
     procs.glUniform4iv(location, count, value);
 }
-pub inline fn glUniformMatrix2fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix2fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix2fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix3fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix3fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix4fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix4fv(location, count, transpose, value);
 }
 pub inline fn glValidateProgram(program: c_uint) void {
@@ -2980,79 +2981,79 @@ pub inline fn glVertexAttrib4uiv(index: c_uint, v: [*c]const c_uint) void {
 pub inline fn glVertexAttrib4usv(index: c_uint, v: [*c]const c_ushort) void {
     procs.glVertexAttrib4usv(index, v);
 }
-pub inline fn glVertexAttribPointer(index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int, pointer: ?*const anyopaque) void {
+pub inline fn glVertexAttribPointer(index: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", stride: c_int, pointer: ?*const anyopaque) void {
     procs.glVertexAttribPointer(index, size, @"type", normalized, stride, pointer);
 }
-pub inline fn glUniformMatrix2x3fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix2x3fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix2x3fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3x2fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix3x2fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix3x2fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix2x4fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix2x4fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix2x4fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4x2fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix4x2fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix4x2fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3x4fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix3x4fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix3x4fv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4x3fv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glUniformMatrix4x3fv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glUniformMatrix4x3fv(location, count, transpose, value);
 }
-pub inline fn glColorMaski(index: c_uint, r: Boolean, g: Boolean, b: Boolean, a: Boolean) void {
+pub inline fn glColorMaski(index: c_uint, r: @"bool", g: @"bool", b: @"bool", a: @"bool") void {
     procs.glColorMaski(index, r, g, b, a);
 }
-pub inline fn glGetBooleani_v(target: Enum, index: c_uint, data: [*c]Boolean) void {
+pub inline fn glGetBooleani_v(target: @"enum", index: c_uint, data: [*c]@"bool") void {
     procs.glGetBooleani_v(target, index, data);
 }
-pub inline fn glGetIntegeri_v(target: Enum, index: c_uint, data: [*c]c_int) void {
+pub inline fn glGetIntegeri_v(target: @"enum", index: c_uint, data: [*c]c_int) void {
     procs.glGetIntegeri_v(target, index, data);
 }
-pub inline fn glEnablei(target: Enum, index: c_uint) void {
+pub inline fn glEnablei(target: @"enum", index: c_uint) void {
     procs.glEnablei(target, index);
 }
-pub inline fn glDisablei(target: Enum, index: c_uint) void {
+pub inline fn glDisablei(target: @"enum", index: c_uint) void {
     procs.glDisablei(target, index);
 }
-pub inline fn glIsEnabledi(target: Enum, index: c_uint) Boolean {
+pub inline fn glIsEnabledi(target: @"enum", index: c_uint) @"bool" {
     return procs.glIsEnabledi(target, index);
 }
-pub inline fn glBeginTransformFeedback(primitiveMode: Enum) void {
+pub inline fn glBeginTransformFeedback(primitiveMode: @"enum") void {
     procs.glBeginTransformFeedback(primitiveMode);
 }
 pub inline fn glEndTransformFeedback() void {
     procs.glEndTransformFeedback();
 }
-pub inline fn glBindBufferRange(target: Enum, index: c_uint, buffer: c_uint, offset: c_long, size: c_ulong) void {
+pub inline fn glBindBufferRange(target: @"enum", index: c_uint, buffer: c_uint, offset: c_long, size: c_ulong) void {
     procs.glBindBufferRange(target, index, buffer, offset, size);
 }
-pub inline fn glBindBufferBase(target: Enum, index: c_uint, buffer: c_uint) void {
+pub inline fn glBindBufferBase(target: @"enum", index: c_uint, buffer: c_uint) void {
     procs.glBindBufferBase(target, index, buffer);
 }
-pub inline fn glTransformFeedbackVaryings(program: c_uint, count: c_int, varyings: [*c]const [*c]const u8, bufferMode: Enum) void {
+pub inline fn glTransformFeedbackVaryings(program: c_uint, count: c_int, varyings: [*c]const [*c]const u8, bufferMode: @"enum") void {
     procs.glTransformFeedbackVaryings(program, count, varyings, bufferMode);
 }
-pub inline fn glGetTransformFeedbackVarying(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) void {
+pub inline fn glGetTransformFeedbackVarying(program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]@"enum", name: [*c]u8) void {
     procs.glGetTransformFeedbackVarying(program, index, bufSize, length, size, @"type", name);
 }
-pub inline fn glClampColor(target: Enum, clamp: Enum) void {
+pub inline fn glClampColor(target: @"enum", clamp: @"enum") void {
     procs.glClampColor(target, clamp);
 }
-pub inline fn glBeginConditionalRender(id: c_uint, mode: Enum) void {
+pub inline fn glBeginConditionalRender(id: c_uint, mode: @"enum") void {
     procs.glBeginConditionalRender(id, mode);
 }
 pub inline fn glEndConditionalRender() void {
     procs.glEndConditionalRender();
 }
-pub inline fn glVertexAttribIPointer(index: c_uint, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) void {
+pub inline fn glVertexAttribIPointer(index: c_uint, size: c_int, @"type": @"enum", stride: c_int, pointer: ?*const anyopaque) void {
     procs.glVertexAttribIPointer(index, size, @"type", stride, pointer);
 }
-pub inline fn glGetVertexAttribIiv(index: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetVertexAttribIiv(index: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetVertexAttribIiv(index, pname, params);
 }
-pub inline fn glGetVertexAttribIuiv(index: c_uint, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetVertexAttribIuiv(index: c_uint, pname: @"enum", params: [*c]c_uint) void {
     procs.glGetVertexAttribIuiv(index, pname, params);
 }
 pub inline fn glVertexAttribI1i(index: c_uint, x: c_int) void {
@@ -3148,37 +3149,37 @@ pub inline fn glUniform3uiv(location: c_int, count: c_int, value: [*c]const c_ui
 pub inline fn glUniform4uiv(location: c_int, count: c_int, value: [*c]const c_uint) void {
     procs.glUniform4uiv(location, count, value);
 }
-pub inline fn glTexParameterIiv(target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glTexParameterIiv(target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glTexParameterIiv(target, pname, params);
 }
-pub inline fn glTexParameterIuiv(target: Enum, pname: Enum, params: [*c]const c_uint) void {
+pub inline fn glTexParameterIuiv(target: @"enum", pname: @"enum", params: [*c]const c_uint) void {
     procs.glTexParameterIuiv(target, pname, params);
 }
-pub inline fn glGetTexParameterIiv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTexParameterIiv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetTexParameterIiv(target, pname, params);
 }
-pub inline fn glGetTexParameterIuiv(target: Enum, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetTexParameterIuiv(target: @"enum", pname: @"enum", params: [*c]c_uint) void {
     procs.glGetTexParameterIuiv(target, pname, params);
 }
-pub inline fn glClearBufferiv(buffer: Enum, drawbuffer: c_int, value: [*c]const c_int) void {
+pub inline fn glClearBufferiv(buffer: @"enum", drawbuffer: c_int, value: [*c]const c_int) void {
     procs.glClearBufferiv(buffer, drawbuffer, value);
 }
-pub inline fn glClearBufferuiv(buffer: Enum, drawbuffer: c_int, value: [*c]const c_uint) void {
+pub inline fn glClearBufferuiv(buffer: @"enum", drawbuffer: c_int, value: [*c]const c_uint) void {
     procs.glClearBufferuiv(buffer, drawbuffer, value);
 }
-pub inline fn glClearBufferfv(buffer: Enum, drawbuffer: c_int, value: [*c]const f32) void {
+pub inline fn glClearBufferfv(buffer: @"enum", drawbuffer: c_int, value: [*c]const f32) void {
     procs.glClearBufferfv(buffer, drawbuffer, value);
 }
-pub inline fn glClearBufferfi(buffer: Enum, drawbuffer: c_int, depth: f32, stencil: c_int) void {
+pub inline fn glClearBufferfi(buffer: @"enum", drawbuffer: c_int, depth: f32, stencil: c_int) void {
     procs.glClearBufferfi(buffer, drawbuffer, depth, stencil);
 }
-pub inline fn glGetStringi(name: Enum, index: c_uint) [*c]const u8 {
+pub inline fn glGetStringi(name: @"enum", index: c_uint) [*c]const u8 {
     return procs.glGetStringi(name, index);
 }
-pub inline fn glIsRenderbuffer(renderbuffer: c_uint) Boolean {
+pub inline fn glIsRenderbuffer(renderbuffer: c_uint) @"bool" {
     return procs.glIsRenderbuffer(renderbuffer);
 }
-pub inline fn glBindRenderbuffer(target: Enum, renderbuffer: c_uint) void {
+pub inline fn glBindRenderbuffer(target: @"enum", renderbuffer: c_uint) void {
     procs.glBindRenderbuffer(target, renderbuffer);
 }
 pub inline fn glDeleteRenderbuffers(n: c_int, renderbuffers: [*c]const c_uint) void {
@@ -3187,16 +3188,16 @@ pub inline fn glDeleteRenderbuffers(n: c_int, renderbuffers: [*c]const c_uint) v
 pub inline fn glGenRenderbuffers(n: c_int, renderbuffers: [*c]c_uint) void {
     procs.glGenRenderbuffers(n, renderbuffers);
 }
-pub inline fn glRenderbufferStorage(target: Enum, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glRenderbufferStorage(target: @"enum", internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glRenderbufferStorage(target, internalformat, width, height);
 }
-pub inline fn glGetRenderbufferParameteriv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetRenderbufferParameteriv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetRenderbufferParameteriv(target, pname, params);
 }
-pub inline fn glIsFramebuffer(framebuffer: c_uint) Boolean {
+pub inline fn glIsFramebuffer(framebuffer: c_uint) @"bool" {
     return procs.glIsFramebuffer(framebuffer);
 }
-pub inline fn glBindFramebuffer(target: Enum, framebuffer: c_uint) void {
+pub inline fn glBindFramebuffer(target: @"enum", framebuffer: c_uint) void {
     procs.glBindFramebuffer(target, framebuffer);
 }
 pub inline fn glDeleteFramebuffers(n: c_int, framebuffers: [*c]const c_uint) void {
@@ -3205,40 +3206,40 @@ pub inline fn glDeleteFramebuffers(n: c_int, framebuffers: [*c]const c_uint) voi
 pub inline fn glGenFramebuffers(n: c_int, framebuffers: [*c]c_uint) void {
     procs.glGenFramebuffers(n, framebuffers);
 }
-pub inline fn glCheckFramebufferStatus(target: Enum) Enum {
+pub inline fn glCheckFramebufferStatus(target: @"enum") @"enum" {
     return procs.glCheckFramebufferStatus(target);
 }
-pub inline fn glFramebufferTexture1D(target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glFramebufferTexture1D(target: @"enum", attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int) void {
     procs.glFramebufferTexture1D(target, attachment, textarget, texture, level);
 }
-pub inline fn glFramebufferTexture2D(target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glFramebufferTexture2D(target: @"enum", attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int) void {
     procs.glFramebufferTexture2D(target, attachment, textarget, texture, level);
 }
-pub inline fn glFramebufferTexture3D(target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int, zoffset: c_int) void {
+pub inline fn glFramebufferTexture3D(target: @"enum", attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int, zoffset: c_int) void {
     procs.glFramebufferTexture3D(target, attachment, textarget, texture, level, zoffset);
 }
-pub inline fn glFramebufferRenderbuffer(target: Enum, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) void {
+pub inline fn glFramebufferRenderbuffer(target: @"enum", attachment: @"enum", renderbuffertarget: @"enum", renderbuffer: c_uint) void {
     procs.glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
 }
-pub inline fn glGetFramebufferAttachmentParameteriv(target: Enum, attachment: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetFramebufferAttachmentParameteriv(target: @"enum", attachment: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetFramebufferAttachmentParameteriv(target, attachment, pname, params);
 }
-pub inline fn glGenerateMipmap(target: Enum) void {
+pub inline fn glGenerateMipmap(target: @"enum") void {
     procs.glGenerateMipmap(target);
 }
-pub inline fn glBlitFramebuffer(srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: Enum) void {
+pub inline fn glBlitFramebuffer(srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: @"enum") void {
     procs.glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 }
-pub inline fn glRenderbufferStorageMultisample(target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glRenderbufferStorageMultisample(target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
 }
-pub inline fn glFramebufferTextureLayer(target: Enum, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) void {
+pub inline fn glFramebufferTextureLayer(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int, layer: c_int) void {
     procs.glFramebufferTextureLayer(target, attachment, texture, level, layer);
 }
-pub inline fn glMapBufferRange(target: Enum, offset: c_long, length: c_ulong, access: Bitfield) ?*anyopaque {
+pub inline fn glMapBufferRange(target: @"enum", offset: c_long, length: c_ulong, access: Bitfield) ?*anyopaque {
     return procs.glMapBufferRange(target, offset, length, access);
 }
-pub inline fn glFlushMappedBufferRange(target: Enum, offset: c_long, length: c_ulong) void {
+pub inline fn glFlushMappedBufferRange(target: @"enum", offset: c_long, length: c_ulong) void {
     procs.glFlushMappedBufferRange(target, offset, length);
 }
 pub inline fn glBindVertexArray(array: c_uint) void {
@@ -3250,28 +3251,28 @@ pub inline fn glDeleteVertexArrays(n: c_int, arrays: [*c]const c_uint) void {
 pub inline fn glGenVertexArrays(n: c_int, arrays: [*c]c_uint) void {
     procs.glGenVertexArrays(n, arrays);
 }
-pub inline fn glIsVertexArray(array: c_uint) Boolean {
+pub inline fn glIsVertexArray(array: c_uint) @"bool" {
     return procs.glIsVertexArray(array);
 }
-pub inline fn glDrawArraysInstanced(mode: Enum, first: c_int, count: c_int, instancecount: c_int) void {
+pub inline fn glDrawArraysInstanced(mode: @"enum", first: c_int, count: c_int, instancecount: c_int) void {
     procs.glDrawArraysInstanced(mode, first, count, instancecount);
 }
-pub inline fn glDrawElementsInstanced(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int) void {
+pub inline fn glDrawElementsInstanced(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int) void {
     procs.glDrawElementsInstanced(mode, count, @"type", indices, instancecount);
 }
-pub inline fn glTexBuffer(target: Enum, internalformat: Enum, buffer: c_uint) void {
+pub inline fn glTexBuffer(target: @"enum", internalformat: @"enum", buffer: c_uint) void {
     procs.glTexBuffer(target, internalformat, buffer);
 }
 pub inline fn glPrimitiveRestartIndex(index: c_uint) void {
     procs.glPrimitiveRestartIndex(index);
 }
-pub inline fn glCopyBufferSubData(readTarget: Enum, writeTarget: Enum, readOffset: c_long, writeOffset: c_long, size: c_ulong) void {
+pub inline fn glCopyBufferSubData(readTarget: @"enum", writeTarget: @"enum", readOffset: c_long, writeOffset: c_long, size: c_ulong) void {
     procs.glCopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size);
 }
 pub inline fn glGetUniformIndices(program: c_uint, uniformCount: c_int, uniformNames: [*c]const [*c]const u8, uniformIndices: [*c]c_uint) void {
     procs.glGetUniformIndices(program, uniformCount, uniformNames, uniformIndices);
 }
-pub inline fn glGetActiveUniformsiv(program: c_uint, uniformCount: c_int, uniformIndices: [*c]const c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetActiveUniformsiv(program: c_uint, uniformCount: c_int, uniformIndices: [*c]const c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetActiveUniformsiv(program, uniformCount, uniformIndices, pname, params);
 }
 pub inline fn glGetActiveUniformName(program: c_uint, uniformIndex: c_uint, bufSize: c_int, length: [*c]c_int, uniformName: [*c]u8) void {
@@ -3280,7 +3281,7 @@ pub inline fn glGetActiveUniformName(program: c_uint, uniformIndex: c_uint, bufS
 pub inline fn glGetUniformBlockIndex(program: c_uint, uniformBlockName: [*c]const u8) c_uint {
     return procs.glGetUniformBlockIndex(program, uniformBlockName);
 }
-pub inline fn glGetActiveUniformBlockiv(program: c_uint, uniformBlockIndex: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetActiveUniformBlockiv(program: c_uint, uniformBlockIndex: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, params);
 }
 pub inline fn glGetActiveUniformBlockName(program: c_uint, uniformBlockIndex: c_uint, bufSize: c_int, length: [*c]c_int, uniformBlockName: [*c]u8) void {
@@ -3289,58 +3290,58 @@ pub inline fn glGetActiveUniformBlockName(program: c_uint, uniformBlockIndex: c_
 pub inline fn glUniformBlockBinding(program: c_uint, uniformBlockIndex: c_uint, uniformBlockBinding: c_uint) void {
     procs.glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
 }
-pub inline fn glDrawElementsBaseVertex(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, basevertex: c_int) void {
+pub inline fn glDrawElementsBaseVertex(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, basevertex: c_int) void {
     procs.glDrawElementsBaseVertex(mode, count, @"type", indices, basevertex);
 }
-pub inline fn glDrawRangeElementsBaseVertex(mode: Enum, start: c_uint, end: c_uint, count: c_int, @"type": Enum, indices: ?*const anyopaque, basevertex: c_int) void {
+pub inline fn glDrawRangeElementsBaseVertex(mode: @"enum", start: c_uint, end: c_uint, count: c_int, @"type": @"enum", indices: ?*const anyopaque, basevertex: c_int) void {
     procs.glDrawRangeElementsBaseVertex(mode, start, end, count, @"type", indices, basevertex);
 }
-pub inline fn glDrawElementsInstancedBaseVertex(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int) void {
+pub inline fn glDrawElementsInstancedBaseVertex(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int) void {
     procs.glDrawElementsInstancedBaseVertex(mode, count, @"type", indices, instancecount, basevertex);
 }
-pub inline fn glMultiDrawElementsBaseVertex(mode: Enum, count: [*c]const c_int, @"type": Enum, indices: [*c]const ?*const anyopaque, drawcount: c_int, basevertex: [*c]const c_int) void {
+pub inline fn glMultiDrawElementsBaseVertex(mode: @"enum", count: [*c]const c_int, @"type": @"enum", indices: [*c]const ?*const anyopaque, drawcount: c_int, basevertex: [*c]const c_int) void {
     procs.glMultiDrawElementsBaseVertex(mode, count, @"type", indices, drawcount, basevertex);
 }
-pub inline fn glProvokingVertex(mode: Enum) void {
+pub inline fn glProvokingVertex(mode: @"enum") void {
     procs.glProvokingVertex(mode);
 }
-pub inline fn glFenceSync(condition: Enum, flags: Bitfield) Sync {
+pub inline fn glFenceSync(condition: @"enum", flags: Bitfield) Sync {
     return procs.glFenceSync(condition, flags);
 }
-pub inline fn glIsSync(sync: Sync) Boolean {
+pub inline fn glIsSync(sync: Sync) @"bool" {
     return procs.glIsSync(sync);
 }
 pub inline fn glDeleteSync(sync: Sync) void {
     procs.glDeleteSync(sync);
 }
-pub inline fn glClientWaitSync(sync: Sync, flags: Bitfield, timeout: u64) Enum {
+pub inline fn glClientWaitSync(sync: Sync, flags: Bitfield, timeout: u64) @"enum" {
     return procs.glClientWaitSync(sync, flags, timeout);
 }
 pub inline fn glWaitSync(sync: Sync, flags: Bitfield, timeout: u64) void {
     procs.glWaitSync(sync, flags, timeout);
 }
-pub inline fn glGetInteger64v(pname: Enum, data: [*c]i64) void {
+pub inline fn glGetInteger64v(pname: @"enum", data: [*c]i64) void {
     procs.glGetInteger64v(pname, data);
 }
-pub inline fn glGetSynciv(sync: Sync, pname: Enum, count: c_int, length: [*c]c_int, values: [*c]c_int) void {
+pub inline fn glGetSynciv(sync: Sync, pname: @"enum", count: c_int, length: [*c]c_int, values: [*c]c_int) void {
     procs.glGetSynciv(sync, pname, count, length, values);
 }
-pub inline fn glGetInteger64i_v(target: Enum, index: c_uint, data: [*c]i64) void {
+pub inline fn glGetInteger64i_v(target: @"enum", index: c_uint, data: [*c]i64) void {
     procs.glGetInteger64i_v(target, index, data);
 }
-pub inline fn glGetBufferParameteri64v(target: Enum, pname: Enum, params: [*c]i64) void {
+pub inline fn glGetBufferParameteri64v(target: @"enum", pname: @"enum", params: [*c]i64) void {
     procs.glGetBufferParameteri64v(target, pname, params);
 }
-pub inline fn glFramebufferTexture(target: Enum, attachment: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glFramebufferTexture(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int) void {
     procs.glFramebufferTexture(target, attachment, texture, level);
 }
-pub inline fn glTexImage2DMultisample(target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTexImage2DMultisample(target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, fixedsamplelocations: @"bool") void {
     procs.glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
 }
-pub inline fn glTexImage3DMultisample(target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTexImage3DMultisample(target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, fixedsamplelocations: @"bool") void {
     procs.glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
-pub inline fn glGetMultisamplefv(pname: Enum, index: c_uint, val: [*c]f32) void {
+pub inline fn glGetMultisamplefv(pname: @"enum", index: c_uint, val: [*c]f32) void {
     procs.glGetMultisamplefv(pname, index, val);
 }
 pub inline fn glSampleMaski(maskNumber: c_uint, mask: Bitfield) void {
@@ -3358,97 +3359,97 @@ pub inline fn glGenSamplers(count: c_int, samplers: [*c]c_uint) void {
 pub inline fn glDeleteSamplers(count: c_int, samplers: [*c]const c_uint) void {
     procs.glDeleteSamplers(count, samplers);
 }
-pub inline fn glIsSampler(sampler: c_uint) Boolean {
+pub inline fn glIsSampler(sampler: c_uint) @"bool" {
     return procs.glIsSampler(sampler);
 }
 pub inline fn glBindSampler(unit: c_uint, sampler: c_uint) void {
     procs.glBindSampler(unit, sampler);
 }
-pub inline fn glSamplerParameteri(sampler: c_uint, pname: Enum, param: c_int) void {
+pub inline fn glSamplerParameteri(sampler: c_uint, pname: @"enum", param: c_int) void {
     procs.glSamplerParameteri(sampler, pname, param);
 }
-pub inline fn glSamplerParameteriv(sampler: c_uint, pname: Enum, param: [*c]const c_int) void {
+pub inline fn glSamplerParameteriv(sampler: c_uint, pname: @"enum", param: [*c]const c_int) void {
     procs.glSamplerParameteriv(sampler, pname, param);
 }
-pub inline fn glSamplerParameterf(sampler: c_uint, pname: Enum, param: f32) void {
+pub inline fn glSamplerParameterf(sampler: c_uint, pname: @"enum", param: f32) void {
     procs.glSamplerParameterf(sampler, pname, param);
 }
-pub inline fn glSamplerParameterfv(sampler: c_uint, pname: Enum, param: [*c]const f32) void {
+pub inline fn glSamplerParameterfv(sampler: c_uint, pname: @"enum", param: [*c]const f32) void {
     procs.glSamplerParameterfv(sampler, pname, param);
 }
-pub inline fn glSamplerParameterIiv(sampler: c_uint, pname: Enum, param: [*c]const c_int) void {
+pub inline fn glSamplerParameterIiv(sampler: c_uint, pname: @"enum", param: [*c]const c_int) void {
     procs.glSamplerParameterIiv(sampler, pname, param);
 }
-pub inline fn glSamplerParameterIuiv(sampler: c_uint, pname: Enum, param: [*c]const c_uint) void {
+pub inline fn glSamplerParameterIuiv(sampler: c_uint, pname: @"enum", param: [*c]const c_uint) void {
     procs.glSamplerParameterIuiv(sampler, pname, param);
 }
-pub inline fn glGetSamplerParameteriv(sampler: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetSamplerParameteriv(sampler: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetSamplerParameteriv(sampler, pname, params);
 }
-pub inline fn glGetSamplerParameterIiv(sampler: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetSamplerParameterIiv(sampler: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetSamplerParameterIiv(sampler, pname, params);
 }
-pub inline fn glGetSamplerParameterfv(sampler: c_uint, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetSamplerParameterfv(sampler: c_uint, pname: @"enum", params: [*c]f32) void {
     procs.glGetSamplerParameterfv(sampler, pname, params);
 }
-pub inline fn glGetSamplerParameterIuiv(sampler: c_uint, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetSamplerParameterIuiv(sampler: c_uint, pname: @"enum", params: [*c]c_uint) void {
     procs.glGetSamplerParameterIuiv(sampler, pname, params);
 }
-pub inline fn glQueryCounter(id: c_uint, target: Enum) void {
+pub inline fn glQueryCounter(id: c_uint, target: @"enum") void {
     procs.glQueryCounter(id, target);
 }
-pub inline fn glGetQueryObjecti64v(id: c_uint, pname: Enum, params: [*c]i64) void {
+pub inline fn glGetQueryObjecti64v(id: c_uint, pname: @"enum", params: [*c]i64) void {
     procs.glGetQueryObjecti64v(id, pname, params);
 }
-pub inline fn glGetQueryObjectui64v(id: c_uint, pname: Enum, params: [*c]u64) void {
+pub inline fn glGetQueryObjectui64v(id: c_uint, pname: @"enum", params: [*c]u64) void {
     procs.glGetQueryObjectui64v(id, pname, params);
 }
 pub inline fn glVertexAttribDivisor(index: c_uint, divisor: c_uint) void {
     procs.glVertexAttribDivisor(index, divisor);
 }
-pub inline fn glVertexAttribP1ui(index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) void {
+pub inline fn glVertexAttribP1ui(index: c_uint, @"type": @"enum", normalized: @"bool", value: c_uint) void {
     procs.glVertexAttribP1ui(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP1uiv(index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) void {
+pub inline fn glVertexAttribP1uiv(index: c_uint, @"type": @"enum", normalized: @"bool", value: [*c]const c_uint) void {
     procs.glVertexAttribP1uiv(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP2ui(index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) void {
+pub inline fn glVertexAttribP2ui(index: c_uint, @"type": @"enum", normalized: @"bool", value: c_uint) void {
     procs.glVertexAttribP2ui(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP2uiv(index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) void {
+pub inline fn glVertexAttribP2uiv(index: c_uint, @"type": @"enum", normalized: @"bool", value: [*c]const c_uint) void {
     procs.glVertexAttribP2uiv(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP3ui(index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) void {
+pub inline fn glVertexAttribP3ui(index: c_uint, @"type": @"enum", normalized: @"bool", value: c_uint) void {
     procs.glVertexAttribP3ui(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP3uiv(index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) void {
+pub inline fn glVertexAttribP3uiv(index: c_uint, @"type": @"enum", normalized: @"bool", value: [*c]const c_uint) void {
     procs.glVertexAttribP3uiv(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP4ui(index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) void {
+pub inline fn glVertexAttribP4ui(index: c_uint, @"type": @"enum", normalized: @"bool", value: c_uint) void {
     procs.glVertexAttribP4ui(index, @"type", normalized, value);
 }
-pub inline fn glVertexAttribP4uiv(index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) void {
+pub inline fn glVertexAttribP4uiv(index: c_uint, @"type": @"enum", normalized: @"bool", value: [*c]const c_uint) void {
     procs.glVertexAttribP4uiv(index, @"type", normalized, value);
 }
 pub inline fn glMinSampleShading(value: f32) void {
     procs.glMinSampleShading(value);
 }
-pub inline fn glBlendEquationi(buf: c_uint, mode: Enum) void {
+pub inline fn glBlendEquationi(buf: c_uint, mode: @"enum") void {
     procs.glBlendEquationi(buf, mode);
 }
-pub inline fn glBlendEquationSeparatei(buf: c_uint, modeRGB: Enum, modeAlpha: Enum) void {
+pub inline fn glBlendEquationSeparatei(buf: c_uint, modeRGB: @"enum", modeAlpha: @"enum") void {
     procs.glBlendEquationSeparatei(buf, modeRGB, modeAlpha);
 }
-pub inline fn glBlendFunci(buf: c_uint, src: Enum, dst: Enum) void {
+pub inline fn glBlendFunci(buf: c_uint, src: @"enum", dst: @"enum") void {
     procs.glBlendFunci(buf, src, dst);
 }
-pub inline fn glBlendFuncSeparatei(buf: c_uint, srcRGB: Enum, dstRGB: Enum, srcAlpha: Enum, dstAlpha: Enum) void {
+pub inline fn glBlendFuncSeparatei(buf: c_uint, srcRGB: @"enum", dstRGB: @"enum", srcAlpha: @"enum", dstAlpha: @"enum") void {
     procs.glBlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
 }
-pub inline fn glDrawArraysIndirect(mode: Enum, indirect: ?*const anyopaque) void {
+pub inline fn glDrawArraysIndirect(mode: @"enum", indirect: ?*const anyopaque) void {
     procs.glDrawArraysIndirect(mode, indirect);
 }
-pub inline fn glDrawElementsIndirect(mode: Enum, @"type": Enum, indirect: ?*const anyopaque) void {
+pub inline fn glDrawElementsIndirect(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque) void {
     procs.glDrawElementsIndirect(mode, @"type", indirect);
 }
 pub inline fn glUniform1d(location: c_int, x: f64) void {
@@ -3475,67 +3476,67 @@ pub inline fn glUniform3dv(location: c_int, count: c_int, value: [*c]const f64) 
 pub inline fn glUniform4dv(location: c_int, count: c_int, value: [*c]const f64) void {
     procs.glUniform4dv(location, count, value);
 }
-pub inline fn glUniformMatrix2dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix2dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix2dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix3dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix3dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix4dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix4dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix2x3dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix2x3dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix2x3dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix2x4dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix2x4dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix2x4dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3x2dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix3x2dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix3x2dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix3x4dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix3x4dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix3x4dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4x2dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix4x2dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix4x2dv(location, count, transpose, value);
 }
-pub inline fn glUniformMatrix4x3dv(location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glUniformMatrix4x3dv(location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glUniformMatrix4x3dv(location, count, transpose, value);
 }
 pub inline fn glGetUniformdv(program: c_uint, location: c_int, params: [*c]f64) void {
     procs.glGetUniformdv(program, location, params);
 }
-pub inline fn glGetSubroutineUniformLocation(program: c_uint, shadertype: Enum, name: [*c]const u8) c_int {
+pub inline fn glGetSubroutineUniformLocation(program: c_uint, shadertype: @"enum", name: [*c]const u8) c_int {
     return procs.glGetSubroutineUniformLocation(program, shadertype, name);
 }
-pub inline fn glGetSubroutineIndex(program: c_uint, shadertype: Enum, name: [*c]const u8) c_uint {
+pub inline fn glGetSubroutineIndex(program: c_uint, shadertype: @"enum", name: [*c]const u8) c_uint {
     return procs.glGetSubroutineIndex(program, shadertype, name);
 }
-pub inline fn glGetActiveSubroutineUniformiv(program: c_uint, shadertype: Enum, index: c_uint, pname: Enum, values: [*c]c_int) void {
+pub inline fn glGetActiveSubroutineUniformiv(program: c_uint, shadertype: @"enum", index: c_uint, pname: @"enum", values: [*c]c_int) void {
     procs.glGetActiveSubroutineUniformiv(program, shadertype, index, pname, values);
 }
-pub inline fn glGetActiveSubroutineUniformName(program: c_uint, shadertype: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
+pub inline fn glGetActiveSubroutineUniformName(program: c_uint, shadertype: @"enum", index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
     procs.glGetActiveSubroutineUniformName(program, shadertype, index, bufSize, length, name);
 }
-pub inline fn glGetActiveSubroutineName(program: c_uint, shadertype: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
+pub inline fn glGetActiveSubroutineName(program: c_uint, shadertype: @"enum", index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
     procs.glGetActiveSubroutineName(program, shadertype, index, bufSize, length, name);
 }
-pub inline fn glUniformSubroutinesuiv(shadertype: Enum, count: c_int, indices: [*c]const c_uint) void {
+pub inline fn glUniformSubroutinesuiv(shadertype: @"enum", count: c_int, indices: [*c]const c_uint) void {
     procs.glUniformSubroutinesuiv(shadertype, count, indices);
 }
-pub inline fn glGetUniformSubroutineuiv(shadertype: Enum, location: c_int, params: [*c]c_uint) void {
+pub inline fn glGetUniformSubroutineuiv(shadertype: @"enum", location: c_int, params: [*c]c_uint) void {
     procs.glGetUniformSubroutineuiv(shadertype, location, params);
 }
-pub inline fn glGetProgramStageiv(program: c_uint, shadertype: Enum, pname: Enum, values: [*c]c_int) void {
+pub inline fn glGetProgramStageiv(program: c_uint, shadertype: @"enum", pname: @"enum", values: [*c]c_int) void {
     procs.glGetProgramStageiv(program, shadertype, pname, values);
 }
-pub inline fn glPatchParameteri(pname: Enum, value: c_int) void {
+pub inline fn glPatchParameteri(pname: @"enum", value: c_int) void {
     procs.glPatchParameteri(pname, value);
 }
-pub inline fn glPatchParameterfv(pname: Enum, values: [*c]const f32) void {
+pub inline fn glPatchParameterfv(pname: @"enum", values: [*c]const f32) void {
     procs.glPatchParameterfv(pname, values);
 }
-pub inline fn glBindTransformFeedback(target: Enum, id: c_uint) void {
+pub inline fn glBindTransformFeedback(target: @"enum", id: c_uint) void {
     procs.glBindTransformFeedback(target, id);
 }
 pub inline fn glDeleteTransformFeedbacks(n: c_int, ids: [*c]const c_uint) void {
@@ -3544,7 +3545,7 @@ pub inline fn glDeleteTransformFeedbacks(n: c_int, ids: [*c]const c_uint) void {
 pub inline fn glGenTransformFeedbacks(n: c_int, ids: [*c]c_uint) void {
     procs.glGenTransformFeedbacks(n, ids);
 }
-pub inline fn glIsTransformFeedback(id: c_uint) Boolean {
+pub inline fn glIsTransformFeedback(id: c_uint) @"bool" {
     return procs.glIsTransformFeedback(id);
 }
 pub inline fn glPauseTransformFeedback() void {
@@ -3553,28 +3554,28 @@ pub inline fn glPauseTransformFeedback() void {
 pub inline fn glResumeTransformFeedback() void {
     procs.glResumeTransformFeedback();
 }
-pub inline fn glDrawTransformFeedback(mode: Enum, id: c_uint) void {
+pub inline fn glDrawTransformFeedback(mode: @"enum", id: c_uint) void {
     procs.glDrawTransformFeedback(mode, id);
 }
-pub inline fn glDrawTransformFeedbackStream(mode: Enum, id: c_uint, stream: c_uint) void {
+pub inline fn glDrawTransformFeedbackStream(mode: @"enum", id: c_uint, stream: c_uint) void {
     procs.glDrawTransformFeedbackStream(mode, id, stream);
 }
-pub inline fn glBeginQueryIndexed(target: Enum, index: c_uint, id: c_uint) void {
+pub inline fn glBeginQueryIndexed(target: @"enum", index: c_uint, id: c_uint) void {
     procs.glBeginQueryIndexed(target, index, id);
 }
-pub inline fn glEndQueryIndexed(target: Enum, index: c_uint) void {
+pub inline fn glEndQueryIndexed(target: @"enum", index: c_uint) void {
     procs.glEndQueryIndexed(target, index);
 }
-pub inline fn glGetQueryIndexediv(target: Enum, index: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetQueryIndexediv(target: @"enum", index: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetQueryIndexediv(target, index, pname, params);
 }
 pub inline fn glReleaseShaderCompiler() void {
     procs.glReleaseShaderCompiler();
 }
-pub inline fn glShaderBinary(count: c_int, shaders: [*c]const c_uint, binaryFormat: Enum, binary: ?*const anyopaque, length: c_int) void {
+pub inline fn glShaderBinary(count: c_int, shaders: [*c]const c_uint, binaryFormat: @"enum", binary: ?*const anyopaque, length: c_int) void {
     procs.glShaderBinary(count, shaders, binaryFormat, binary, length);
 }
-pub inline fn glGetShaderPrecisionFormat(shadertype: Enum, precisiontype: Enum, range: [*c]c_int, precision: [*c]c_int) void {
+pub inline fn glGetShaderPrecisionFormat(shadertype: @"enum", precisiontype: @"enum", range: [*c]c_int, precision: [*c]c_int) void {
     procs.glGetShaderPrecisionFormat(shadertype, precisiontype, range, precision);
 }
 pub inline fn glDepthRangef(n: f32, f: f32) void {
@@ -3583,13 +3584,13 @@ pub inline fn glDepthRangef(n: f32, f: f32) void {
 pub inline fn glClearDepthf(d: f32) void {
     procs.glClearDepthf(d);
 }
-pub inline fn glGetProgramBinary(program: c_uint, bufSize: c_int, length: [*c]c_int, binaryFormat: [*c]Enum, binary: ?*anyopaque) void {
+pub inline fn glGetProgramBinary(program: c_uint, bufSize: c_int, length: [*c]c_int, binaryFormat: [*c]@"enum", binary: ?*anyopaque) void {
     procs.glGetProgramBinary(program, bufSize, length, binaryFormat, binary);
 }
-pub inline fn glProgramBinary(program: c_uint, binaryFormat: Enum, binary: ?*const anyopaque, length: c_int) void {
+pub inline fn glProgramBinary(program: c_uint, binaryFormat: @"enum", binary: ?*const anyopaque, length: c_int) void {
     procs.glProgramBinary(program, binaryFormat, binary, length);
 }
-pub inline fn glProgramParameteri(program: c_uint, pname: Enum, value: c_int) void {
+pub inline fn glProgramParameteri(program: c_uint, pname: @"enum", value: c_int) void {
     procs.glProgramParameteri(program, pname, value);
 }
 pub inline fn glUseProgramStages(pipeline: c_uint, stages: Bitfield, program: c_uint) void {
@@ -3598,7 +3599,7 @@ pub inline fn glUseProgramStages(pipeline: c_uint, stages: Bitfield, program: c_
 pub inline fn glActiveShaderProgram(pipeline: c_uint, program: c_uint) void {
     procs.glActiveShaderProgram(pipeline, program);
 }
-pub inline fn glCreateShaderProgramv(@"type": Enum, count: c_int, strings: [*c]const [*c]const u8) c_uint {
+pub inline fn glCreateShaderProgramv(@"type": @"enum", count: c_int, strings: [*c]const [*c]const u8) c_uint {
     return procs.glCreateShaderProgramv(@"type", count, strings);
 }
 pub inline fn glBindProgramPipeline(pipeline: c_uint) void {
@@ -3610,10 +3611,10 @@ pub inline fn glDeleteProgramPipelines(n: c_int, pipelines: [*c]const c_uint) vo
 pub inline fn glGenProgramPipelines(n: c_int, pipelines: [*c]c_uint) void {
     procs.glGenProgramPipelines(n, pipelines);
 }
-pub inline fn glIsProgramPipeline(pipeline: c_uint) Boolean {
+pub inline fn glIsProgramPipeline(pipeline: c_uint) @"bool" {
     return procs.glIsProgramPipeline(pipeline);
 }
-pub inline fn glGetProgramPipelineiv(pipeline: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetProgramPipelineiv(pipeline: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetProgramPipelineiv(pipeline, pname, params);
 }
 pub inline fn glProgramUniform1i(program: c_uint, location: c_int, v0: c_int) void {
@@ -3712,58 +3713,58 @@ pub inline fn glProgramUniform4ui(program: c_uint, location: c_int, v0: c_uint, 
 pub inline fn glProgramUniform4uiv(program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) void {
     procs.glProgramUniform4uiv(program, location, count, value);
 }
-pub inline fn glProgramUniformMatrix2fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x3fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2x3fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2x3fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x2fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3x2fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3x2fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x4fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2x4fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2x4fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x2fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4x2fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4x2fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x4fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3x4fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3x4fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x3fv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4x3fv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4x3fv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x3dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2x3dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2x3dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x2dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3x2dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3x2dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x4dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2x4dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2x4dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x2dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4x2dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4x2dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x4dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3x4dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3x4dv(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x3dv(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4x3dv(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4x3dv(program, location, count, transpose, value);
 }
 pub inline fn glValidateProgramPipeline(pipeline: c_uint) void {
@@ -3796,10 +3797,10 @@ pub inline fn glVertexAttribL3dv(index: c_uint, v: [*c]const f64) void {
 pub inline fn glVertexAttribL4dv(index: c_uint, v: [*c]const f64) void {
     procs.glVertexAttribL4dv(index, v);
 }
-pub inline fn glVertexAttribLPointer(index: c_uint, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) void {
+pub inline fn glVertexAttribLPointer(index: c_uint, size: c_int, @"type": @"enum", stride: c_int, pointer: ?*const anyopaque) void {
     procs.glVertexAttribLPointer(index, size, @"type", stride, pointer);
 }
-pub inline fn glGetVertexAttribLdv(index: c_uint, pname: Enum, params: [*c]f64) void {
+pub inline fn glGetVertexAttribLdv(index: c_uint, pname: @"enum", params: [*c]f64) void {
     procs.glGetVertexAttribLdv(index, pname, params);
 }
 pub inline fn glViewportArrayv(first: c_uint, count: c_int, v: [*c]const f32) void {
@@ -3826,52 +3827,52 @@ pub inline fn glDepthRangeArrayv(first: c_uint, count: c_int, v: [*c]const f64) 
 pub inline fn glDepthRangeIndexed(index: c_uint, n: f64, f: f64) void {
     procs.glDepthRangeIndexed(index, n, f);
 }
-pub inline fn glGetFloati_v(target: Enum, index: c_uint, data: [*c]f32) void {
+pub inline fn glGetFloati_v(target: @"enum", index: c_uint, data: [*c]f32) void {
     procs.glGetFloati_v(target, index, data);
 }
-pub inline fn glGetDoublei_v(target: Enum, index: c_uint, data: [*c]f64) void {
+pub inline fn glGetDoublei_v(target: @"enum", index: c_uint, data: [*c]f64) void {
     procs.glGetDoublei_v(target, index, data);
 }
-pub inline fn glDrawArraysInstancedBaseInstance(mode: Enum, first: c_int, count: c_int, instancecount: c_int, baseinstance: c_uint) void {
+pub inline fn glDrawArraysInstancedBaseInstance(mode: @"enum", first: c_int, count: c_int, instancecount: c_int, baseinstance: c_uint) void {
     procs.glDrawArraysInstancedBaseInstance(mode, first, count, instancecount, baseinstance);
 }
-pub inline fn glDrawElementsInstancedBaseInstance(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, baseinstance: c_uint) void {
+pub inline fn glDrawElementsInstancedBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, baseinstance: c_uint) void {
     procs.glDrawElementsInstancedBaseInstance(mode, count, @"type", indices, instancecount, baseinstance);
 }
-pub inline fn glDrawElementsInstancedBaseVertexBaseInstance(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int, baseinstance: c_uint) void {
+pub inline fn glDrawElementsInstancedBaseVertexBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int, baseinstance: c_uint) void {
     procs.glDrawElementsInstancedBaseVertexBaseInstance(mode, count, @"type", indices, instancecount, basevertex, baseinstance);
 }
-pub inline fn glGetInternalformativ(target: Enum, internalformat: Enum, pname: Enum, count: c_int, params: [*c]c_int) void {
+pub inline fn glGetInternalformativ(target: @"enum", internalformat: @"enum", pname: @"enum", count: c_int, params: [*c]c_int) void {
     procs.glGetInternalformativ(target, internalformat, pname, count, params);
 }
-pub inline fn glGetActiveAtomicCounterBufferiv(program: c_uint, bufferIndex: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetActiveAtomicCounterBufferiv(program: c_uint, bufferIndex: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, params);
 }
-pub inline fn glBindImageTexture(unit: c_uint, texture: c_uint, level: c_int, layered: Boolean, layer: c_int, access: Enum, format: Enum) void {
+pub inline fn glBindImageTexture(unit: c_uint, texture: c_uint, level: c_int, layered: @"bool", layer: c_int, access: @"enum", format: @"enum") void {
     procs.glBindImageTexture(unit, texture, level, layered, layer, access, format);
 }
 pub inline fn glMemoryBarrier(barriers: Bitfield) void {
     procs.glMemoryBarrier(barriers);
 }
-pub inline fn glTexStorage1D(target: Enum, levels: c_int, internalformat: Enum, width: c_int) void {
+pub inline fn glTexStorage1D(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int) void {
     procs.glTexStorage1D(target, levels, internalformat, width);
 }
-pub inline fn glTexStorage2D(target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glTexStorage2D(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glTexStorage2D(target, levels, internalformat, width, height);
 }
-pub inline fn glTexStorage3D(target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) void {
+pub inline fn glTexStorage3D(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int) void {
     procs.glTexStorage3D(target, levels, internalformat, width, height, depth);
 }
-pub inline fn glDrawTransformFeedbackInstanced(mode: Enum, id: c_uint, instancecount: c_int) void {
+pub inline fn glDrawTransformFeedbackInstanced(mode: @"enum", id: c_uint, instancecount: c_int) void {
     procs.glDrawTransformFeedbackInstanced(mode, id, instancecount);
 }
-pub inline fn glDrawTransformFeedbackStreamInstanced(mode: Enum, id: c_uint, stream: c_uint, instancecount: c_int) void {
+pub inline fn glDrawTransformFeedbackStreamInstanced(mode: @"enum", id: c_uint, stream: c_uint, instancecount: c_int) void {
     procs.glDrawTransformFeedbackStreamInstanced(mode, id, stream, instancecount);
 }
-pub inline fn glClearBufferData(target: Enum, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearBufferData(target: @"enum", internalformat: @"enum", format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearBufferData(target, internalformat, format, @"type", data);
 }
-pub inline fn glClearBufferSubData(target: Enum, internalformat: Enum, offset: c_long, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearBufferSubData(target: @"enum", internalformat: @"enum", offset: c_long, size: c_ulong, format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearBufferSubData(target, internalformat, offset, size, format, @"type", data);
 }
 pub inline fn glDispatchCompute(num_groups_x: c_uint, num_groups_y: c_uint, num_groups_z: c_uint) void {
@@ -3880,16 +3881,16 @@ pub inline fn glDispatchCompute(num_groups_x: c_uint, num_groups_y: c_uint, num_
 pub inline fn glDispatchComputeIndirect(indirect: c_long) void {
     procs.glDispatchComputeIndirect(indirect);
 }
-pub inline fn glCopyImageSubData(srcName: c_uint, srcTarget: Enum, srcLevel: c_int, srcX: c_int, srcY: c_int, srcZ: c_int, dstName: c_uint, dstTarget: Enum, dstLevel: c_int, dstX: c_int, dstY: c_int, dstZ: c_int, srcWidth: c_int, srcHeight: c_int, srcDepth: c_int) void {
+pub inline fn glCopyImageSubData(srcName: c_uint, srcTarget: @"enum", srcLevel: c_int, srcX: c_int, srcY: c_int, srcZ: c_int, dstName: c_uint, dstTarget: @"enum", dstLevel: c_int, dstX: c_int, dstY: c_int, dstZ: c_int, srcWidth: c_int, srcHeight: c_int, srcDepth: c_int) void {
     procs.glCopyImageSubData(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
 }
-pub inline fn glFramebufferParameteri(target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glFramebufferParameteri(target: @"enum", pname: @"enum", param: c_int) void {
     procs.glFramebufferParameteri(target, pname, param);
 }
-pub inline fn glGetFramebufferParameteriv(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetFramebufferParameteriv(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetFramebufferParameteriv(target, pname, params);
 }
-pub inline fn glGetInternalformati64v(target: Enum, internalformat: Enum, pname: Enum, count: c_int, params: [*c]i64) void {
+pub inline fn glGetInternalformati64v(target: @"enum", internalformat: @"enum", pname: @"enum", count: c_int, params: [*c]i64) void {
     procs.glGetInternalformati64v(target, internalformat, pname, count, params);
 }
 pub inline fn glInvalidateTexSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int) void {
@@ -3904,61 +3905,61 @@ pub inline fn glInvalidateBufferSubData(buffer: c_uint, offset: c_long, length: 
 pub inline fn glInvalidateBufferData(buffer: c_uint) void {
     procs.glInvalidateBufferData(buffer);
 }
-pub inline fn glInvalidateFramebuffer(target: Enum, numAttachments: c_int, attachments: [*c]const Enum) void {
+pub inline fn glInvalidateFramebuffer(target: @"enum", numAttachments: c_int, attachments: [*c]const @"enum") void {
     procs.glInvalidateFramebuffer(target, numAttachments, attachments);
 }
-pub inline fn glInvalidateSubFramebuffer(target: Enum, numAttachments: c_int, attachments: [*c]const Enum, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glInvalidateSubFramebuffer(target: @"enum", numAttachments: c_int, attachments: [*c]const @"enum", x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glInvalidateSubFramebuffer(target, numAttachments, attachments, x, y, width, height);
 }
-pub inline fn glMultiDrawArraysIndirect(mode: Enum, indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawArraysIndirect(mode: @"enum", indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) void {
     procs.glMultiDrawArraysIndirect(mode, indirect, drawcount, stride);
 }
-pub inline fn glMultiDrawElementsIndirect(mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawElementsIndirect(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) void {
     procs.glMultiDrawElementsIndirect(mode, @"type", indirect, drawcount, stride);
 }
-pub inline fn glGetProgramInterfaceiv(program: c_uint, programInterface: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetProgramInterfaceiv(program: c_uint, programInterface: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetProgramInterfaceiv(program, programInterface, pname, params);
 }
-pub inline fn glGetProgramResourceIndex(program: c_uint, programInterface: Enum, name: [*c]const u8) c_uint {
+pub inline fn glGetProgramResourceIndex(program: c_uint, programInterface: @"enum", name: [*c]const u8) c_uint {
     return procs.glGetProgramResourceIndex(program, programInterface, name);
 }
-pub inline fn glGetProgramResourceName(program: c_uint, programInterface: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
+pub inline fn glGetProgramResourceName(program: c_uint, programInterface: @"enum", index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) void {
     procs.glGetProgramResourceName(program, programInterface, index, bufSize, length, name);
 }
-pub inline fn glGetProgramResourceiv(program: c_uint, programInterface: Enum, index: c_uint, propCount: c_int, props: [*c]const Enum, count: c_int, length: [*c]c_int, params: [*c]c_int) void {
+pub inline fn glGetProgramResourceiv(program: c_uint, programInterface: @"enum", index: c_uint, propCount: c_int, props: [*c]const @"enum", count: c_int, length: [*c]c_int, params: [*c]c_int) void {
     procs.glGetProgramResourceiv(program, programInterface, index, propCount, props, count, length, params);
 }
-pub inline fn glGetProgramResourceLocation(program: c_uint, programInterface: Enum, name: [*c]const u8) c_int {
+pub inline fn glGetProgramResourceLocation(program: c_uint, programInterface: @"enum", name: [*c]const u8) c_int {
     return procs.glGetProgramResourceLocation(program, programInterface, name);
 }
-pub inline fn glGetProgramResourceLocationIndex(program: c_uint, programInterface: Enum, name: [*c]const u8) c_int {
+pub inline fn glGetProgramResourceLocationIndex(program: c_uint, programInterface: @"enum", name: [*c]const u8) c_int {
     return procs.glGetProgramResourceLocationIndex(program, programInterface, name);
 }
 pub inline fn glShaderStorageBlockBinding(program: c_uint, storageBlockIndex: c_uint, storageBlockBinding: c_uint) void {
     procs.glShaderStorageBlockBinding(program, storageBlockIndex, storageBlockBinding);
 }
-pub inline fn glTexBufferRange(target: Enum, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) void {
+pub inline fn glTexBufferRange(target: @"enum", internalformat: @"enum", buffer: c_uint, offset: c_long, size: c_ulong) void {
     procs.glTexBufferRange(target, internalformat, buffer, offset, size);
 }
-pub inline fn glTexStorage2DMultisample(target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTexStorage2DMultisample(target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, fixedsamplelocations: @"bool") void {
     procs.glTexStorage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
 }
-pub inline fn glTexStorage3DMultisample(target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTexStorage3DMultisample(target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, fixedsamplelocations: @"bool") void {
     procs.glTexStorage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
-pub inline fn glTextureView(texture: c_uint, target: Enum, origtexture: c_uint, internalformat: Enum, minlevel: c_uint, numlevels: c_uint, minlayer: c_uint, numlayers: c_uint) void {
+pub inline fn glTextureView(texture: c_uint, target: @"enum", origtexture: c_uint, internalformat: @"enum", minlevel: c_uint, numlevels: c_uint, minlayer: c_uint, numlayers: c_uint) void {
     procs.glTextureView(texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers);
 }
 pub inline fn glBindVertexBuffer(bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
     procs.glBindVertexBuffer(bindingindex, buffer, offset, stride);
 }
-pub inline fn glVertexAttribFormat(attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) void {
+pub inline fn glVertexAttribFormat(attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
     procs.glVertexAttribFormat(attribindex, size, @"type", normalized, relativeoffset);
 }
-pub inline fn glVertexAttribIFormat(attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexAttribIFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexAttribIFormat(attribindex, size, @"type", relativeoffset);
 }
-pub inline fn glVertexAttribLFormat(attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexAttribLFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexAttribLFormat(attribindex, size, @"type", relativeoffset);
 }
 pub inline fn glVertexAttribBinding(attribindex: c_uint, bindingindex: c_uint) void {
@@ -3967,28 +3968,28 @@ pub inline fn glVertexAttribBinding(attribindex: c_uint, bindingindex: c_uint) v
 pub inline fn glVertexBindingDivisor(bindingindex: c_uint, divisor: c_uint) void {
     procs.glVertexBindingDivisor(bindingindex, divisor);
 }
-pub inline fn glDebugMessageControl(source: Enum, @"type": Enum, severity: Enum, count: c_int, ids: [*c]const c_uint, enabled: Boolean) void {
+pub inline fn glDebugMessageControl(source: @"enum", @"type": @"enum", severity: @"enum", count: c_int, ids: [*c]const c_uint, enabled: @"bool") void {
     procs.glDebugMessageControl(source, @"type", severity, count, ids, enabled);
 }
-pub inline fn glDebugMessageInsert(source: Enum, @"type": Enum, id: c_uint, severity: Enum, length: c_int, buf: [*c]const u8) void {
+pub inline fn glDebugMessageInsert(source: @"enum", @"type": @"enum", id: c_uint, severity: @"enum", length: c_int, buf: [*c]const u8) void {
     procs.glDebugMessageInsert(source, @"type", id, severity, length, buf);
 }
 pub inline fn glDebugMessageCallback(callback: GLDEBUGPROC, userParam: ?*const anyopaque) void {
     procs.glDebugMessageCallback(callback, userParam);
 }
-pub inline fn glGetDebugMessageLog(count: c_uint, bufSize: c_int, sources: [*c]Enum, types: [*c]Enum, ids: [*c]c_uint, severities: [*c]Enum, lengths: [*c]c_int, messageLog: [*c]u8) c_uint {
+pub inline fn glGetDebugMessageLog(count: c_uint, bufSize: c_int, sources: [*c]@"enum", types: [*c]@"enum", ids: [*c]c_uint, severities: [*c]@"enum", lengths: [*c]c_int, messageLog: [*c]u8) c_uint {
     return procs.glGetDebugMessageLog(count, bufSize, sources, types, ids, severities, lengths, messageLog);
 }
-pub inline fn glPushDebugGroup(source: Enum, id: c_uint, length: c_int, message: [*c]const u8) void {
+pub inline fn glPushDebugGroup(source: @"enum", id: c_uint, length: c_int, message: [*c]const u8) void {
     procs.glPushDebugGroup(source, id, length, message);
 }
 pub inline fn glPopDebugGroup() void {
     procs.glPopDebugGroup();
 }
-pub inline fn glObjectLabel(identifier: Enum, name: c_uint, length: c_int, label: [*c]const u8) void {
+pub inline fn glObjectLabel(identifier: @"enum", name: c_uint, length: c_int, label: [*c]const u8) void {
     procs.glObjectLabel(identifier, name, length, label);
 }
-pub inline fn glGetObjectLabel(identifier: Enum, name: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) void {
+pub inline fn glGetObjectLabel(identifier: @"enum", name: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) void {
     procs.glGetObjectLabel(identifier, name, bufSize, length, label);
 }
 pub inline fn glObjectPtrLabel(ptr: ?*const anyopaque, length: c_int, label: [*c]const u8) void {
@@ -3997,19 +3998,19 @@ pub inline fn glObjectPtrLabel(ptr: ?*const anyopaque, length: c_int, label: [*c
 pub inline fn glGetObjectPtrLabel(ptr: ?*const anyopaque, bufSize: c_int, length: [*c]c_int, label: [*c]u8) void {
     procs.glGetObjectPtrLabel(ptr, bufSize, length, label);
 }
-pub inline fn glBufferStorage(target: Enum, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) void {
+pub inline fn glBufferStorage(target: @"enum", size: c_ulong, data: ?*const anyopaque, flags: Bitfield) void {
     procs.glBufferStorage(target, size, data, flags);
 }
-pub inline fn glClearTexImage(texture: c_uint, level: c_int, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearTexImage(texture: c_uint, level: c_int, format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearTexImage(texture, level, format, @"type", data);
 }
-pub inline fn glClearTexSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearTexSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", data);
 }
-pub inline fn glBindBuffersBase(target: Enum, first: c_uint, count: c_int, buffers: [*c]const c_uint) void {
+pub inline fn glBindBuffersBase(target: @"enum", first: c_uint, count: c_int, buffers: [*c]const c_uint) void {
     procs.glBindBuffersBase(target, first, count, buffers);
 }
-pub inline fn glBindBuffersRange(target: Enum, first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, sizes: [*c]const c_ulong) void {
+pub inline fn glBindBuffersRange(target: @"enum", first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, sizes: [*c]const c_ulong) void {
     procs.glBindBuffersRange(target, first, count, buffers, offsets, sizes);
 }
 pub inline fn glBindTextures(first: c_uint, count: c_int, textures: [*c]const c_uint) void {
@@ -4024,7 +4025,7 @@ pub inline fn glBindImageTextures(first: c_uint, count: c_int, textures: [*c]con
 pub inline fn glBindVertexBuffers(first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, strides: [*c]const c_int) void {
     procs.glBindVertexBuffers(first, count, buffers, offsets, strides);
 }
-pub inline fn glClipControl(origin: Enum, depth: Enum) void {
+pub inline fn glClipControl(origin: @"enum", depth: @"enum") void {
     procs.glClipControl(origin, depth);
 }
 pub inline fn glCreateTransformFeedbacks(n: c_int, ids: [*c]c_uint) void {
@@ -4036,13 +4037,13 @@ pub inline fn glTransformFeedbackBufferBase(xfb: c_uint, index: c_uint, buffer: 
 pub inline fn glTransformFeedbackBufferRange(xfb: c_uint, index: c_uint, buffer: c_uint, offset: c_long, size: c_ulong) void {
     procs.glTransformFeedbackBufferRange(xfb, index, buffer, offset, size);
 }
-pub inline fn glGetTransformFeedbackiv(xfb: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetTransformFeedbackiv(xfb: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetTransformFeedbackiv(xfb, pname, param);
 }
-pub inline fn glGetTransformFeedbacki_v(xfb: c_uint, pname: Enum, index: c_uint, param: [*c]c_int) void {
+pub inline fn glGetTransformFeedbacki_v(xfb: c_uint, pname: @"enum", index: c_uint, param: [*c]c_int) void {
     procs.glGetTransformFeedbacki_v(xfb, pname, index, param);
 }
-pub inline fn glGetTransformFeedbacki64_v(xfb: c_uint, pname: Enum, index: c_uint, param: [*c]i64) void {
+pub inline fn glGetTransformFeedbacki64_v(xfb: c_uint, pname: @"enum", index: c_uint, param: [*c]i64) void {
     procs.glGetTransformFeedbacki64_v(xfb, pname, index, param);
 }
 pub inline fn glCreateBuffers(n: c_int, buffers: [*c]c_uint) void {
@@ -4051,7 +4052,7 @@ pub inline fn glCreateBuffers(n: c_int, buffers: [*c]c_uint) void {
 pub inline fn glNamedBufferStorage(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) void {
     procs.glNamedBufferStorage(buffer, size, data, flags);
 }
-pub inline fn glNamedBufferData(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: Enum) void {
+pub inline fn glNamedBufferData(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: @"enum") void {
     procs.glNamedBufferData(buffer, size, data, usage);
 }
 pub inline fn glNamedBufferSubData(buffer: c_uint, offset: c_long, size: c_ulong, data: ?*const anyopaque) void {
@@ -4060,31 +4061,31 @@ pub inline fn glNamedBufferSubData(buffer: c_uint, offset: c_long, size: c_ulong
 pub inline fn glCopyNamedBufferSubData(readBuffer: c_uint, writeBuffer: c_uint, readOffset: c_long, writeOffset: c_long, size: c_ulong) void {
     procs.glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset, writeOffset, size);
 }
-pub inline fn glClearNamedBufferData(buffer: c_uint, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearNamedBufferData(buffer: c_uint, internalformat: @"enum", format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearNamedBufferData(buffer, internalformat, format, @"type", data);
 }
-pub inline fn glClearNamedBufferSubData(buffer: c_uint, internalformat: Enum, offset: c_long, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearNamedBufferSubData(buffer: c_uint, internalformat: @"enum", offset: c_long, size: c_ulong, format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, @"type", data);
 }
-pub inline fn glMapNamedBuffer(buffer: c_uint, access: Enum) ?*anyopaque {
+pub inline fn glMapNamedBuffer(buffer: c_uint, access: @"enum") ?*anyopaque {
     return procs.glMapNamedBuffer(buffer, access);
 }
 pub inline fn glMapNamedBufferRange(buffer: c_uint, offset: c_long, length: c_ulong, access: Bitfield) ?*anyopaque {
     return procs.glMapNamedBufferRange(buffer, offset, length, access);
 }
-pub inline fn glUnmapNamedBuffer(buffer: c_uint) Boolean {
+pub inline fn glUnmapNamedBuffer(buffer: c_uint) @"bool" {
     return procs.glUnmapNamedBuffer(buffer);
 }
 pub inline fn glFlushMappedNamedBufferRange(buffer: c_uint, offset: c_long, length: c_ulong) void {
     procs.glFlushMappedNamedBufferRange(buffer, offset, length);
 }
-pub inline fn glGetNamedBufferParameteriv(buffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedBufferParameteriv(buffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedBufferParameteriv(buffer, pname, params);
 }
-pub inline fn glGetNamedBufferParameteri64v(buffer: c_uint, pname: Enum, params: [*c]i64) void {
+pub inline fn glGetNamedBufferParameteri64v(buffer: c_uint, pname: @"enum", params: [*c]i64) void {
     procs.glGetNamedBufferParameteri64v(buffer, pname, params);
 }
-pub inline fn glGetNamedBufferPointerv(buffer: c_uint, pname: Enum, params: [*c]?*anyopaque) void {
+pub inline fn glGetNamedBufferPointerv(buffer: c_uint, pname: @"enum", params: [*c]?*anyopaque) void {
     procs.glGetNamedBufferPointerv(buffer, pname, params);
 }
 pub inline fn glGetNamedBufferSubData(buffer: c_uint, offset: c_long, size: c_ulong, data: ?*anyopaque) void {
@@ -4093,109 +4094,109 @@ pub inline fn glGetNamedBufferSubData(buffer: c_uint, offset: c_long, size: c_ul
 pub inline fn glCreateFramebuffers(n: c_int, framebuffers: [*c]c_uint) void {
     procs.glCreateFramebuffers(n, framebuffers);
 }
-pub inline fn glNamedFramebufferRenderbuffer(framebuffer: c_uint, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) void {
+pub inline fn glNamedFramebufferRenderbuffer(framebuffer: c_uint, attachment: @"enum", renderbuffertarget: @"enum", renderbuffer: c_uint) void {
     procs.glNamedFramebufferRenderbuffer(framebuffer, attachment, renderbuffertarget, renderbuffer);
 }
-pub inline fn glNamedFramebufferParameteri(framebuffer: c_uint, pname: Enum, param: c_int) void {
+pub inline fn glNamedFramebufferParameteri(framebuffer: c_uint, pname: @"enum", param: c_int) void {
     procs.glNamedFramebufferParameteri(framebuffer, pname, param);
 }
-pub inline fn glNamedFramebufferTexture(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glNamedFramebufferTexture(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int) void {
     procs.glNamedFramebufferTexture(framebuffer, attachment, texture, level);
 }
-pub inline fn glNamedFramebufferTextureLayer(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) void {
+pub inline fn glNamedFramebufferTextureLayer(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int, layer: c_int) void {
     procs.glNamedFramebufferTextureLayer(framebuffer, attachment, texture, level, layer);
 }
-pub inline fn glNamedFramebufferDrawBuffer(framebuffer: c_uint, buf: Enum) void {
+pub inline fn glNamedFramebufferDrawBuffer(framebuffer: c_uint, buf: @"enum") void {
     procs.glNamedFramebufferDrawBuffer(framebuffer, buf);
 }
-pub inline fn glNamedFramebufferDrawBuffers(framebuffer: c_uint, n: c_int, bufs: [*c]const Enum) void {
+pub inline fn glNamedFramebufferDrawBuffers(framebuffer: c_uint, n: c_int, bufs: [*c]const @"enum") void {
     procs.glNamedFramebufferDrawBuffers(framebuffer, n, bufs);
 }
-pub inline fn glNamedFramebufferReadBuffer(framebuffer: c_uint, src: Enum) void {
+pub inline fn glNamedFramebufferReadBuffer(framebuffer: c_uint, src: @"enum") void {
     procs.glNamedFramebufferReadBuffer(framebuffer, src);
 }
-pub inline fn glInvalidateNamedFramebufferData(framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const Enum) void {
+pub inline fn glInvalidateNamedFramebufferData(framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const @"enum") void {
     procs.glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments);
 }
-pub inline fn glInvalidateNamedFramebufferSubData(framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const Enum, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glInvalidateNamedFramebufferSubData(framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const @"enum", x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments, x, y, width, height);
 }
-pub inline fn glClearNamedFramebufferiv(framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const c_int) void {
+pub inline fn glClearNamedFramebufferiv(framebuffer: c_uint, buffer: @"enum", drawbuffer: c_int, value: [*c]const c_int) void {
     procs.glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value);
 }
-pub inline fn glClearNamedFramebufferuiv(framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const c_uint) void {
+pub inline fn glClearNamedFramebufferuiv(framebuffer: c_uint, buffer: @"enum", drawbuffer: c_int, value: [*c]const c_uint) void {
     procs.glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value);
 }
-pub inline fn glClearNamedFramebufferfv(framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const f32) void {
+pub inline fn glClearNamedFramebufferfv(framebuffer: c_uint, buffer: @"enum", drawbuffer: c_int, value: [*c]const f32) void {
     procs.glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value);
 }
-pub inline fn glClearNamedFramebufferfi(framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, depth: f32, stencil: c_int) void {
+pub inline fn glClearNamedFramebufferfi(framebuffer: c_uint, buffer: @"enum", drawbuffer: c_int, depth: f32, stencil: c_int) void {
     procs.glClearNamedFramebufferfi(framebuffer, buffer, drawbuffer, depth, stencil);
 }
-pub inline fn glBlitNamedFramebuffer(readFramebuffer: c_uint, drawFramebuffer: c_uint, srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: Enum) void {
+pub inline fn glBlitNamedFramebuffer(readFramebuffer: c_uint, drawFramebuffer: c_uint, srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: @"enum") void {
     procs.glBlitNamedFramebuffer(readFramebuffer, drawFramebuffer, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 }
-pub inline fn glCheckNamedFramebufferStatus(framebuffer: c_uint, target: Enum) Enum {
+pub inline fn glCheckNamedFramebufferStatus(framebuffer: c_uint, target: @"enum") @"enum" {
     return procs.glCheckNamedFramebufferStatus(framebuffer, target);
 }
-pub inline fn glGetNamedFramebufferParameteriv(framebuffer: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetNamedFramebufferParameteriv(framebuffer: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetNamedFramebufferParameteriv(framebuffer, pname, param);
 }
-pub inline fn glGetNamedFramebufferAttachmentParameteriv(framebuffer: c_uint, attachment: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedFramebufferAttachmentParameteriv(framebuffer: c_uint, attachment: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params);
 }
 pub inline fn glCreateRenderbuffers(n: c_int, renderbuffers: [*c]c_uint) void {
     procs.glCreateRenderbuffers(n, renderbuffers);
 }
-pub inline fn glNamedRenderbufferStorage(renderbuffer: c_uint, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorage(renderbuffer: c_uint, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorage(renderbuffer, internalformat, width, height);
 }
-pub inline fn glNamedRenderbufferStorageMultisample(renderbuffer: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorageMultisample(renderbuffer: c_uint, samples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorageMultisample(renderbuffer, samples, internalformat, width, height);
 }
-pub inline fn glGetNamedRenderbufferParameteriv(renderbuffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedRenderbufferParameteriv(renderbuffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedRenderbufferParameteriv(renderbuffer, pname, params);
 }
-pub inline fn glCreateTextures(target: Enum, n: c_int, textures: [*c]c_uint) void {
+pub inline fn glCreateTextures(target: @"enum", n: c_int, textures: [*c]c_uint) void {
     procs.glCreateTextures(target, n, textures);
 }
-pub inline fn glTextureBuffer(texture: c_uint, internalformat: Enum, buffer: c_uint) void {
+pub inline fn glTextureBuffer(texture: c_uint, internalformat: @"enum", buffer: c_uint) void {
     procs.glTextureBuffer(texture, internalformat, buffer);
 }
-pub inline fn glTextureBufferRange(texture: c_uint, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) void {
+pub inline fn glTextureBufferRange(texture: c_uint, internalformat: @"enum", buffer: c_uint, offset: c_long, size: c_ulong) void {
     procs.glTextureBufferRange(texture, internalformat, buffer, offset, size);
 }
-pub inline fn glTextureStorage1D(texture: c_uint, levels: c_int, internalformat: Enum, width: c_int) void {
+pub inline fn glTextureStorage1D(texture: c_uint, levels: c_int, internalformat: @"enum", width: c_int) void {
     procs.glTextureStorage1D(texture, levels, internalformat, width);
 }
-pub inline fn glTextureStorage2D(texture: c_uint, levels: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glTextureStorage2D(texture: c_uint, levels: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glTextureStorage2D(texture, levels, internalformat, width, height);
 }
-pub inline fn glTextureStorage3D(texture: c_uint, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) void {
+pub inline fn glTextureStorage3D(texture: c_uint, levels: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int) void {
     procs.glTextureStorage3D(texture, levels, internalformat, width, height, depth);
 }
-pub inline fn glTextureStorage2DMultisample(texture: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTextureStorage2DMultisample(texture: c_uint, samples: c_int, internalformat: @"enum", width: c_int, height: c_int, fixedsamplelocations: @"bool") void {
     procs.glTextureStorage2DMultisample(texture, samples, internalformat, width, height, fixedsamplelocations);
 }
-pub inline fn glTextureStorage3DMultisample(texture: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTextureStorage3DMultisample(texture: c_uint, samples: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, fixedsamplelocations: @"bool") void {
     procs.glTextureStorage3DMultisample(texture, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
-pub inline fn glTextureSubImage1D(texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage1D(texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage1D(texture, level, xoffset, width, format, @"type", pixels);
 }
-pub inline fn glTextureSubImage2D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage2D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, @"type", pixels);
 }
-pub inline fn glTextureSubImage3D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage3D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", pixels);
 }
-pub inline fn glCompressedTextureSubImage1D(texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage1D(texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage1D(texture, level, xoffset, width, format, imageSize, data);
 }
-pub inline fn glCompressedTextureSubImage2D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage2D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, imageSize, data);
 }
-pub inline fn glCompressedTextureSubImage3D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage3D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", imageSize: c_int, data: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 }
 pub inline fn glCopyTextureSubImage1D(texture: c_uint, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
@@ -4207,22 +4208,22 @@ pub inline fn glCopyTextureSubImage2D(texture: c_uint, level: c_int, xoffset: c_
 pub inline fn glCopyTextureSubImage3D(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
-pub inline fn glTextureParameterf(texture: c_uint, pname: Enum, param: f32) void {
+pub inline fn glTextureParameterf(texture: c_uint, pname: @"enum", param: f32) void {
     procs.glTextureParameterf(texture, pname, param);
 }
-pub inline fn glTextureParameterfv(texture: c_uint, pname: Enum, param: [*c]const f32) void {
+pub inline fn glTextureParameterfv(texture: c_uint, pname: @"enum", param: [*c]const f32) void {
     procs.glTextureParameterfv(texture, pname, param);
 }
-pub inline fn glTextureParameteri(texture: c_uint, pname: Enum, param: c_int) void {
+pub inline fn glTextureParameteri(texture: c_uint, pname: @"enum", param: c_int) void {
     procs.glTextureParameteri(texture, pname, param);
 }
-pub inline fn glTextureParameterIiv(texture: c_uint, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glTextureParameterIiv(texture: c_uint, pname: @"enum", params: [*c]const c_int) void {
     procs.glTextureParameterIiv(texture, pname, params);
 }
-pub inline fn glTextureParameterIuiv(texture: c_uint, pname: Enum, params: [*c]const c_uint) void {
+pub inline fn glTextureParameterIuiv(texture: c_uint, pname: @"enum", params: [*c]const c_uint) void {
     procs.glTextureParameterIuiv(texture, pname, params);
 }
-pub inline fn glTextureParameteriv(texture: c_uint, pname: Enum, param: [*c]const c_int) void {
+pub inline fn glTextureParameteriv(texture: c_uint, pname: @"enum", param: [*c]const c_int) void {
     procs.glTextureParameteriv(texture, pname, param);
 }
 pub inline fn glGenerateTextureMipmap(texture: c_uint) void {
@@ -4231,28 +4232,28 @@ pub inline fn glGenerateTextureMipmap(texture: c_uint) void {
 pub inline fn glBindTextureUnit(unit: c_uint, texture: c_uint) void {
     procs.glBindTextureUnit(unit, texture);
 }
-pub inline fn glGetTextureImage(texture: c_uint, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) void {
+pub inline fn glGetTextureImage(texture: c_uint, level: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetTextureImage(texture, level, format, @"type", bufSize, pixels);
 }
 pub inline fn glGetCompressedTextureImage(texture: c_uint, level: c_int, bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetCompressedTextureImage(texture, level, bufSize, pixels);
 }
-pub inline fn glGetTextureLevelParameterfv(texture: c_uint, level: c_int, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTextureLevelParameterfv(texture: c_uint, level: c_int, pname: @"enum", params: [*c]f32) void {
     procs.glGetTextureLevelParameterfv(texture, level, pname, params);
 }
-pub inline fn glGetTextureLevelParameteriv(texture: c_uint, level: c_int, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureLevelParameteriv(texture: c_uint, level: c_int, pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureLevelParameteriv(texture, level, pname, params);
 }
-pub inline fn glGetTextureParameterfv(texture: c_uint, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTextureParameterfv(texture: c_uint, pname: @"enum", params: [*c]f32) void {
     procs.glGetTextureParameterfv(texture, pname, params);
 }
-pub inline fn glGetTextureParameterIiv(texture: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureParameterIiv(texture: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureParameterIiv(texture, pname, params);
 }
-pub inline fn glGetTextureParameterIuiv(texture: c_uint, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetTextureParameterIuiv(texture: c_uint, pname: @"enum", params: [*c]c_uint) void {
     procs.glGetTextureParameterIuiv(texture, pname, params);
 }
-pub inline fn glGetTextureParameteriv(texture: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureParameteriv(texture: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureParameteriv(texture, pname, params);
 }
 pub inline fn glCreateVertexArrays(n: c_int, arrays: [*c]c_uint) void {
@@ -4276,25 +4277,25 @@ pub inline fn glVertexArrayVertexBuffers(vaobj: c_uint, first: c_uint, count: c_
 pub inline fn glVertexArrayAttribBinding(vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) void {
     procs.glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
 }
-pub inline fn glVertexArrayAttribFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayAttribFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
     procs.glVertexArrayAttribFormat(vaobj, attribindex, size, @"type", normalized, relativeoffset);
 }
-pub inline fn glVertexArrayAttribIFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayAttribIFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexArrayAttribIFormat(vaobj, attribindex, size, @"type", relativeoffset);
 }
-pub inline fn glVertexArrayAttribLFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayAttribLFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexArrayAttribLFormat(vaobj, attribindex, size, @"type", relativeoffset);
 }
 pub inline fn glVertexArrayBindingDivisor(vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) void {
     procs.glVertexArrayBindingDivisor(vaobj, bindingindex, divisor);
 }
-pub inline fn glGetVertexArrayiv(vaobj: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetVertexArrayiv(vaobj: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetVertexArrayiv(vaobj, pname, param);
 }
-pub inline fn glGetVertexArrayIndexediv(vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetVertexArrayIndexediv(vaobj: c_uint, index: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetVertexArrayIndexediv(vaobj, index, pname, param);
 }
-pub inline fn glGetVertexArrayIndexed64iv(vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]i64) void {
+pub inline fn glGetVertexArrayIndexed64iv(vaobj: c_uint, index: c_uint, pname: @"enum", param: [*c]i64) void {
     procs.glGetVertexArrayIndexed64iv(vaobj, index, pname, param);
 }
 pub inline fn glCreateSamplers(n: c_int, samplers: [*c]c_uint) void {
@@ -4303,37 +4304,37 @@ pub inline fn glCreateSamplers(n: c_int, samplers: [*c]c_uint) void {
 pub inline fn glCreateProgramPipelines(n: c_int, pipelines: [*c]c_uint) void {
     procs.glCreateProgramPipelines(n, pipelines);
 }
-pub inline fn glCreateQueries(target: Enum, n: c_int, ids: [*c]c_uint) void {
+pub inline fn glCreateQueries(target: @"enum", n: c_int, ids: [*c]c_uint) void {
     procs.glCreateQueries(target, n, ids);
 }
-pub inline fn glGetQueryBufferObjecti64v(id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) void {
+pub inline fn glGetQueryBufferObjecti64v(id: c_uint, buffer: c_uint, pname: @"enum", offset: c_long) void {
     procs.glGetQueryBufferObjecti64v(id, buffer, pname, offset);
 }
-pub inline fn glGetQueryBufferObjectiv(id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) void {
+pub inline fn glGetQueryBufferObjectiv(id: c_uint, buffer: c_uint, pname: @"enum", offset: c_long) void {
     procs.glGetQueryBufferObjectiv(id, buffer, pname, offset);
 }
-pub inline fn glGetQueryBufferObjectui64v(id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) void {
+pub inline fn glGetQueryBufferObjectui64v(id: c_uint, buffer: c_uint, pname: @"enum", offset: c_long) void {
     procs.glGetQueryBufferObjectui64v(id, buffer, pname, offset);
 }
-pub inline fn glGetQueryBufferObjectuiv(id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) void {
+pub inline fn glGetQueryBufferObjectuiv(id: c_uint, buffer: c_uint, pname: @"enum", offset: c_long) void {
     procs.glGetQueryBufferObjectuiv(id, buffer, pname, offset);
 }
 pub inline fn glMemoryBarrierByRegion(barriers: Bitfield) void {
     procs.glMemoryBarrierByRegion(barriers);
 }
-pub inline fn glGetTextureSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) void {
+pub inline fn glGetTextureSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", bufSize, pixels);
 }
 pub inline fn glGetCompressedTextureSubImage(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, pixels);
 }
-pub inline fn glGetGraphicsResetStatus() Enum {
+pub inline fn glGetGraphicsResetStatus() @"enum" {
     return procs.glGetGraphicsResetStatus();
 }
-pub inline fn glGetnCompressedTexImage(target: Enum, lod: c_int, bufSize: c_int, pixels: ?*anyopaque) void {
+pub inline fn glGetnCompressedTexImage(target: @"enum", lod: c_int, bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetnCompressedTexImage(target, lod, bufSize, pixels);
 }
-pub inline fn glGetnTexImage(target: Enum, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) void {
+pub inline fn glGetnTexImage(target: @"enum", level: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, pixels: ?*anyopaque) void {
     procs.glGetnTexImage(target, level, format, @"type", bufSize, pixels);
 }
 pub inline fn glGetnUniformdv(program: c_uint, location: c_int, bufSize: c_int, params: [*c]f64) void {
@@ -4348,7 +4349,7 @@ pub inline fn glGetnUniformiv(program: c_uint, location: c_int, bufSize: c_int, 
 pub inline fn glGetnUniformuiv(program: c_uint, location: c_int, bufSize: c_int, params: [*c]c_uint) void {
     procs.glGetnUniformuiv(program, location, bufSize, params);
 }
-pub inline fn glReadnPixels(x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, bufSize: c_int, data: ?*anyopaque) void {
+pub inline fn glReadnPixels(x: c_int, y: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, data: ?*anyopaque) void {
     procs.glReadnPixels(x, y, width, height, format, @"type", bufSize, data);
 }
 pub inline fn glTextureBarrier() void {
@@ -4357,10 +4358,10 @@ pub inline fn glTextureBarrier() void {
 pub inline fn glSpecializeShader(shader: c_uint, pEntryPoint: [*c]const u8, numSpecializationConstants: c_uint, pConstantIndex: [*c]const c_uint, pConstantValue: [*c]const c_uint) void {
     procs.glSpecializeShader(shader, pEntryPoint, numSpecializationConstants, pConstantIndex, pConstantValue);
 }
-pub inline fn glMultiDrawArraysIndirectCount(mode: Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawArraysIndirectCount(mode: @"enum", indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
     procs.glMultiDrawArraysIndirectCount(mode, indirect, drawcount, maxdrawcount, stride);
 }
-pub inline fn glMultiDrawElementsIndirectCount(mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawElementsIndirectCount(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
     procs.glMultiDrawElementsIndirectCount(mode, @"type", indirect, drawcount, maxdrawcount, stride);
 }
 pub inline fn glPolygonOffsetClamp(factor: f32, units: f32, clamp: f32) void {
@@ -4381,10 +4382,10 @@ pub inline fn glMakeTextureHandleResidentARB(handle: u64) void {
 pub inline fn glMakeTextureHandleNonResidentARB(handle: u64) void {
     procs.glMakeTextureHandleNonResidentARB(handle);
 }
-pub inline fn glGetImageHandleARB(texture: c_uint, level: c_int, layered: Boolean, layer: c_int, format: Enum) u64 {
+pub inline fn glGetImageHandleARB(texture: c_uint, level: c_int, layered: @"bool", layer: c_int, format: @"enum") u64 {
     return procs.glGetImageHandleARB(texture, level, layered, layer, format);
 }
-pub inline fn glMakeImageHandleResidentARB(handle: u64, access: Enum) void {
+pub inline fn glMakeImageHandleResidentARB(handle: u64, access: @"enum") void {
     procs.glMakeImageHandleResidentARB(handle, access);
 }
 pub inline fn glMakeImageHandleNonResidentARB(handle: u64) void {
@@ -4402,10 +4403,10 @@ pub inline fn glProgramUniformHandleui64ARB(program: c_uint, location: c_int, va
 pub inline fn glProgramUniformHandleui64vARB(program: c_uint, location: c_int, count: c_int, values: [*c]const u64) void {
     procs.glProgramUniformHandleui64vARB(program, location, count, values);
 }
-pub inline fn glIsTextureHandleResidentARB(handle: u64) Boolean {
+pub inline fn glIsTextureHandleResidentARB(handle: u64) @"bool" {
     return procs.glIsTextureHandleResidentARB(handle);
 }
-pub inline fn glIsImageHandleResidentARB(handle: u64) Boolean {
+pub inline fn glIsImageHandleResidentARB(handle: u64) @"bool" {
     return procs.glIsImageHandleResidentARB(handle);
 }
 pub inline fn glVertexAttribL1ui64ARB(index: c_uint, x: u64) void {
@@ -4414,7 +4415,7 @@ pub inline fn glVertexAttribL1ui64ARB(index: c_uint, x: u64) void {
 pub inline fn glVertexAttribL1ui64vARB(index: c_uint, v: [*c]const u64) void {
     procs.glVertexAttribL1ui64vARB(index, v);
 }
-pub inline fn glGetVertexAttribLui64vARB(index: c_uint, pname: Enum, params: [*c]u64) void {
+pub inline fn glGetVertexAttribLui64vARB(index: c_uint, pname: @"enum", params: [*c]u64) void {
     procs.glGetVertexAttribLui64vARB(index, pname, params);
 }
 pub inline fn glCreateSyncFromCLeventARB(context: ?*struct__cl_context, event: ?*struct__cl_event, flags: Bitfield) Sync {
@@ -4423,46 +4424,46 @@ pub inline fn glCreateSyncFromCLeventARB(context: ?*struct__cl_context, event: ?
 pub inline fn glDispatchComputeGroupSizeARB(num_groups_x: c_uint, num_groups_y: c_uint, num_groups_z: c_uint, group_size_x: c_uint, group_size_y: c_uint, group_size_z: c_uint) void {
     procs.glDispatchComputeGroupSizeARB(num_groups_x, num_groups_y, num_groups_z, group_size_x, group_size_y, group_size_z);
 }
-pub inline fn glDebugMessageControlARB(source: Enum, @"type": Enum, severity: Enum, count: c_int, ids: [*c]const c_uint, enabled: Boolean) void {
+pub inline fn glDebugMessageControlARB(source: @"enum", @"type": @"enum", severity: @"enum", count: c_int, ids: [*c]const c_uint, enabled: @"bool") void {
     procs.glDebugMessageControlARB(source, @"type", severity, count, ids, enabled);
 }
-pub inline fn glDebugMessageInsertARB(source: Enum, @"type": Enum, id: c_uint, severity: Enum, length: c_int, buf: [*c]const u8) void {
+pub inline fn glDebugMessageInsertARB(source: @"enum", @"type": @"enum", id: c_uint, severity: @"enum", length: c_int, buf: [*c]const u8) void {
     procs.glDebugMessageInsertARB(source, @"type", id, severity, length, buf);
 }
 pub inline fn glDebugMessageCallbackARB(callback: GLDEBUGPROCARB, userParam: ?*const anyopaque) void {
     procs.glDebugMessageCallbackARB(callback, userParam);
 }
-pub inline fn glGetDebugMessageLogARB(count: c_uint, bufSize: c_int, sources: [*c]Enum, types: [*c]Enum, ids: [*c]c_uint, severities: [*c]Enum, lengths: [*c]c_int, messageLog: [*c]u8) c_uint {
+pub inline fn glGetDebugMessageLogARB(count: c_uint, bufSize: c_int, sources: [*c]@"enum", types: [*c]@"enum", ids: [*c]c_uint, severities: [*c]@"enum", lengths: [*c]c_int, messageLog: [*c]u8) c_uint {
     return procs.glGetDebugMessageLogARB(count, bufSize, sources, types, ids, severities, lengths, messageLog);
 }
-pub inline fn glBlendEquationiARB(buf: c_uint, mode: Enum) void {
+pub inline fn glBlendEquationiARB(buf: c_uint, mode: @"enum") void {
     procs.glBlendEquationiARB(buf, mode);
 }
-pub inline fn glBlendEquationSeparateiARB(buf: c_uint, modeRGB: Enum, modeAlpha: Enum) void {
+pub inline fn glBlendEquationSeparateiARB(buf: c_uint, modeRGB: @"enum", modeAlpha: @"enum") void {
     procs.glBlendEquationSeparateiARB(buf, modeRGB, modeAlpha);
 }
-pub inline fn glBlendFunciARB(buf: c_uint, src: Enum, dst: Enum) void {
+pub inline fn glBlendFunciARB(buf: c_uint, src: @"enum", dst: @"enum") void {
     procs.glBlendFunciARB(buf, src, dst);
 }
-pub inline fn glBlendFuncSeparateiARB(buf: c_uint, srcRGB: Enum, dstRGB: Enum, srcAlpha: Enum, dstAlpha: Enum) void {
+pub inline fn glBlendFuncSeparateiARB(buf: c_uint, srcRGB: @"enum", dstRGB: @"enum", srcAlpha: @"enum", dstAlpha: @"enum") void {
     procs.glBlendFuncSeparateiARB(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
 }
-pub inline fn glDrawArraysInstancedARB(mode: Enum, first: c_int, count: c_int, primcount: c_int) void {
+pub inline fn glDrawArraysInstancedARB(mode: @"enum", first: c_int, count: c_int, primcount: c_int) void {
     procs.glDrawArraysInstancedARB(mode, first, count, primcount);
 }
-pub inline fn glDrawElementsInstancedARB(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, primcount: c_int) void {
+pub inline fn glDrawElementsInstancedARB(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, primcount: c_int) void {
     procs.glDrawElementsInstancedARB(mode, count, @"type", indices, primcount);
 }
-pub inline fn glProgramParameteriARB(program: c_uint, pname: Enum, value: c_int) void {
+pub inline fn glProgramParameteriARB(program: c_uint, pname: @"enum", value: c_int) void {
     procs.glProgramParameteriARB(program, pname, value);
 }
-pub inline fn glFramebufferTextureARB(target: Enum, attachment: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glFramebufferTextureARB(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int) void {
     procs.glFramebufferTextureARB(target, attachment, texture, level);
 }
-pub inline fn glFramebufferTextureLayerARB(target: Enum, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) void {
+pub inline fn glFramebufferTextureLayerARB(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int, layer: c_int) void {
     procs.glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
 }
-pub inline fn glFramebufferTextureFaceARB(target: Enum, attachment: Enum, texture: c_uint, level: c_int, face: Enum) void {
+pub inline fn glFramebufferTextureFaceARB(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int, face: @"enum") void {
     procs.glFramebufferTextureFaceARB(target, attachment, texture, level, face);
 }
 pub inline fn glSpecializeShaderARB(shader: c_uint, pEntryPoint: [*c]const u8, numSpecializationConstants: c_uint, pConstantIndex: [*c]const c_uint, pConstantValue: [*c]const c_uint) void {
@@ -4576,10 +4577,10 @@ pub inline fn glProgramUniform3ui64vARB(program: c_uint, location: c_int, count:
 pub inline fn glProgramUniform4ui64vARB(program: c_uint, location: c_int, count: c_int, value: [*c]const u64) void {
     procs.glProgramUniform4ui64vARB(program, location, count, value);
 }
-pub inline fn glMultiDrawArraysIndirectCountARB(mode: Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawArraysIndirectCountARB(mode: @"enum", indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
     procs.glMultiDrawArraysIndirectCountARB(mode, indirect, drawcount, maxdrawcount, stride);
 }
-pub inline fn glMultiDrawElementsIndirectCountARB(mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
+pub inline fn glMultiDrawElementsIndirectCountARB(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) void {
     procs.glMultiDrawElementsIndirectCountARB(mode, @"type", indirect, drawcount, maxdrawcount, stride);
 }
 pub inline fn glVertexAttribDivisorARB(index: c_uint, divisor: c_uint) void {
@@ -4588,16 +4589,16 @@ pub inline fn glVertexAttribDivisorARB(index: c_uint, divisor: c_uint) void {
 pub inline fn glMaxShaderCompilerThreadsARB(count: c_uint) void {
     procs.glMaxShaderCompilerThreadsARB(count);
 }
-pub inline fn glGetGraphicsResetStatusARB() Enum {
+pub inline fn glGetGraphicsResetStatusARB() @"enum" {
     return procs.glGetGraphicsResetStatusARB();
 }
-pub inline fn glGetnTexImageARB(target: Enum, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, img: ?*anyopaque) void {
+pub inline fn glGetnTexImageARB(target: @"enum", level: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, img: ?*anyopaque) void {
     procs.glGetnTexImageARB(target, level, format, @"type", bufSize, img);
 }
-pub inline fn glReadnPixelsARB(x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, bufSize: c_int, data: ?*anyopaque) void {
+pub inline fn glReadnPixelsARB(x: c_int, y: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", bufSize: c_int, data: ?*anyopaque) void {
     procs.glReadnPixelsARB(x, y, width, height, format, @"type", bufSize, data);
 }
-pub inline fn glGetnCompressedTexImageARB(target: Enum, lod: c_int, bufSize: c_int, img: ?*anyopaque) void {
+pub inline fn glGetnCompressedTexImageARB(target: @"enum", lod: c_int, bufSize: c_int, img: ?*anyopaque) void {
     procs.glGetnCompressedTexImageARB(target, lod, bufSize, img);
 }
 pub inline fn glGetnUniformfvARB(program: c_uint, location: c_int, bufSize: c_int, params: [*c]f32) void {
@@ -4612,7 +4613,7 @@ pub inline fn glGetnUniformuivARB(program: c_uint, location: c_int, bufSize: c_i
 pub inline fn glGetnUniformdvARB(program: c_uint, location: c_int, bufSize: c_int, params: [*c]f64) void {
     procs.glGetnUniformdvARB(program, location, bufSize, params);
 }
-pub inline fn glFramebufferSampleLocationsfvARB(target: Enum, start: c_uint, count: c_int, v: [*c]const f32) void {
+pub inline fn glFramebufferSampleLocationsfvARB(target: @"enum", start: c_uint, count: c_int, v: [*c]const f32) void {
     procs.glFramebufferSampleLocationsfvARB(target, start, count, v);
 }
 pub inline fn glNamedFramebufferSampleLocationsfvARB(framebuffer: c_uint, start: c_uint, count: c_int, v: [*c]const f32) void {
@@ -4624,7 +4625,7 @@ pub inline fn glEvaluateDepthValuesARB() void {
 pub inline fn glMinSampleShadingARB(value: f32) void {
     procs.glMinSampleShadingARB(value);
 }
-pub inline fn glNamedStringARB(@"type": Enum, namelen: c_int, name: [*c]const u8, stringlen: c_int, string: [*c]const u8) void {
+pub inline fn glNamedStringARB(@"type": @"enum", namelen: c_int, name: [*c]const u8, stringlen: c_int, string: [*c]const u8) void {
     procs.glNamedStringARB(@"type", namelen, name, stringlen, string);
 }
 pub inline fn glDeleteNamedStringARB(namelen: c_int, name: [*c]const u8) void {
@@ -4633,28 +4634,28 @@ pub inline fn glDeleteNamedStringARB(namelen: c_int, name: [*c]const u8) void {
 pub inline fn glCompileShaderIncludeARB(shader: c_uint, count: c_int, path: [*c]const [*c]const u8, length: [*c]const c_int) void {
     procs.glCompileShaderIncludeARB(shader, count, path, length);
 }
-pub inline fn glIsNamedStringARB(namelen: c_int, name: [*c]const u8) Boolean {
+pub inline fn glIsNamedStringARB(namelen: c_int, name: [*c]const u8) @"bool" {
     return procs.glIsNamedStringARB(namelen, name);
 }
 pub inline fn glGetNamedStringARB(namelen: c_int, name: [*c]const u8, bufSize: c_int, stringlen: [*c]c_int, string: [*c]u8) void {
     procs.glGetNamedStringARB(namelen, name, bufSize, stringlen, string);
 }
-pub inline fn glGetNamedStringivARB(namelen: c_int, name: [*c]const u8, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedStringivARB(namelen: c_int, name: [*c]const u8, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedStringivARB(namelen, name, pname, params);
 }
-pub inline fn glBufferPageCommitmentARB(target: Enum, offset: c_long, size: c_ulong, commit: Boolean) void {
+pub inline fn glBufferPageCommitmentARB(target: @"enum", offset: c_long, size: c_ulong, commit: @"bool") void {
     procs.glBufferPageCommitmentARB(target, offset, size, commit);
 }
-pub inline fn glNamedBufferPageCommitmentEXT(buffer: c_uint, offset: c_long, size: c_ulong, commit: Boolean) void {
+pub inline fn glNamedBufferPageCommitmentEXT(buffer: c_uint, offset: c_long, size: c_ulong, commit: @"bool") void {
     procs.glNamedBufferPageCommitmentEXT(buffer, offset, size, commit);
 }
-pub inline fn glNamedBufferPageCommitmentARB(buffer: c_uint, offset: c_long, size: c_ulong, commit: Boolean) void {
+pub inline fn glNamedBufferPageCommitmentARB(buffer: c_uint, offset: c_long, size: c_ulong, commit: @"bool") void {
     procs.glNamedBufferPageCommitmentARB(buffer, offset, size, commit);
 }
-pub inline fn glTexPageCommitmentARB(target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: Boolean) void {
+pub inline fn glTexPageCommitmentARB(target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: @"bool") void {
     procs.glTexPageCommitmentARB(target, level, xoffset, yoffset, zoffset, width, height, depth, commit);
 }
-pub inline fn glTexBufferARB(target: Enum, internalformat: Enum, buffer: c_uint) void {
+pub inline fn glTexBufferARB(target: @"enum", internalformat: @"enum", buffer: c_uint) void {
     procs.glTexBufferARB(target, internalformat, buffer);
 }
 pub inline fn glDepthRangeArraydvNV(first: c_uint, count: c_int, v: [*c]const f64) void {
@@ -4669,10 +4670,10 @@ pub inline fn glBlendBarrierKHR() void {
 pub inline fn glMaxShaderCompilerThreadsKHR(count: c_uint) void {
     procs.glMaxShaderCompilerThreadsKHR(count);
 }
-pub inline fn glRenderbufferStorageMultisampleAdvancedAMD(target: Enum, samples: c_int, storageSamples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glRenderbufferStorageMultisampleAdvancedAMD(target: @"enum", samples: c_int, storageSamples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glRenderbufferStorageMultisampleAdvancedAMD(target, samples, storageSamples, internalformat, width, height);
 }
-pub inline fn glNamedRenderbufferStorageMultisampleAdvancedAMD(renderbuffer: c_uint, samples: c_int, storageSamples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorageMultisampleAdvancedAMD(renderbuffer: c_uint, samples: c_int, storageSamples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorageMultisampleAdvancedAMD(renderbuffer, samples, storageSamples, internalformat, width, height);
 }
 pub inline fn glGetPerfMonitorGroupsAMD(numGroups: [*c]c_int, groupsSize: c_int, groups: [*c]c_uint) void {
@@ -4687,7 +4688,7 @@ pub inline fn glGetPerfMonitorGroupStringAMD(group: c_uint, bufSize: c_int, leng
 pub inline fn glGetPerfMonitorCounterStringAMD(group: c_uint, counter: c_uint, bufSize: c_int, length: [*c]c_int, counterString: [*c]u8) void {
     procs.glGetPerfMonitorCounterStringAMD(group, counter, bufSize, length, counterString);
 }
-pub inline fn glGetPerfMonitorCounterInfoAMD(group: c_uint, counter: c_uint, pname: Enum, data: ?*anyopaque) void {
+pub inline fn glGetPerfMonitorCounterInfoAMD(group: c_uint, counter: c_uint, pname: @"enum", data: ?*anyopaque) void {
     procs.glGetPerfMonitorCounterInfoAMD(group, counter, pname, data);
 }
 pub inline fn glGenPerfMonitorsAMD(n: c_int, monitors: [*c]c_uint) void {
@@ -4696,7 +4697,7 @@ pub inline fn glGenPerfMonitorsAMD(n: c_int, monitors: [*c]c_uint) void {
 pub inline fn glDeletePerfMonitorsAMD(n: c_int, monitors: [*c]c_uint) void {
     procs.glDeletePerfMonitorsAMD(n, monitors);
 }
-pub inline fn glSelectPerfMonitorCountersAMD(monitor: c_uint, enable: Boolean, group: c_uint, numCounters: c_int, counterList: [*c]c_uint) void {
+pub inline fn glSelectPerfMonitorCountersAMD(monitor: c_uint, enable: @"bool", group: c_uint, numCounters: c_int, counterList: [*c]c_uint) void {
     procs.glSelectPerfMonitorCountersAMD(monitor, enable, group, numCounters, counterList);
 }
 pub inline fn glBeginPerfMonitorAMD(monitor: c_uint) void {
@@ -4705,19 +4706,19 @@ pub inline fn glBeginPerfMonitorAMD(monitor: c_uint) void {
 pub inline fn glEndPerfMonitorAMD(monitor: c_uint) void {
     procs.glEndPerfMonitorAMD(monitor);
 }
-pub inline fn glGetPerfMonitorCounterDataAMD(monitor: c_uint, pname: Enum, dataSize: c_int, data: [*c]c_uint, bytesWritten: [*c]c_int) void {
+pub inline fn glGetPerfMonitorCounterDataAMD(monitor: c_uint, pname: @"enum", dataSize: c_int, data: [*c]c_uint, bytesWritten: [*c]c_int) void {
     procs.glGetPerfMonitorCounterDataAMD(monitor, pname, dataSize, data, bytesWritten);
 }
-pub inline fn glEGLImageTargetTexStorageEXT(target: Enum, image: GLeglImageOES, attrib_list: [*c]const c_int) void {
+pub inline fn glEGLImageTargetTexStorageEXT(target: @"enum", image: GLeglImageOES, attrib_list: [*c]const c_int) void {
     procs.glEGLImageTargetTexStorageEXT(target, image, attrib_list);
 }
 pub inline fn glEGLImageTargetTextureStorageEXT(texture: c_uint, image: GLeglImageOES, attrib_list: [*c]const c_int) void {
     procs.glEGLImageTargetTextureStorageEXT(texture, image, attrib_list);
 }
-pub inline fn glLabelObjectEXT(@"type": Enum, object: c_uint, length: c_int, label: [*c]const u8) void {
+pub inline fn glLabelObjectEXT(@"type": @"enum", object: c_uint, length: c_int, label: [*c]const u8) void {
     procs.glLabelObjectEXT(@"type", object, length, label);
 }
-pub inline fn glGetObjectLabelEXT(@"type": Enum, object: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) void {
+pub inline fn glGetObjectLabelEXT(@"type": @"enum", object: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) void {
     procs.glGetObjectLabelEXT(@"type", object, bufSize, length, label);
 }
 pub inline fn glInsertEventMarkerEXT(length: c_int, marker: [*c]const u8) void {
@@ -4729,49 +4730,49 @@ pub inline fn glPushGroupMarkerEXT(length: c_int, marker: [*c]const u8) void {
 pub inline fn glPopGroupMarkerEXT() void {
     procs.glPopGroupMarkerEXT();
 }
-pub inline fn glMatrixLoadfEXT(mode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixLoadfEXT(mode: @"enum", m: [*c]const f32) void {
     procs.glMatrixLoadfEXT(mode, m);
 }
-pub inline fn glMatrixLoaddEXT(mode: Enum, m: [*c]const f64) void {
+pub inline fn glMatrixLoaddEXT(mode: @"enum", m: [*c]const f64) void {
     procs.glMatrixLoaddEXT(mode, m);
 }
-pub inline fn glMatrixMultfEXT(mode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixMultfEXT(mode: @"enum", m: [*c]const f32) void {
     procs.glMatrixMultfEXT(mode, m);
 }
-pub inline fn glMatrixMultdEXT(mode: Enum, m: [*c]const f64) void {
+pub inline fn glMatrixMultdEXT(mode: @"enum", m: [*c]const f64) void {
     procs.glMatrixMultdEXT(mode, m);
 }
-pub inline fn glMatrixLoadIdentityEXT(mode: Enum) void {
+pub inline fn glMatrixLoadIdentityEXT(mode: @"enum") void {
     procs.glMatrixLoadIdentityEXT(mode);
 }
-pub inline fn glMatrixRotatefEXT(mode: Enum, angle: f32, x: f32, y: f32, z: f32) void {
+pub inline fn glMatrixRotatefEXT(mode: @"enum", angle: f32, x: f32, y: f32, z: f32) void {
     procs.glMatrixRotatefEXT(mode, angle, x, y, z);
 }
-pub inline fn glMatrixRotatedEXT(mode: Enum, angle: f64, x: f64, y: f64, z: f64) void {
+pub inline fn glMatrixRotatedEXT(mode: @"enum", angle: f64, x: f64, y: f64, z: f64) void {
     procs.glMatrixRotatedEXT(mode, angle, x, y, z);
 }
-pub inline fn glMatrixScalefEXT(mode: Enum, x: f32, y: f32, z: f32) void {
+pub inline fn glMatrixScalefEXT(mode: @"enum", x: f32, y: f32, z: f32) void {
     procs.glMatrixScalefEXT(mode, x, y, z);
 }
-pub inline fn glMatrixScaledEXT(mode: Enum, x: f64, y: f64, z: f64) void {
+pub inline fn glMatrixScaledEXT(mode: @"enum", x: f64, y: f64, z: f64) void {
     procs.glMatrixScaledEXT(mode, x, y, z);
 }
-pub inline fn glMatrixTranslatefEXT(mode: Enum, x: f32, y: f32, z: f32) void {
+pub inline fn glMatrixTranslatefEXT(mode: @"enum", x: f32, y: f32, z: f32) void {
     procs.glMatrixTranslatefEXT(mode, x, y, z);
 }
-pub inline fn glMatrixTranslatedEXT(mode: Enum, x: f64, y: f64, z: f64) void {
+pub inline fn glMatrixTranslatedEXT(mode: @"enum", x: f64, y: f64, z: f64) void {
     procs.glMatrixTranslatedEXT(mode, x, y, z);
 }
-pub inline fn glMatrixFrustumEXT(mode: Enum, left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) void {
+pub inline fn glMatrixFrustumEXT(mode: @"enum", left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) void {
     procs.glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
 }
-pub inline fn glMatrixOrthoEXT(mode: Enum, left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) void {
+pub inline fn glMatrixOrthoEXT(mode: @"enum", left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) void {
     procs.glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
 }
-pub inline fn glMatrixPopEXT(mode: Enum) void {
+pub inline fn glMatrixPopEXT(mode: @"enum") void {
     procs.glMatrixPopEXT(mode);
 }
-pub inline fn glMatrixPushEXT(mode: Enum) void {
+pub inline fn glMatrixPushEXT(mode: @"enum") void {
     procs.glMatrixPushEXT(mode);
 }
 pub inline fn glClientAttribDefaultEXT(mask: Bitfield) void {
@@ -4780,277 +4781,277 @@ pub inline fn glClientAttribDefaultEXT(mask: Bitfield) void {
 pub inline fn glPushClientAttribDefaultEXT(mask: Bitfield) void {
     procs.glPushClientAttribDefaultEXT(mask);
 }
-pub inline fn glTextureParameterfEXT(texture: c_uint, target: Enum, pname: Enum, param: f32) void {
+pub inline fn glTextureParameterfEXT(texture: c_uint, target: @"enum", pname: @"enum", param: f32) void {
     procs.glTextureParameterfEXT(texture, target, pname, param);
 }
-pub inline fn glTextureParameterfvEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]const f32) void {
+pub inline fn glTextureParameterfvEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]const f32) void {
     procs.glTextureParameterfvEXT(texture, target, pname, params);
 }
-pub inline fn glTextureParameteriEXT(texture: c_uint, target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glTextureParameteriEXT(texture: c_uint, target: @"enum", pname: @"enum", param: c_int) void {
     procs.glTextureParameteriEXT(texture, target, pname, param);
 }
-pub inline fn glTextureParameterivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glTextureParameterivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glTextureParameterivEXT(texture, target, pname, params);
 }
-pub inline fn glTextureImage1DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureImage1DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: c_int, width: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, @"type", pixels);
 }
-pub inline fn glTextureImage2DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureImage2DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, @"type", pixels);
 }
-pub inline fn glTextureSubImage1DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage1DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, @"type", pixels);
 }
-pub inline fn glTextureSubImage2DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage2DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, @"type", pixels);
 }
-pub inline fn glCopyTextureImage1DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) void {
+pub inline fn glCopyTextureImage1DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, border: c_int) void {
     procs.glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
 }
-pub inline fn glCopyTextureImage2DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
+pub inline fn glCopyTextureImage2DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
     procs.glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
 }
-pub inline fn glCopyTextureSubImage1DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
+pub inline fn glCopyTextureSubImage1DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
     procs.glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
 }
-pub inline fn glCopyTextureSubImage2DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyTextureSubImage2DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
 }
-pub inline fn glGetTextureImageEXT(texture: c_uint, target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) void {
+pub inline fn glGetTextureImageEXT(texture: c_uint, target: @"enum", level: c_int, format: @"enum", @"type": @"enum", pixels: ?*anyopaque) void {
     procs.glGetTextureImageEXT(texture, target, level, format, @"type", pixels);
 }
-pub inline fn glGetTextureParameterfvEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTextureParameterfvEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]f32) void {
     procs.glGetTextureParameterfvEXT(texture, target, pname, params);
 }
-pub inline fn glGetTextureParameterivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureParameterivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureParameterivEXT(texture, target, pname, params);
 }
-pub inline fn glGetTextureLevelParameterfvEXT(texture: c_uint, target: Enum, level: c_int, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetTextureLevelParameterfvEXT(texture: c_uint, target: @"enum", level: c_int, pname: @"enum", params: [*c]f32) void {
     procs.glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
 }
-pub inline fn glGetTextureLevelParameterivEXT(texture: c_uint, target: Enum, level: c_int, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureLevelParameterivEXT(texture: c_uint, target: @"enum", level: c_int, pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
 }
-pub inline fn glTextureImage3DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureImage3DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, @"type", pixels);
 }
-pub inline fn glTextureSubImage3DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glTextureSubImage3DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", pixels);
 }
-pub inline fn glCopyTextureSubImage3DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyTextureSubImage3DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
-pub inline fn glBindMultiTextureEXT(texunit: Enum, target: Enum, texture: c_uint) void {
+pub inline fn glBindMultiTextureEXT(texunit: @"enum", target: @"enum", texture: c_uint) void {
     procs.glBindMultiTextureEXT(texunit, target, texture);
 }
-pub inline fn glMultiTexCoordPointerEXT(texunit: Enum, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) void {
+pub inline fn glMultiTexCoordPointerEXT(texunit: @"enum", size: c_int, @"type": @"enum", stride: c_int, pointer: ?*const anyopaque) void {
     procs.glMultiTexCoordPointerEXT(texunit, size, @"type", stride, pointer);
 }
-pub inline fn glMultiTexEnvfEXT(texunit: Enum, target: Enum, pname: Enum, param: f32) void {
+pub inline fn glMultiTexEnvfEXT(texunit: @"enum", target: @"enum", pname: @"enum", param: f32) void {
     procs.glMultiTexEnvfEXT(texunit, target, pname, param);
 }
-pub inline fn glMultiTexEnvfvEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const f32) void {
+pub inline fn glMultiTexEnvfvEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const f32) void {
     procs.glMultiTexEnvfvEXT(texunit, target, pname, params);
 }
-pub inline fn glMultiTexEnviEXT(texunit: Enum, target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glMultiTexEnviEXT(texunit: @"enum", target: @"enum", pname: @"enum", param: c_int) void {
     procs.glMultiTexEnviEXT(texunit, target, pname, param);
 }
-pub inline fn glMultiTexEnvivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glMultiTexEnvivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glMultiTexEnvivEXT(texunit, target, pname, params);
 }
-pub inline fn glMultiTexGendEXT(texunit: Enum, coord: Enum, pname: Enum, param: f64) void {
+pub inline fn glMultiTexGendEXT(texunit: @"enum", coord: @"enum", pname: @"enum", param: f64) void {
     procs.glMultiTexGendEXT(texunit, coord, pname, param);
 }
-pub inline fn glMultiTexGendvEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]const f64) void {
+pub inline fn glMultiTexGendvEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]const f64) void {
     procs.glMultiTexGendvEXT(texunit, coord, pname, params);
 }
-pub inline fn glMultiTexGenfEXT(texunit: Enum, coord: Enum, pname: Enum, param: f32) void {
+pub inline fn glMultiTexGenfEXT(texunit: @"enum", coord: @"enum", pname: @"enum", param: f32) void {
     procs.glMultiTexGenfEXT(texunit, coord, pname, param);
 }
-pub inline fn glMultiTexGenfvEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]const f32) void {
+pub inline fn glMultiTexGenfvEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]const f32) void {
     procs.glMultiTexGenfvEXT(texunit, coord, pname, params);
 }
-pub inline fn glMultiTexGeniEXT(texunit: Enum, coord: Enum, pname: Enum, param: c_int) void {
+pub inline fn glMultiTexGeniEXT(texunit: @"enum", coord: @"enum", pname: @"enum", param: c_int) void {
     procs.glMultiTexGeniEXT(texunit, coord, pname, param);
 }
-pub inline fn glMultiTexGenivEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glMultiTexGenivEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glMultiTexGenivEXT(texunit, coord, pname, params);
 }
-pub inline fn glGetMultiTexEnvfvEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetMultiTexEnvfvEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]f32) void {
     procs.glGetMultiTexEnvfvEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexEnvivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetMultiTexEnvivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetMultiTexEnvivEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexGendvEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]f64) void {
+pub inline fn glGetMultiTexGendvEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]f64) void {
     procs.glGetMultiTexGendvEXT(texunit, coord, pname, params);
 }
-pub inline fn glGetMultiTexGenfvEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetMultiTexGenfvEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]f32) void {
     procs.glGetMultiTexGenfvEXT(texunit, coord, pname, params);
 }
-pub inline fn glGetMultiTexGenivEXT(texunit: Enum, coord: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetMultiTexGenivEXT(texunit: @"enum", coord: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetMultiTexGenivEXT(texunit, coord, pname, params);
 }
-pub inline fn glMultiTexParameteriEXT(texunit: Enum, target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glMultiTexParameteriEXT(texunit: @"enum", target: @"enum", pname: @"enum", param: c_int) void {
     procs.glMultiTexParameteriEXT(texunit, target, pname, param);
 }
-pub inline fn glMultiTexParameterivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glMultiTexParameterivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glMultiTexParameterivEXT(texunit, target, pname, params);
 }
-pub inline fn glMultiTexParameterfEXT(texunit: Enum, target: Enum, pname: Enum, param: f32) void {
+pub inline fn glMultiTexParameterfEXT(texunit: @"enum", target: @"enum", pname: @"enum", param: f32) void {
     procs.glMultiTexParameterfEXT(texunit, target, pname, param);
 }
-pub inline fn glMultiTexParameterfvEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const f32) void {
+pub inline fn glMultiTexParameterfvEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const f32) void {
     procs.glMultiTexParameterfvEXT(texunit, target, pname, params);
 }
-pub inline fn glMultiTexImage1DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: c_int, width: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, @"type", pixels);
 }
-pub inline fn glMultiTexImage2DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, @"type", pixels);
 }
-pub inline fn glMultiTexSubImage1DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexSubImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, @"type", pixels);
 }
-pub inline fn glMultiTexSubImage2DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexSubImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, @"type", pixels);
 }
-pub inline fn glCopyMultiTexImage1DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) void {
+pub inline fn glCopyMultiTexImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, border: c_int) void {
     procs.glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
 }
-pub inline fn glCopyMultiTexImage2DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
+pub inline fn glCopyMultiTexImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: @"enum", x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) void {
     procs.glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
 }
-pub inline fn glCopyMultiTexSubImage1DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
+pub inline fn glCopyMultiTexSubImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) void {
     procs.glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
 }
-pub inline fn glCopyMultiTexSubImage2DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyMultiTexSubImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
 }
-pub inline fn glGetMultiTexImageEXT(texunit: Enum, target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) void {
+pub inline fn glGetMultiTexImageEXT(texunit: @"enum", target: @"enum", level: c_int, format: @"enum", @"type": @"enum", pixels: ?*anyopaque) void {
     procs.glGetMultiTexImageEXT(texunit, target, level, format, @"type", pixels);
 }
-pub inline fn glGetMultiTexParameterfvEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetMultiTexParameterfvEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]f32) void {
     procs.glGetMultiTexParameterfvEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexParameterivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetMultiTexParameterivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetMultiTexParameterivEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexLevelParameterfvEXT(texunit: Enum, target: Enum, level: c_int, pname: Enum, params: [*c]f32) void {
+pub inline fn glGetMultiTexLevelParameterfvEXT(texunit: @"enum", target: @"enum", level: c_int, pname: @"enum", params: [*c]f32) void {
     procs.glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
 }
-pub inline fn glGetMultiTexLevelParameterivEXT(texunit: Enum, target: Enum, level: c_int, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetMultiTexLevelParameterivEXT(texunit: @"enum", target: @"enum", level: c_int, pname: @"enum", params: [*c]c_int) void {
     procs.glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
 }
-pub inline fn glMultiTexImage3DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexImage3DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, @"type", pixels);
 }
-pub inline fn glMultiTexSubImage3DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) void {
+pub inline fn glMultiTexSubImage3DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", @"type": @"enum", pixels: ?*const anyopaque) void {
     procs.glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, @"type", pixels);
 }
-pub inline fn glCopyMultiTexSubImage3DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
+pub inline fn glCopyMultiTexSubImage3DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) void {
     procs.glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
-pub inline fn glEnableClientStateIndexedEXT(array: Enum, index: c_uint) void {
+pub inline fn glEnableClientStateIndexedEXT(array: @"enum", index: c_uint) void {
     procs.glEnableClientStateIndexedEXT(array, index);
 }
-pub inline fn glDisableClientStateIndexedEXT(array: Enum, index: c_uint) void {
+pub inline fn glDisableClientStateIndexedEXT(array: @"enum", index: c_uint) void {
     procs.glDisableClientStateIndexedEXT(array, index);
 }
-pub inline fn glGetFloatIndexedvEXT(target: Enum, index: c_uint, data: [*c]f32) void {
+pub inline fn glGetFloatIndexedvEXT(target: @"enum", index: c_uint, data: [*c]f32) void {
     procs.glGetFloatIndexedvEXT(target, index, data);
 }
-pub inline fn glGetDoubleIndexedvEXT(target: Enum, index: c_uint, data: [*c]f64) void {
+pub inline fn glGetDoubleIndexedvEXT(target: @"enum", index: c_uint, data: [*c]f64) void {
     procs.glGetDoubleIndexedvEXT(target, index, data);
 }
-pub inline fn glGetPointerIndexedvEXT(target: Enum, index: c_uint, data: [*c]?*anyopaque) void {
+pub inline fn glGetPointerIndexedvEXT(target: @"enum", index: c_uint, data: [*c]?*anyopaque) void {
     procs.glGetPointerIndexedvEXT(target, index, data);
 }
-pub inline fn glEnableIndexedEXT(target: Enum, index: c_uint) void {
+pub inline fn glEnableIndexedEXT(target: @"enum", index: c_uint) void {
     procs.glEnableIndexedEXT(target, index);
 }
-pub inline fn glDisableIndexedEXT(target: Enum, index: c_uint) void {
+pub inline fn glDisableIndexedEXT(target: @"enum", index: c_uint) void {
     procs.glDisableIndexedEXT(target, index);
 }
-pub inline fn glIsEnabledIndexedEXT(target: Enum, index: c_uint) Boolean {
+pub inline fn glIsEnabledIndexedEXT(target: @"enum", index: c_uint) @"bool" {
     return procs.glIsEnabledIndexedEXT(target, index);
 }
-pub inline fn glGetIntegerIndexedvEXT(target: Enum, index: c_uint, data: [*c]c_int) void {
+pub inline fn glGetIntegerIndexedvEXT(target: @"enum", index: c_uint, data: [*c]c_int) void {
     procs.glGetIntegerIndexedvEXT(target, index, data);
 }
-pub inline fn glGetBooleanIndexedvEXT(target: Enum, index: c_uint, data: [*c]Boolean) void {
+pub inline fn glGetBooleanIndexedvEXT(target: @"enum", index: c_uint, data: [*c]@"bool") void {
     procs.glGetBooleanIndexedvEXT(target, index, data);
 }
-pub inline fn glCompressedTextureImage3DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureImage3DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
 }
-pub inline fn glCompressedTextureImage2DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureImage2DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
 }
-pub inline fn glCompressedTextureImage1DEXT(texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureImage1DEXT(texture: c_uint, target: @"enum", level: c_int, internalformat: @"enum", width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
 }
-pub inline fn glCompressedTextureSubImage3DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage3DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
 }
-pub inline fn glCompressedTextureSubImage2DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage2DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
 }
-pub inline fn glCompressedTextureSubImage1DEXT(texture: c_uint, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedTextureSubImage1DEXT(texture: c_uint, target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
 }
-pub inline fn glGetCompressedTextureImageEXT(texture: c_uint, target: Enum, lod: c_int, img: ?*anyopaque) void {
+pub inline fn glGetCompressedTextureImageEXT(texture: c_uint, target: @"enum", lod: c_int, img: ?*anyopaque) void {
     procs.glGetCompressedTextureImageEXT(texture, target, lod, img);
 }
-pub inline fn glCompressedMultiTexImage3DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexImage3DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
 }
-pub inline fn glCompressedMultiTexImage2DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: @"enum", width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
 }
-pub inline fn glCompressedMultiTexImage1DEXT(texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, internalformat: @"enum", width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, bits);
 }
-pub inline fn glCompressedMultiTexSubImage3DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexSubImage3DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
 }
-pub inline fn glCompressedMultiTexSubImage2DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexSubImage2DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
 }
-pub inline fn glCompressedMultiTexSubImage1DEXT(texunit: Enum, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) void {
+pub inline fn glCompressedMultiTexSubImage1DEXT(texunit: @"enum", target: @"enum", level: c_int, xoffset: c_int, width: c_int, format: @"enum", imageSize: c_int, bits: ?*const anyopaque) void {
     procs.glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, bits);
 }
-pub inline fn glGetCompressedMultiTexImageEXT(texunit: Enum, target: Enum, lod: c_int, img: ?*anyopaque) void {
+pub inline fn glGetCompressedMultiTexImageEXT(texunit: @"enum", target: @"enum", lod: c_int, img: ?*anyopaque) void {
     procs.glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
 }
-pub inline fn glMatrixLoadTransposefEXT(mode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixLoadTransposefEXT(mode: @"enum", m: [*c]const f32) void {
     procs.glMatrixLoadTransposefEXT(mode, m);
 }
-pub inline fn glMatrixLoadTransposedEXT(mode: Enum, m: [*c]const f64) void {
+pub inline fn glMatrixLoadTransposedEXT(mode: @"enum", m: [*c]const f64) void {
     procs.glMatrixLoadTransposedEXT(mode, m);
 }
-pub inline fn glMatrixMultTransposefEXT(mode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixMultTransposefEXT(mode: @"enum", m: [*c]const f32) void {
     procs.glMatrixMultTransposefEXT(mode, m);
 }
-pub inline fn glMatrixMultTransposedEXT(mode: Enum, m: [*c]const f64) void {
+pub inline fn glMatrixMultTransposedEXT(mode: @"enum", m: [*c]const f64) void {
     procs.glMatrixMultTransposedEXT(mode, m);
 }
-pub inline fn glNamedBufferDataEXT(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: Enum) void {
+pub inline fn glNamedBufferDataEXT(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: @"enum") void {
     procs.glNamedBufferDataEXT(buffer, size, data, usage);
 }
 pub inline fn glNamedBufferSubDataEXT(buffer: c_uint, offset: c_long, size: c_ulong, data: ?*const anyopaque) void {
     procs.glNamedBufferSubDataEXT(buffer, offset, size, data);
 }
-pub inline fn glMapNamedBufferEXT(buffer: c_uint, access: Enum) ?*anyopaque {
+pub inline fn glMapNamedBufferEXT(buffer: c_uint, access: @"enum") ?*anyopaque {
     return procs.glMapNamedBufferEXT(buffer, access);
 }
-pub inline fn glUnmapNamedBufferEXT(buffer: c_uint) Boolean {
+pub inline fn glUnmapNamedBufferEXT(buffer: c_uint) @"bool" {
     return procs.glUnmapNamedBufferEXT(buffer);
 }
-pub inline fn glGetNamedBufferParameterivEXT(buffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedBufferParameterivEXT(buffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedBufferParameterivEXT(buffer, pname, params);
 }
-pub inline fn glGetNamedBufferPointervEXT(buffer: c_uint, pname: Enum, params: [*c]?*anyopaque) void {
+pub inline fn glGetNamedBufferPointervEXT(buffer: c_uint, pname: @"enum", params: [*c]?*anyopaque) void {
     procs.glGetNamedBufferPointervEXT(buffer, pname, params);
 }
 pub inline fn glGetNamedBufferSubDataEXT(buffer: c_uint, offset: c_long, size: c_ulong, data: ?*anyopaque) void {
@@ -5104,61 +5105,61 @@ pub inline fn glProgramUniform3ivEXT(program: c_uint, location: c_int, count: c_
 pub inline fn glProgramUniform4ivEXT(program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) void {
     procs.glProgramUniform4ivEXT(program, location, count, value);
 }
-pub inline fn glProgramUniformMatrix2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2x3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3x2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix2x4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4x2fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix3x4fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) void {
+pub inline fn glProgramUniformMatrix4x3fvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f32) void {
     procs.glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
 }
-pub inline fn glTextureBufferEXT(texture: c_uint, target: Enum, internalformat: Enum, buffer: c_uint) void {
+pub inline fn glTextureBufferEXT(texture: c_uint, target: @"enum", internalformat: @"enum", buffer: c_uint) void {
     procs.glTextureBufferEXT(texture, target, internalformat, buffer);
 }
-pub inline fn glMultiTexBufferEXT(texunit: Enum, target: Enum, internalformat: Enum, buffer: c_uint) void {
+pub inline fn glMultiTexBufferEXT(texunit: @"enum", target: @"enum", internalformat: @"enum", buffer: c_uint) void {
     procs.glMultiTexBufferEXT(texunit, target, internalformat, buffer);
 }
-pub inline fn glTextureParameterIivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glTextureParameterIivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glTextureParameterIivEXT(texture, target, pname, params);
 }
-pub inline fn glTextureParameterIuivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_uint) void {
+pub inline fn glTextureParameterIuivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]const c_uint) void {
     procs.glTextureParameterIuivEXT(texture, target, pname, params);
 }
-pub inline fn glGetTextureParameterIivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetTextureParameterIivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetTextureParameterIivEXT(texture, target, pname, params);
 }
-pub inline fn glGetTextureParameterIuivEXT(texture: c_uint, target: Enum, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetTextureParameterIuivEXT(texture: c_uint, target: @"enum", pname: @"enum", params: [*c]c_uint) void {
     procs.glGetTextureParameterIuivEXT(texture, target, pname, params);
 }
-pub inline fn glMultiTexParameterIivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) void {
+pub inline fn glMultiTexParameterIivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const c_int) void {
     procs.glMultiTexParameterIivEXT(texunit, target, pname, params);
 }
-pub inline fn glMultiTexParameterIuivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_uint) void {
+pub inline fn glMultiTexParameterIuivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]const c_uint) void {
     procs.glMultiTexParameterIuivEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexParameterIivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetMultiTexParameterIivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetMultiTexParameterIivEXT(texunit, target, pname, params);
 }
-pub inline fn glGetMultiTexParameterIuivEXT(texunit: Enum, target: Enum, pname: Enum, params: [*c]c_uint) void {
+pub inline fn glGetMultiTexParameterIuivEXT(texunit: @"enum", target: @"enum", pname: @"enum", params: [*c]c_uint) void {
     procs.glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
 }
 pub inline fn glProgramUniform1uiEXT(program: c_uint, location: c_int, v0: c_uint) void {
@@ -5185,178 +5186,178 @@ pub inline fn glProgramUniform3uivEXT(program: c_uint, location: c_int, count: c
 pub inline fn glProgramUniform4uivEXT(program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) void {
     procs.glProgramUniform4uivEXT(program, location, count, value);
 }
-pub inline fn glNamedProgramLocalParameters4fvEXT(program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const f32) void {
+pub inline fn glNamedProgramLocalParameters4fvEXT(program: c_uint, target: @"enum", index: c_uint, count: c_int, params: [*c]const f32) void {
     procs.glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
 }
-pub inline fn glNamedProgramLocalParameterI4iEXT(program: c_uint, target: Enum, index: c_uint, x: c_int, y: c_int, z: c_int, w: c_int) void {
+pub inline fn glNamedProgramLocalParameterI4iEXT(program: c_uint, target: @"enum", index: c_uint, x: c_int, y: c_int, z: c_int, w: c_int) void {
     procs.glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
 }
-pub inline fn glNamedProgramLocalParameterI4ivEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]const c_int) void {
+pub inline fn glNamedProgramLocalParameterI4ivEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]const c_int) void {
     procs.glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
 }
-pub inline fn glNamedProgramLocalParametersI4ivEXT(program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const c_int) void {
+pub inline fn glNamedProgramLocalParametersI4ivEXT(program: c_uint, target: @"enum", index: c_uint, count: c_int, params: [*c]const c_int) void {
     procs.glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
 }
-pub inline fn glNamedProgramLocalParameterI4uiEXT(program: c_uint, target: Enum, index: c_uint, x: c_uint, y: c_uint, z: c_uint, w: c_uint) void {
+pub inline fn glNamedProgramLocalParameterI4uiEXT(program: c_uint, target: @"enum", index: c_uint, x: c_uint, y: c_uint, z: c_uint, w: c_uint) void {
     procs.glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
 }
-pub inline fn glNamedProgramLocalParameterI4uivEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]const c_uint) void {
+pub inline fn glNamedProgramLocalParameterI4uivEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]const c_uint) void {
     procs.glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
 }
-pub inline fn glNamedProgramLocalParametersI4uivEXT(program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const c_uint) void {
+pub inline fn glNamedProgramLocalParametersI4uivEXT(program: c_uint, target: @"enum", index: c_uint, count: c_int, params: [*c]const c_uint) void {
     procs.glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
 }
-pub inline fn glGetNamedProgramLocalParameterIivEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]c_int) void {
+pub inline fn glGetNamedProgramLocalParameterIivEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]c_int) void {
     procs.glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
 }
-pub inline fn glGetNamedProgramLocalParameterIuivEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]c_uint) void {
+pub inline fn glGetNamedProgramLocalParameterIuivEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]c_uint) void {
     procs.glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
 }
-pub inline fn glEnableClientStateiEXT(array: Enum, index: c_uint) void {
+pub inline fn glEnableClientStateiEXT(array: @"enum", index: c_uint) void {
     procs.glEnableClientStateiEXT(array, index);
 }
-pub inline fn glDisableClientStateiEXT(array: Enum, index: c_uint) void {
+pub inline fn glDisableClientStateiEXT(array: @"enum", index: c_uint) void {
     procs.glDisableClientStateiEXT(array, index);
 }
-pub inline fn glGetFloati_vEXT(pname: Enum, index: c_uint, params: [*c]f32) void {
+pub inline fn glGetFloati_vEXT(pname: @"enum", index: c_uint, params: [*c]f32) void {
     procs.glGetFloati_vEXT(pname, index, params);
 }
-pub inline fn glGetDoublei_vEXT(pname: Enum, index: c_uint, params: [*c]f64) void {
+pub inline fn glGetDoublei_vEXT(pname: @"enum", index: c_uint, params: [*c]f64) void {
     procs.glGetDoublei_vEXT(pname, index, params);
 }
-pub inline fn glGetPointeri_vEXT(pname: Enum, index: c_uint, params: [*c]?*anyopaque) void {
+pub inline fn glGetPointeri_vEXT(pname: @"enum", index: c_uint, params: [*c]?*anyopaque) void {
     procs.glGetPointeri_vEXT(pname, index, params);
 }
-pub inline fn glNamedProgramStringEXT(program: c_uint, target: Enum, format: Enum, len: c_int, string: ?*const anyopaque) void {
+pub inline fn glNamedProgramStringEXT(program: c_uint, target: @"enum", format: @"enum", len: c_int, string: ?*const anyopaque) void {
     procs.glNamedProgramStringEXT(program, target, format, len, string);
 }
-pub inline fn glNamedProgramLocalParameter4dEXT(program: c_uint, target: Enum, index: c_uint, x: f64, y: f64, z: f64, w: f64) void {
+pub inline fn glNamedProgramLocalParameter4dEXT(program: c_uint, target: @"enum", index: c_uint, x: f64, y: f64, z: f64, w: f64) void {
     procs.glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
 }
-pub inline fn glNamedProgramLocalParameter4dvEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]const f64) void {
+pub inline fn glNamedProgramLocalParameter4dvEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]const f64) void {
     procs.glNamedProgramLocalParameter4dvEXT(program, target, index, params);
 }
-pub inline fn glNamedProgramLocalParameter4fEXT(program: c_uint, target: Enum, index: c_uint, x: f32, y: f32, z: f32, w: f32) void {
+pub inline fn glNamedProgramLocalParameter4fEXT(program: c_uint, target: @"enum", index: c_uint, x: f32, y: f32, z: f32, w: f32) void {
     procs.glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
 }
-pub inline fn glNamedProgramLocalParameter4fvEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]const f32) void {
+pub inline fn glNamedProgramLocalParameter4fvEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]const f32) void {
     procs.glNamedProgramLocalParameter4fvEXT(program, target, index, params);
 }
-pub inline fn glGetNamedProgramLocalParameterdvEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]f64) void {
+pub inline fn glGetNamedProgramLocalParameterdvEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]f64) void {
     procs.glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
 }
-pub inline fn glGetNamedProgramLocalParameterfvEXT(program: c_uint, target: Enum, index: c_uint, params: [*c]f32) void {
+pub inline fn glGetNamedProgramLocalParameterfvEXT(program: c_uint, target: @"enum", index: c_uint, params: [*c]f32) void {
     procs.glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
 }
-pub inline fn glGetNamedProgramivEXT(program: c_uint, target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedProgramivEXT(program: c_uint, target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedProgramivEXT(program, target, pname, params);
 }
-pub inline fn glGetNamedProgramStringEXT(program: c_uint, target: Enum, pname: Enum, string: ?*anyopaque) void {
+pub inline fn glGetNamedProgramStringEXT(program: c_uint, target: @"enum", pname: @"enum", string: ?*anyopaque) void {
     procs.glGetNamedProgramStringEXT(program, target, pname, string);
 }
-pub inline fn glNamedRenderbufferStorageEXT(renderbuffer: c_uint, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorageEXT(renderbuffer: c_uint, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
 }
-pub inline fn glGetNamedRenderbufferParameterivEXT(renderbuffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedRenderbufferParameterivEXT(renderbuffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
 }
-pub inline fn glNamedRenderbufferStorageMultisampleEXT(renderbuffer: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorageMultisampleEXT(renderbuffer: c_uint, samples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
 }
-pub inline fn glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer: c_uint, coverageSamples: c_int, colorSamples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer: c_uint, coverageSamples: c_int, colorSamples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
 }
-pub inline fn glCheckNamedFramebufferStatusEXT(framebuffer: c_uint, target: Enum) Enum {
+pub inline fn glCheckNamedFramebufferStatusEXT(framebuffer: c_uint, target: @"enum") @"enum" {
     return procs.glCheckNamedFramebufferStatusEXT(framebuffer, target);
 }
-pub inline fn glNamedFramebufferTexture1DEXT(framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glNamedFramebufferTexture1DEXT(framebuffer: c_uint, attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int) void {
     procs.glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
 }
-pub inline fn glNamedFramebufferTexture2DEXT(framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glNamedFramebufferTexture2DEXT(framebuffer: c_uint, attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int) void {
     procs.glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
 }
-pub inline fn glNamedFramebufferTexture3DEXT(framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int, zoffset: c_int) void {
+pub inline fn glNamedFramebufferTexture3DEXT(framebuffer: c_uint, attachment: @"enum", textarget: @"enum", texture: c_uint, level: c_int, zoffset: c_int) void {
     procs.glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
 }
-pub inline fn glNamedFramebufferRenderbufferEXT(framebuffer: c_uint, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) void {
+pub inline fn glNamedFramebufferRenderbufferEXT(framebuffer: c_uint, attachment: @"enum", renderbuffertarget: @"enum", renderbuffer: c_uint) void {
     procs.glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
 }
-pub inline fn glGetNamedFramebufferAttachmentParameterivEXT(framebuffer: c_uint, attachment: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedFramebufferAttachmentParameterivEXT(framebuffer: c_uint, attachment: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
 }
-pub inline fn glGenerateTextureMipmapEXT(texture: c_uint, target: Enum) void {
+pub inline fn glGenerateTextureMipmapEXT(texture: c_uint, target: @"enum") void {
     procs.glGenerateTextureMipmapEXT(texture, target);
 }
-pub inline fn glGenerateMultiTexMipmapEXT(texunit: Enum, target: Enum) void {
+pub inline fn glGenerateMultiTexMipmapEXT(texunit: @"enum", target: @"enum") void {
     procs.glGenerateMultiTexMipmapEXT(texunit, target);
 }
-pub inline fn glFramebufferDrawBufferEXT(framebuffer: c_uint, mode: Enum) void {
+pub inline fn glFramebufferDrawBufferEXT(framebuffer: c_uint, mode: @"enum") void {
     procs.glFramebufferDrawBufferEXT(framebuffer, mode);
 }
-pub inline fn glFramebufferDrawBuffersEXT(framebuffer: c_uint, n: c_int, bufs: [*c]const Enum) void {
+pub inline fn glFramebufferDrawBuffersEXT(framebuffer: c_uint, n: c_int, bufs: [*c]const @"enum") void {
     procs.glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
 }
-pub inline fn glFramebufferReadBufferEXT(framebuffer: c_uint, mode: Enum) void {
+pub inline fn glFramebufferReadBufferEXT(framebuffer: c_uint, mode: @"enum") void {
     procs.glFramebufferReadBufferEXT(framebuffer, mode);
 }
-pub inline fn glGetFramebufferParameterivEXT(framebuffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetFramebufferParameterivEXT(framebuffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetFramebufferParameterivEXT(framebuffer, pname, params);
 }
 pub inline fn glNamedCopyBufferSubDataEXT(readBuffer: c_uint, writeBuffer: c_uint, readOffset: c_long, writeOffset: c_long, size: c_ulong) void {
     procs.glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
 }
-pub inline fn glNamedFramebufferTextureEXT(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int) void {
+pub inline fn glNamedFramebufferTextureEXT(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int) void {
     procs.glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
 }
-pub inline fn glNamedFramebufferTextureLayerEXT(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) void {
+pub inline fn glNamedFramebufferTextureLayerEXT(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int, layer: c_int) void {
     procs.glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
 }
-pub inline fn glNamedFramebufferTextureFaceEXT(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, face: Enum) void {
+pub inline fn glNamedFramebufferTextureFaceEXT(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int, face: @"enum") void {
     procs.glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
 }
-pub inline fn glTextureRenderbufferEXT(texture: c_uint, target: Enum, renderbuffer: c_uint) void {
+pub inline fn glTextureRenderbufferEXT(texture: c_uint, target: @"enum", renderbuffer: c_uint) void {
     procs.glTextureRenderbufferEXT(texture, target, renderbuffer);
 }
-pub inline fn glMultiTexRenderbufferEXT(texunit: Enum, target: Enum, renderbuffer: c_uint) void {
+pub inline fn glMultiTexRenderbufferEXT(texunit: @"enum", target: @"enum", renderbuffer: c_uint) void {
     procs.glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
 }
-pub inline fn glVertexArrayVertexOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayVertexOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayVertexOffsetEXT(vaobj, buffer, size, @"type", stride, offset);
 }
-pub inline fn glVertexArrayColorOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayColorOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayColorOffsetEXT(vaobj, buffer, size, @"type", stride, offset);
 }
 pub inline fn glVertexArrayEdgeFlagOffsetEXT(vaobj: c_uint, buffer: c_uint, stride: c_int, offset: c_long) void {
     procs.glVertexArrayEdgeFlagOffsetEXT(vaobj, buffer, stride, offset);
 }
-pub inline fn glVertexArrayIndexOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayIndexOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayIndexOffsetEXT(vaobj, buffer, @"type", stride, offset);
 }
-pub inline fn glVertexArrayNormalOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayNormalOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayNormalOffsetEXT(vaobj, buffer, @"type", stride, offset);
 }
-pub inline fn glVertexArrayTexCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayTexCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayTexCoordOffsetEXT(vaobj, buffer, size, @"type", stride, offset);
 }
-pub inline fn glVertexArrayMultiTexCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, texunit: Enum, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayMultiTexCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, texunit: @"enum", size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayMultiTexCoordOffsetEXT(vaobj, buffer, texunit, size, @"type", stride, offset);
 }
-pub inline fn glVertexArrayFogCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayFogCoordOffsetEXT(vaobj: c_uint, buffer: c_uint, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayFogCoordOffsetEXT(vaobj, buffer, @"type", stride, offset);
 }
-pub inline fn glVertexArraySecondaryColorOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArraySecondaryColorOffsetEXT(vaobj: c_uint, buffer: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArraySecondaryColorOffsetEXT(vaobj, buffer, size, @"type", stride, offset);
 }
-pub inline fn glVertexArrayVertexAttribOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayVertexAttribOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", stride: c_int, offset: c_long) void {
     procs.glVertexArrayVertexAttribOffsetEXT(vaobj, buffer, index, size, @"type", normalized, stride, offset);
 }
-pub inline fn glVertexArrayVertexAttribIOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayVertexAttribIOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayVertexAttribIOffsetEXT(vaobj, buffer, index, size, @"type", stride, offset);
 }
-pub inline fn glEnableVertexArrayEXT(vaobj: c_uint, array: Enum) void {
+pub inline fn glEnableVertexArrayEXT(vaobj: c_uint, array: @"enum") void {
     procs.glEnableVertexArrayEXT(vaobj, array);
 }
-pub inline fn glDisableVertexArrayEXT(vaobj: c_uint, array: Enum) void {
+pub inline fn glDisableVertexArrayEXT(vaobj: c_uint, array: @"enum") void {
     procs.glDisableVertexArrayEXT(vaobj, array);
 }
 pub inline fn glEnableVertexArrayAttribEXT(vaobj: c_uint, index: c_uint) void {
@@ -5365,16 +5366,16 @@ pub inline fn glEnableVertexArrayAttribEXT(vaobj: c_uint, index: c_uint) void {
 pub inline fn glDisableVertexArrayAttribEXT(vaobj: c_uint, index: c_uint) void {
     procs.glDisableVertexArrayAttribEXT(vaobj, index);
 }
-pub inline fn glGetVertexArrayIntegervEXT(vaobj: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetVertexArrayIntegervEXT(vaobj: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetVertexArrayIntegervEXT(vaobj, pname, param);
 }
-pub inline fn glGetVertexArrayPointervEXT(vaobj: c_uint, pname: Enum, param: [*c]?*anyopaque) void {
+pub inline fn glGetVertexArrayPointervEXT(vaobj: c_uint, pname: @"enum", param: [*c]?*anyopaque) void {
     procs.glGetVertexArrayPointervEXT(vaobj, pname, param);
 }
-pub inline fn glGetVertexArrayIntegeri_vEXT(vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]c_int) void {
+pub inline fn glGetVertexArrayIntegeri_vEXT(vaobj: c_uint, index: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetVertexArrayIntegeri_vEXT(vaobj, index, pname, param);
 }
-pub inline fn glGetVertexArrayPointeri_vEXT(vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]?*anyopaque) void {
+pub inline fn glGetVertexArrayPointeri_vEXT(vaobj: c_uint, index: c_uint, pname: @"enum", param: [*c]?*anyopaque) void {
     procs.glGetVertexArrayPointeri_vEXT(vaobj, index, pname, param);
 }
 pub inline fn glMapNamedBufferRangeEXT(buffer: c_uint, offset: c_long, length: c_ulong, access: Bitfield) ?*anyopaque {
@@ -5386,16 +5387,16 @@ pub inline fn glFlushMappedNamedBufferRangeEXT(buffer: c_uint, offset: c_long, l
 pub inline fn glNamedBufferStorageEXT(buffer: c_uint, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) void {
     procs.glNamedBufferStorageEXT(buffer, size, data, flags);
 }
-pub inline fn glClearNamedBufferDataEXT(buffer: c_uint, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearNamedBufferDataEXT(buffer: c_uint, internalformat: @"enum", format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearNamedBufferDataEXT(buffer, internalformat, format, @"type", data);
 }
-pub inline fn glClearNamedBufferSubDataEXT(buffer: c_uint, internalformat: Enum, offset: c_ulong, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) void {
+pub inline fn glClearNamedBufferSubDataEXT(buffer: c_uint, internalformat: @"enum", offset: c_ulong, size: c_ulong, format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearNamedBufferSubDataEXT(buffer, internalformat, offset, size, format, @"type", data);
 }
-pub inline fn glNamedFramebufferParameteriEXT(framebuffer: c_uint, pname: Enum, param: c_int) void {
+pub inline fn glNamedFramebufferParameteriEXT(framebuffer: c_uint, pname: @"enum", param: c_int) void {
     procs.glNamedFramebufferParameteriEXT(framebuffer, pname, param);
 }
-pub inline fn glGetNamedFramebufferParameterivEXT(framebuffer: c_uint, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetNamedFramebufferParameterivEXT(framebuffer: c_uint, pname: @"enum", params: [*c]c_int) void {
     procs.glGetNamedFramebufferParameterivEXT(framebuffer, pname, params);
 }
 pub inline fn glProgramUniform1dEXT(program: c_uint, location: c_int, x: f64) void {
@@ -5422,61 +5423,61 @@ pub inline fn glProgramUniform3dvEXT(program: c_uint, location: c_int, count: c_
 pub inline fn glProgramUniform4dvEXT(program: c_uint, location: c_int, count: c_int, value: [*c]const f64) void {
     procs.glProgramUniform4dvEXT(program, location, count, value);
 }
-pub inline fn glProgramUniformMatrix2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2x3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix2x4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix2x4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3x2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix3x4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix3x4dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4x2dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glProgramUniformMatrix4x3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) void {
+pub inline fn glProgramUniformMatrix4x3dvEXT(program: c_uint, location: c_int, count: c_int, transpose: @"bool", value: [*c]const f64) void {
     procs.glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
 }
-pub inline fn glTextureBufferRangeEXT(texture: c_uint, target: Enum, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) void {
+pub inline fn glTextureBufferRangeEXT(texture: c_uint, target: @"enum", internalformat: @"enum", buffer: c_uint, offset: c_long, size: c_ulong) void {
     procs.glTextureBufferRangeEXT(texture, target, internalformat, buffer, offset, size);
 }
-pub inline fn glTextureStorage1DEXT(texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int) void {
+pub inline fn glTextureStorage1DEXT(texture: c_uint, target: @"enum", levels: c_int, internalformat: @"enum", width: c_int) void {
     procs.glTextureStorage1DEXT(texture, target, levels, internalformat, width);
 }
-pub inline fn glTextureStorage2DEXT(texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glTextureStorage2DEXT(texture: c_uint, target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glTextureStorage2DEXT(texture, target, levels, internalformat, width, height);
 }
-pub inline fn glTextureStorage3DEXT(texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) void {
+pub inline fn glTextureStorage3DEXT(texture: c_uint, target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int) void {
     procs.glTextureStorage3DEXT(texture, target, levels, internalformat, width, height, depth);
 }
-pub inline fn glTextureStorage2DMultisampleEXT(texture: c_uint, target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTextureStorage2DMultisampleEXT(texture: c_uint, target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, fixedsamplelocations: @"bool") void {
     procs.glTextureStorage2DMultisampleEXT(texture, target, samples, internalformat, width, height, fixedsamplelocations);
 }
-pub inline fn glTextureStorage3DMultisampleEXT(texture: c_uint, target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) void {
+pub inline fn glTextureStorage3DMultisampleEXT(texture: c_uint, target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, fixedsamplelocations: @"bool") void {
     procs.glTextureStorage3DMultisampleEXT(texture, target, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
 pub inline fn glVertexArrayBindVertexBufferEXT(vaobj: c_uint, bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
     procs.glVertexArrayBindVertexBufferEXT(vaobj, bindingindex, buffer, offset, stride);
 }
-pub inline fn glVertexArrayVertexAttribFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayVertexAttribFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
     procs.glVertexArrayVertexAttribFormatEXT(vaobj, attribindex, size, @"type", normalized, relativeoffset);
 }
-pub inline fn glVertexArrayVertexAttribIFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayVertexAttribIFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexArrayVertexAttribIFormatEXT(vaobj, attribindex, size, @"type", relativeoffset);
 }
-pub inline fn glVertexArrayVertexAttribLFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) void {
+pub inline fn glVertexArrayVertexAttribLFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
     procs.glVertexArrayVertexAttribLFormatEXT(vaobj, attribindex, size, @"type", relativeoffset);
 }
 pub inline fn glVertexArrayVertexAttribBindingEXT(vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) void {
@@ -5485,49 +5486,49 @@ pub inline fn glVertexArrayVertexAttribBindingEXT(vaobj: c_uint, attribindex: c_
 pub inline fn glVertexArrayVertexBindingDivisorEXT(vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) void {
     procs.glVertexArrayVertexBindingDivisorEXT(vaobj, bindingindex, divisor);
 }
-pub inline fn glVertexArrayVertexAttribLOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) void {
+pub inline fn glVertexArrayVertexAttribLOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayVertexAttribLOffsetEXT(vaobj, buffer, index, size, @"type", stride, offset);
 }
-pub inline fn glTexturePageCommitmentEXT(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: Boolean) void {
+pub inline fn glTexturePageCommitmentEXT(texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: @"bool") void {
     procs.glTexturePageCommitmentEXT(texture, level, xoffset, yoffset, zoffset, width, height, depth, commit);
 }
 pub inline fn glVertexArrayVertexAttribDivisorEXT(vaobj: c_uint, index: c_uint, divisor: c_uint) void {
     procs.glVertexArrayVertexAttribDivisorEXT(vaobj, index, divisor);
 }
-pub inline fn glDrawArraysInstancedEXT(mode: Enum, start: c_int, count: c_int, primcount: c_int) void {
+pub inline fn glDrawArraysInstancedEXT(mode: @"enum", start: c_int, count: c_int, primcount: c_int) void {
     procs.glDrawArraysInstancedEXT(mode, start, count, primcount);
 }
-pub inline fn glDrawElementsInstancedEXT(mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, primcount: c_int) void {
+pub inline fn glDrawElementsInstancedEXT(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, primcount: c_int) void {
     procs.glDrawElementsInstancedEXT(mode, count, @"type", indices, primcount);
 }
 pub inline fn glPolygonOffsetClampEXT(factor: f32, units: f32, clamp: f32) void {
     procs.glPolygonOffsetClampEXT(factor, units, clamp);
 }
-pub inline fn glRasterSamplesEXT(samples: c_uint, fixedsamplelocations: Boolean) void {
+pub inline fn glRasterSamplesEXT(samples: c_uint, fixedsamplelocations: @"bool") void {
     procs.glRasterSamplesEXT(samples, fixedsamplelocations);
 }
-pub inline fn glUseShaderProgramEXT(@"type": Enum, program: c_uint) void {
+pub inline fn glUseShaderProgramEXT(@"type": @"enum", program: c_uint) void {
     procs.glUseShaderProgramEXT(@"type", program);
 }
 pub inline fn glActiveProgramEXT(program: c_uint) void {
     procs.glActiveProgramEXT(program);
 }
-pub inline fn glCreateShaderProgramEXT(@"type": Enum, string: [*c]const u8) c_uint {
+pub inline fn glCreateShaderProgramEXT(@"type": @"enum", string: [*c]const u8) c_uint {
     return procs.glCreateShaderProgramEXT(@"type", string);
 }
 pub inline fn glFramebufferFetchBarrierEXT() void {
     procs.glFramebufferFetchBarrierEXT();
 }
-pub inline fn glTexStorage1DEXT(target: Enum, levels: c_int, internalformat: Enum, width: c_int) void {
+pub inline fn glTexStorage1DEXT(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int) void {
     procs.glTexStorage1DEXT(target, levels, internalformat, width);
 }
-pub inline fn glTexStorage2DEXT(target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glTexStorage2DEXT(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glTexStorage2DEXT(target, levels, internalformat, width, height);
 }
-pub inline fn glTexStorage3DEXT(target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) void {
+pub inline fn glTexStorage3DEXT(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int) void {
     procs.glTexStorage3DEXT(target, levels, internalformat, width, height, depth);
 }
-pub inline fn glWindowRectanglesEXT(mode: Enum, count: c_int, box: [*c]const c_int) void {
+pub inline fn glWindowRectanglesEXT(mode: @"enum", count: c_int, box: [*c]const c_int) void {
     procs.glWindowRectanglesEXT(mode, count, box);
 }
 pub inline fn glApplyFramebufferAttachmentCMAAINTEL() void {
@@ -5563,22 +5564,22 @@ pub inline fn glGetPerfQueryIdByNameINTEL(queryName: [*c]u8, queryId: [*c]c_uint
 pub inline fn glGetPerfQueryInfoINTEL(queryId: c_uint, queryNameLength: c_uint, queryName: [*c]u8, dataSize: [*c]c_uint, noCounters: [*c]c_uint, noInstances: [*c]c_uint, capsMask: [*c]c_uint) void {
     procs.glGetPerfQueryInfoINTEL(queryId, queryNameLength, queryName, dataSize, noCounters, noInstances, capsMask);
 }
-pub inline fn glFramebufferParameteriMESA(target: Enum, pname: Enum, param: c_int) void {
+pub inline fn glFramebufferParameteriMESA(target: @"enum", pname: @"enum", param: c_int) void {
     procs.glFramebufferParameteriMESA(target, pname, param);
 }
-pub inline fn glGetFramebufferParameterivMESA(target: Enum, pname: Enum, params: [*c]c_int) void {
+pub inline fn glGetFramebufferParameterivMESA(target: @"enum", pname: @"enum", params: [*c]c_int) void {
     procs.glGetFramebufferParameterivMESA(target, pname, params);
 }
-pub inline fn glMultiDrawArraysIndirectBindlessNV(mode: Enum, indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
+pub inline fn glMultiDrawArraysIndirectBindlessNV(mode: @"enum", indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
     procs.glMultiDrawArraysIndirectBindlessNV(mode, indirect, drawCount, stride, vertexBufferCount);
 }
-pub inline fn glMultiDrawElementsIndirectBindlessNV(mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
+pub inline fn glMultiDrawElementsIndirectBindlessNV(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
     procs.glMultiDrawElementsIndirectBindlessNV(mode, @"type", indirect, drawCount, stride, vertexBufferCount);
 }
-pub inline fn glMultiDrawArraysIndirectBindlessCountNV(mode: Enum, indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
+pub inline fn glMultiDrawArraysIndirectBindlessCountNV(mode: @"enum", indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
     procs.glMultiDrawArraysIndirectBindlessCountNV(mode, indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
 }
-pub inline fn glMultiDrawElementsIndirectBindlessCountNV(mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
+pub inline fn glMultiDrawElementsIndirectBindlessCountNV(mode: @"enum", @"type": @"enum", indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) void {
     procs.glMultiDrawElementsIndirectBindlessCountNV(mode, @"type", indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
 }
 pub inline fn glGetTextureHandleNV(texture: c_uint) u64 {
@@ -5593,10 +5594,10 @@ pub inline fn glMakeTextureHandleResidentNV(handle: u64) void {
 pub inline fn glMakeTextureHandleNonResidentNV(handle: u64) void {
     procs.glMakeTextureHandleNonResidentNV(handle);
 }
-pub inline fn glGetImageHandleNV(texture: c_uint, level: c_int, layered: Boolean, layer: c_int, format: Enum) u64 {
+pub inline fn glGetImageHandleNV(texture: c_uint, level: c_int, layered: @"bool", layer: c_int, format: @"enum") u64 {
     return procs.glGetImageHandleNV(texture, level, layered, layer, format);
 }
-pub inline fn glMakeImageHandleResidentNV(handle: u64, access: Enum) void {
+pub inline fn glMakeImageHandleResidentNV(handle: u64, access: @"enum") void {
     procs.glMakeImageHandleResidentNV(handle, access);
 }
 pub inline fn glMakeImageHandleNonResidentNV(handle: u64) void {
@@ -5614,13 +5615,13 @@ pub inline fn glProgramUniformHandleui64NV(program: c_uint, location: c_int, val
 pub inline fn glProgramUniformHandleui64vNV(program: c_uint, location: c_int, count: c_int, values: [*c]const u64) void {
     procs.glProgramUniformHandleui64vNV(program, location, count, values);
 }
-pub inline fn glIsTextureHandleResidentNV(handle: u64) Boolean {
+pub inline fn glIsTextureHandleResidentNV(handle: u64) @"bool" {
     return procs.glIsTextureHandleResidentNV(handle);
 }
-pub inline fn glIsImageHandleResidentNV(handle: u64) Boolean {
+pub inline fn glIsImageHandleResidentNV(handle: u64) @"bool" {
     return procs.glIsImageHandleResidentNV(handle);
 }
-pub inline fn glBlendParameteriNV(pname: Enum, value: c_int) void {
+pub inline fn glBlendParameteriNV(pname: @"enum", value: c_int) void {
     procs.glBlendParameteriNV(pname, value);
 }
 pub inline fn glBlendBarrierNV() void {
@@ -5635,22 +5636,22 @@ pub inline fn glCreateStatesNV(n: c_int, states: [*c]c_uint) void {
 pub inline fn glDeleteStatesNV(n: c_int, states: [*c]const c_uint) void {
     procs.glDeleteStatesNV(n, states);
 }
-pub inline fn glIsStateNV(state: c_uint) Boolean {
+pub inline fn glIsStateNV(state: c_uint) @"bool" {
     return procs.glIsStateNV(state);
 }
-pub inline fn glStateCaptureNV(state: c_uint, mode: Enum) void {
+pub inline fn glStateCaptureNV(state: c_uint, mode: @"enum") void {
     procs.glStateCaptureNV(state, mode);
 }
-pub inline fn glGetCommandHeaderNV(tokenID: Enum, size: c_uint) c_uint {
+pub inline fn glGetCommandHeaderNV(tokenID: @"enum", size: c_uint) c_uint {
     return procs.glGetCommandHeaderNV(tokenID, size);
 }
-pub inline fn glGetStageIndexNV(shadertype: Enum) c_ushort {
+pub inline fn glGetStageIndexNV(shadertype: @"enum") c_ushort {
     return procs.glGetStageIndexNV(shadertype);
 }
-pub inline fn glDrawCommandsNV(primitiveMode: Enum, buffer: c_uint, indirects: [*c]const c_long, sizes: [*c]const c_int, count: c_uint) void {
+pub inline fn glDrawCommandsNV(primitiveMode: @"enum", buffer: c_uint, indirects: [*c]const c_long, sizes: [*c]const c_int, count: c_uint) void {
     procs.glDrawCommandsNV(primitiveMode, buffer, indirects, sizes, count);
 }
-pub inline fn glDrawCommandsAddressNV(primitiveMode: Enum, indirects: [*c]const u64, sizes: [*c]const c_int, count: c_uint) void {
+pub inline fn glDrawCommandsAddressNV(primitiveMode: @"enum", indirects: [*c]const u64, sizes: [*c]const c_int, count: c_uint) void {
     procs.glDrawCommandsAddressNV(primitiveMode, indirects, sizes, count);
 }
 pub inline fn glDrawCommandsStatesNV(buffer: c_uint, indirects: [*c]const c_long, sizes: [*c]const c_int, states: [*c]const c_uint, fbos: [*c]const c_uint, count: c_uint) void {
@@ -5665,7 +5666,7 @@ pub inline fn glCreateCommandListsNV(n: c_int, lists: [*c]c_uint) void {
 pub inline fn glDeleteCommandListsNV(n: c_int, lists: [*c]const c_uint) void {
     procs.glDeleteCommandListsNV(n, lists);
 }
-pub inline fn glIsCommandListNV(list: c_uint) Boolean {
+pub inline fn glIsCommandListNV(list: c_uint) @"bool" {
     return procs.glIsCommandListNV(list);
 }
 pub inline fn glListDrawCommandsStatesClientNV(list: c_uint, segment: c_uint, indirects: [*c]?*const anyopaque, sizes: [*c]const c_int, states: [*c]const c_uint, fbos: [*c]const c_uint, count: c_uint) void {
@@ -5680,7 +5681,7 @@ pub inline fn glCompileCommandListNV(list: c_uint) void {
 pub inline fn glCallCommandListNV(list: c_uint) void {
     procs.glCallCommandListNV(list);
 }
-pub inline fn glBeginConditionalRenderNV(id: c_uint, mode: Enum) void {
+pub inline fn glBeginConditionalRenderNV(id: c_uint, mode: @"enum") void {
     procs.glBeginConditionalRenderNV(id, mode);
 }
 pub inline fn glEndConditionalRenderNV() void {
@@ -5689,10 +5690,10 @@ pub inline fn glEndConditionalRenderNV() void {
 pub inline fn glSubpixelPrecisionBiasNV(xbits: c_uint, ybits: c_uint) void {
     procs.glSubpixelPrecisionBiasNV(xbits, ybits);
 }
-pub inline fn glConservativeRasterParameterfNV(pname: Enum, value: f32) void {
+pub inline fn glConservativeRasterParameterfNV(pname: @"enum", value: f32) void {
     procs.glConservativeRasterParameterfNV(pname, value);
 }
-pub inline fn glConservativeRasterParameteriNV(pname: Enum, param: c_int) void {
+pub inline fn glConservativeRasterParameteriNV(pname: @"enum", param: c_int) void {
     procs.glConservativeRasterParameteriNV(pname, param);
 }
 pub inline fn glDepthRangedNV(zNear: f64, zFar: f64) void {
@@ -5728,10 +5729,10 @@ pub inline fn glCoverageModulationTableNV(n: c_int, v: [*c]const f32) void {
 pub inline fn glGetCoverageModulationTableNV(bufSize: c_int, v: [*c]f32) void {
     procs.glGetCoverageModulationTableNV(bufSize, v);
 }
-pub inline fn glCoverageModulationNV(components: Enum) void {
+pub inline fn glCoverageModulationNV(components: @"enum") void {
     procs.glCoverageModulationNV(components);
 }
-pub inline fn glRenderbufferStorageMultisampleCoverageNV(target: Enum, coverageSamples: c_int, colorSamples: c_int, internalformat: Enum, width: c_int, height: c_int) void {
+pub inline fn glRenderbufferStorageMultisampleCoverageNV(target: @"enum", coverageSamples: c_int, colorSamples: c_int, internalformat: @"enum", width: c_int, height: c_int) void {
     procs.glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
 }
 pub inline fn glUniform1i64NV(location: c_int, x: i64) void {
@@ -5833,19 +5834,19 @@ pub inline fn glProgramUniform3ui64vNV(program: c_uint, location: c_int, count: 
 pub inline fn glProgramUniform4ui64vNV(program: c_uint, location: c_int, count: c_int, value: [*c]const u64) void {
     procs.glProgramUniform4ui64vNV(program, location, count, value);
 }
-pub inline fn glGetInternalformatSampleivNV(target: Enum, internalformat: Enum, samples: c_int, pname: Enum, count: c_int, params: [*c]c_int) void {
+pub inline fn glGetInternalformatSampleivNV(target: @"enum", internalformat: @"enum", samples: c_int, pname: @"enum", count: c_int, params: [*c]c_int) void {
     procs.glGetInternalformatSampleivNV(target, internalformat, samples, pname, count, params);
 }
-pub inline fn glGetMemoryObjectDetachedResourcesuivNV(memory: c_uint, pname: Enum, first: c_int, count: c_int, params: [*c]c_uint) void {
+pub inline fn glGetMemoryObjectDetachedResourcesuivNV(memory: c_uint, pname: @"enum", first: c_int, count: c_int, params: [*c]c_uint) void {
     procs.glGetMemoryObjectDetachedResourcesuivNV(memory, pname, first, count, params);
 }
-pub inline fn glResetMemoryObjectParameterNV(memory: c_uint, pname: Enum) void {
+pub inline fn glResetMemoryObjectParameterNV(memory: c_uint, pname: @"enum") void {
     procs.glResetMemoryObjectParameterNV(memory, pname);
 }
-pub inline fn glTexAttachMemoryNV(target: Enum, memory: c_uint, offset: u64) void {
+pub inline fn glTexAttachMemoryNV(target: @"enum", memory: c_uint, offset: u64) void {
     procs.glTexAttachMemoryNV(target, memory, offset);
 }
-pub inline fn glBufferAttachMemoryNV(target: Enum, memory: c_uint, offset: u64) void {
+pub inline fn glBufferAttachMemoryNV(target: @"enum", memory: c_uint, offset: u64) void {
     procs.glBufferAttachMemoryNV(target, memory, offset);
 }
 pub inline fn glTextureAttachMemoryNV(texture: c_uint, memory: c_uint, offset: u64) void {
@@ -5854,16 +5855,16 @@ pub inline fn glTextureAttachMemoryNV(texture: c_uint, memory: c_uint, offset: u
 pub inline fn glNamedBufferAttachMemoryNV(buffer: c_uint, memory: c_uint, offset: u64) void {
     procs.glNamedBufferAttachMemoryNV(buffer, memory, offset);
 }
-pub inline fn glBufferPageCommitmentMemNV(target: Enum, offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: Boolean) void {
+pub inline fn glBufferPageCommitmentMemNV(target: @"enum", offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: @"bool") void {
     procs.glBufferPageCommitmentMemNV(target, offset, size, memory, memOffset, commit);
 }
-pub inline fn glTexPageCommitmentMemNV(target: Enum, layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: Boolean) void {
+pub inline fn glTexPageCommitmentMemNV(target: @"enum", layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: @"bool") void {
     procs.glTexPageCommitmentMemNV(target, layer, level, xoffset, yoffset, zoffset, width, height, depth, memory, offset, commit);
 }
-pub inline fn glNamedBufferPageCommitmentMemNV(buffer: c_uint, offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: Boolean) void {
+pub inline fn glNamedBufferPageCommitmentMemNV(buffer: c_uint, offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: @"bool") void {
     procs.glNamedBufferPageCommitmentMemNV(buffer, offset, size, memory, memOffset, commit);
 }
-pub inline fn glTexturePageCommitmentMemNV(texture: c_uint, layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: Boolean) void {
+pub inline fn glTexturePageCommitmentMemNV(texture: c_uint, layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: @"bool") void {
     procs.glTexturePageCommitmentMemNV(texture, layer, level, xoffset, yoffset, zoffset, width, height, depth, memory, offset, commit);
 }
 pub inline fn glDrawMeshTasksNV(first: c_uint, count: c_uint) void {
@@ -5884,28 +5885,28 @@ pub inline fn glGenPathsNV(range: c_int) c_uint {
 pub inline fn glDeletePathsNV(path: c_uint, range: c_int) void {
     procs.glDeletePathsNV(path, range);
 }
-pub inline fn glIsPathNV(path: c_uint) Boolean {
+pub inline fn glIsPathNV(path: c_uint) @"bool" {
     return procs.glIsPathNV(path);
 }
-pub inline fn glPathCommandsNV(path: c_uint, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) void {
+pub inline fn glPathCommandsNV(path: c_uint, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: @"enum", coords: ?*const anyopaque) void {
     procs.glPathCommandsNV(path, numCommands, commands, numCoords, coordType, coords);
 }
-pub inline fn glPathCoordsNV(path: c_uint, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) void {
+pub inline fn glPathCoordsNV(path: c_uint, numCoords: c_int, coordType: @"enum", coords: ?*const anyopaque) void {
     procs.glPathCoordsNV(path, numCoords, coordType, coords);
 }
-pub inline fn glPathSubCommandsNV(path: c_uint, commandStart: c_int, commandsToDelete: c_int, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) void {
+pub inline fn glPathSubCommandsNV(path: c_uint, commandStart: c_int, commandsToDelete: c_int, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: @"enum", coords: ?*const anyopaque) void {
     procs.glPathSubCommandsNV(path, commandStart, commandsToDelete, numCommands, commands, numCoords, coordType, coords);
 }
-pub inline fn glPathSubCoordsNV(path: c_uint, coordStart: c_int, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) void {
+pub inline fn glPathSubCoordsNV(path: c_uint, coordStart: c_int, numCoords: c_int, coordType: @"enum", coords: ?*const anyopaque) void {
     procs.glPathSubCoordsNV(path, coordStart, numCoords, coordType, coords);
 }
-pub inline fn glPathStringNV(path: c_uint, format: Enum, length: c_int, pathString: ?*const anyopaque) void {
+pub inline fn glPathStringNV(path: c_uint, format: @"enum", length: c_int, pathString: ?*const anyopaque) void {
     procs.glPathStringNV(path, format, length, pathString);
 }
-pub inline fn glPathGlyphsNV(firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, numGlyphs: c_int, @"type": Enum, charcodes: ?*const anyopaque, handleMissingGlyphs: Enum, pathParameterTemplate: c_uint, emScale: f32) void {
+pub inline fn glPathGlyphsNV(firstPathName: c_uint, fontTarget: @"enum", fontName: ?*const anyopaque, fontStyle: Bitfield, numGlyphs: c_int, @"type": @"enum", charcodes: ?*const anyopaque, handleMissingGlyphs: @"enum", pathParameterTemplate: c_uint, emScale: f32) void {
     procs.glPathGlyphsNV(firstPathName, fontTarget, fontName, fontStyle, numGlyphs, @"type", charcodes, handleMissingGlyphs, pathParameterTemplate, emScale);
 }
-pub inline fn glPathGlyphRangeNV(firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyph: c_uint, numGlyphs: c_int, handleMissingGlyphs: Enum, pathParameterTemplate: c_uint, emScale: f32) void {
+pub inline fn glPathGlyphRangeNV(firstPathName: c_uint, fontTarget: @"enum", fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyph: c_uint, numGlyphs: c_int, handleMissingGlyphs: @"enum", pathParameterTemplate: c_uint, emScale: f32) void {
     procs.glPathGlyphRangeNV(firstPathName, fontTarget, fontName, fontStyle, firstGlyph, numGlyphs, handleMissingGlyphs, pathParameterTemplate, emScale);
 }
 pub inline fn glWeightPathsNV(resultPath: c_uint, numPaths: c_int, paths: [*c]const c_uint, weights: [*c]const f32) void {
@@ -5917,61 +5918,61 @@ pub inline fn glCopyPathNV(resultPath: c_uint, srcPath: c_uint) void {
 pub inline fn glInterpolatePathsNV(resultPath: c_uint, pathA: c_uint, pathB: c_uint, weight: f32) void {
     procs.glInterpolatePathsNV(resultPath, pathA, pathB, weight);
 }
-pub inline fn glTransformPathNV(resultPath: c_uint, srcPath: c_uint, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glTransformPathNV(resultPath: c_uint, srcPath: c_uint, transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glTransformPathNV(resultPath, srcPath, transformType, transformValues);
 }
-pub inline fn glPathParameterivNV(path: c_uint, pname: Enum, value: [*c]const c_int) void {
+pub inline fn glPathParameterivNV(path: c_uint, pname: @"enum", value: [*c]const c_int) void {
     procs.glPathParameterivNV(path, pname, value);
 }
-pub inline fn glPathParameteriNV(path: c_uint, pname: Enum, value: c_int) void {
+pub inline fn glPathParameteriNV(path: c_uint, pname: @"enum", value: c_int) void {
     procs.glPathParameteriNV(path, pname, value);
 }
-pub inline fn glPathParameterfvNV(path: c_uint, pname: Enum, value: [*c]const f32) void {
+pub inline fn glPathParameterfvNV(path: c_uint, pname: @"enum", value: [*c]const f32) void {
     procs.glPathParameterfvNV(path, pname, value);
 }
-pub inline fn glPathParameterfNV(path: c_uint, pname: Enum, value: f32) void {
+pub inline fn glPathParameterfNV(path: c_uint, pname: @"enum", value: f32) void {
     procs.glPathParameterfNV(path, pname, value);
 }
 pub inline fn glPathDashArrayNV(path: c_uint, dashCount: c_int, dashArray: [*c]const f32) void {
     procs.glPathDashArrayNV(path, dashCount, dashArray);
 }
-pub inline fn glPathStencilFuncNV(func: Enum, ref: c_int, mask: c_uint) void {
+pub inline fn glPathStencilFuncNV(func: @"enum", ref: c_int, mask: c_uint) void {
     procs.glPathStencilFuncNV(func, ref, mask);
 }
 pub inline fn glPathStencilDepthOffsetNV(factor: f32, units: f32) void {
     procs.glPathStencilDepthOffsetNV(factor, units);
 }
-pub inline fn glStencilFillPathNV(path: c_uint, fillMode: Enum, mask: c_uint) void {
+pub inline fn glStencilFillPathNV(path: c_uint, fillMode: @"enum", mask: c_uint) void {
     procs.glStencilFillPathNV(path, fillMode, mask);
 }
 pub inline fn glStencilStrokePathNV(path: c_uint, reference: c_int, mask: c_uint) void {
     procs.glStencilStrokePathNV(path, reference, mask);
 }
-pub inline fn glStencilFillPathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, fillMode: Enum, mask: c_uint, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glStencilFillPathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, fillMode: @"enum", mask: c_uint, transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glStencilFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, transformType, transformValues);
 }
-pub inline fn glStencilStrokePathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glStencilStrokePathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glStencilStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, transformType, transformValues);
 }
-pub inline fn glPathCoverDepthFuncNV(func: Enum) void {
+pub inline fn glPathCoverDepthFuncNV(func: @"enum") void {
     procs.glPathCoverDepthFuncNV(func);
 }
-pub inline fn glCoverFillPathNV(path: c_uint, coverMode: Enum) void {
+pub inline fn glCoverFillPathNV(path: c_uint, coverMode: @"enum") void {
     procs.glCoverFillPathNV(path, coverMode);
 }
-pub inline fn glCoverStrokePathNV(path: c_uint, coverMode: Enum) void {
+pub inline fn glCoverStrokePathNV(path: c_uint, coverMode: @"enum") void {
     procs.glCoverStrokePathNV(path, coverMode);
 }
-pub inline fn glCoverFillPathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glCoverFillPathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, coverMode: @"enum", transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
 }
-pub inline fn glCoverStrokePathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glCoverStrokePathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, coverMode: @"enum", transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
 }
-pub inline fn glGetPathParameterivNV(path: c_uint, pname: Enum, value: [*c]c_int) void {
+pub inline fn glGetPathParameterivNV(path: c_uint, pname: @"enum", value: [*c]c_int) void {
     procs.glGetPathParameterivNV(path, pname, value);
 }
-pub inline fn glGetPathParameterfvNV(path: c_uint, pname: Enum, value: [*c]f32) void {
+pub inline fn glGetPathParameterfvNV(path: c_uint, pname: @"enum", value: [*c]f32) void {
     procs.glGetPathParameterfvNV(path, pname, value);
 }
 pub inline fn glGetPathCommandsNV(path: c_uint, commands: [*c]u8) void {
@@ -5983,73 +5984,73 @@ pub inline fn glGetPathCoordsNV(path: c_uint, coords: [*c]f32) void {
 pub inline fn glGetPathDashArrayNV(path: c_uint, dashArray: [*c]f32) void {
     procs.glGetPathDashArrayNV(path, dashArray);
 }
-pub inline fn glGetPathMetricsNV(metricQueryMask: Bitfield, numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, stride: c_int, metrics: [*c]f32) void {
+pub inline fn glGetPathMetricsNV(metricQueryMask: Bitfield, numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, stride: c_int, metrics: [*c]f32) void {
     procs.glGetPathMetricsNV(metricQueryMask, numPaths, pathNameType, paths, pathBase, stride, metrics);
 }
 pub inline fn glGetPathMetricRangeNV(metricQueryMask: Bitfield, firstPathName: c_uint, numPaths: c_int, stride: c_int, metrics: [*c]f32) void {
     procs.glGetPathMetricRangeNV(metricQueryMask, firstPathName, numPaths, stride, metrics);
 }
-pub inline fn glGetPathSpacingNV(pathListMode: Enum, numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, advanceScale: f32, kerningScale: f32, transformType: Enum, returnedSpacing: [*c]f32) void {
+pub inline fn glGetPathSpacingNV(pathListMode: @"enum", numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, advanceScale: f32, kerningScale: f32, transformType: @"enum", returnedSpacing: [*c]f32) void {
     procs.glGetPathSpacingNV(pathListMode, numPaths, pathNameType, paths, pathBase, advanceScale, kerningScale, transformType, returnedSpacing);
 }
-pub inline fn glIsPointInFillPathNV(path: c_uint, mask: c_uint, x: f32, y: f32) Boolean {
+pub inline fn glIsPointInFillPathNV(path: c_uint, mask: c_uint, x: f32, y: f32) @"bool" {
     return procs.glIsPointInFillPathNV(path, mask, x, y);
 }
-pub inline fn glIsPointInStrokePathNV(path: c_uint, x: f32, y: f32) Boolean {
+pub inline fn glIsPointInStrokePathNV(path: c_uint, x: f32, y: f32) @"bool" {
     return procs.glIsPointInStrokePathNV(path, x, y);
 }
 pub inline fn glGetPathLengthNV(path: c_uint, startSegment: c_int, numSegments: c_int) f32 {
     return procs.glGetPathLengthNV(path, startSegment, numSegments);
 }
-pub inline fn glPointAlongPathNV(path: c_uint, startSegment: c_int, numSegments: c_int, distance: f32, x: [*c]f32, y: [*c]f32, tangentX: [*c]f32, tangentY: [*c]f32) Boolean {
+pub inline fn glPointAlongPathNV(path: c_uint, startSegment: c_int, numSegments: c_int, distance: f32, x: [*c]f32, y: [*c]f32, tangentX: [*c]f32, tangentY: [*c]f32) @"bool" {
     return procs.glPointAlongPathNV(path, startSegment, numSegments, distance, x, y, tangentX, tangentY);
 }
-pub inline fn glMatrixLoad3x2fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixLoad3x2fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixLoad3x2fNV(matrixMode, m);
 }
-pub inline fn glMatrixLoad3x3fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixLoad3x3fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixLoad3x3fNV(matrixMode, m);
 }
-pub inline fn glMatrixLoadTranspose3x3fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixLoadTranspose3x3fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixLoadTranspose3x3fNV(matrixMode, m);
 }
-pub inline fn glMatrixMult3x2fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixMult3x2fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixMult3x2fNV(matrixMode, m);
 }
-pub inline fn glMatrixMult3x3fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixMult3x3fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixMult3x3fNV(matrixMode, m);
 }
-pub inline fn glMatrixMultTranspose3x3fNV(matrixMode: Enum, m: [*c]const f32) void {
+pub inline fn glMatrixMultTranspose3x3fNV(matrixMode: @"enum", m: [*c]const f32) void {
     procs.glMatrixMultTranspose3x3fNV(matrixMode, m);
 }
-pub inline fn glStencilThenCoverFillPathNV(path: c_uint, fillMode: Enum, mask: c_uint, coverMode: Enum) void {
+pub inline fn glStencilThenCoverFillPathNV(path: c_uint, fillMode: @"enum", mask: c_uint, coverMode: @"enum") void {
     procs.glStencilThenCoverFillPathNV(path, fillMode, mask, coverMode);
 }
-pub inline fn glStencilThenCoverStrokePathNV(path: c_uint, reference: c_int, mask: c_uint, coverMode: Enum) void {
+pub inline fn glStencilThenCoverStrokePathNV(path: c_uint, reference: c_int, mask: c_uint, coverMode: @"enum") void {
     procs.glStencilThenCoverStrokePathNV(path, reference, mask, coverMode);
 }
-pub inline fn glStencilThenCoverFillPathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, fillMode: Enum, mask: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glStencilThenCoverFillPathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, fillMode: @"enum", mask: c_uint, coverMode: @"enum", transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glStencilThenCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, coverMode, transformType, transformValues);
 }
-pub inline fn glStencilThenCoverStrokePathInstancedNV(numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) void {
+pub inline fn glStencilThenCoverStrokePathInstancedNV(numPaths: c_int, pathNameType: @"enum", paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, coverMode: @"enum", transformType: @"enum", transformValues: [*c]const f32) void {
     procs.glStencilThenCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, coverMode, transformType, transformValues);
 }
-pub inline fn glPathGlyphIndexRangeNV(fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, pathParameterTemplate: c_uint, emScale: f32, baseAndCount: [*c]c_uint) Enum {
+pub inline fn glPathGlyphIndexRangeNV(fontTarget: @"enum", fontName: ?*const anyopaque, fontStyle: Bitfield, pathParameterTemplate: c_uint, emScale: f32, baseAndCount: [*c]c_uint) @"enum" {
     return procs.glPathGlyphIndexRangeNV(fontTarget, fontName, fontStyle, pathParameterTemplate, emScale, baseAndCount);
 }
-pub inline fn glPathGlyphIndexArrayNV(firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) Enum {
+pub inline fn glPathGlyphIndexArrayNV(firstPathName: c_uint, fontTarget: @"enum", fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) @"enum" {
     return procs.glPathGlyphIndexArrayNV(firstPathName, fontTarget, fontName, fontStyle, firstGlyphIndex, numGlyphs, pathParameterTemplate, emScale);
 }
-pub inline fn glPathMemoryGlyphIndexArrayNV(firstPathName: c_uint, fontTarget: Enum, fontSize: c_ulong, fontData: ?*const anyopaque, faceIndex: c_int, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) Enum {
+pub inline fn glPathMemoryGlyphIndexArrayNV(firstPathName: c_uint, fontTarget: @"enum", fontSize: c_ulong, fontData: ?*const anyopaque, faceIndex: c_int, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) @"enum" {
     return procs.glPathMemoryGlyphIndexArrayNV(firstPathName, fontTarget, fontSize, fontData, faceIndex, firstGlyphIndex, numGlyphs, pathParameterTemplate, emScale);
 }
-pub inline fn glProgramPathFragmentInputGenNV(program: c_uint, location: c_int, genMode: Enum, components: c_int, coeffs: [*c]const f32) void {
+pub inline fn glProgramPathFragmentInputGenNV(program: c_uint, location: c_int, genMode: @"enum", components: c_int, coeffs: [*c]const f32) void {
     procs.glProgramPathFragmentInputGenNV(program, location, genMode, components, coeffs);
 }
-pub inline fn glGetProgramResourcefvNV(program: c_uint, programInterface: Enum, index: c_uint, propCount: c_int, props: [*c]const Enum, count: c_int, length: [*c]c_int, params: [*c]f32) void {
+pub inline fn glGetProgramResourcefvNV(program: c_uint, programInterface: @"enum", index: c_uint, propCount: c_int, props: [*c]const @"enum", count: c_int, length: [*c]c_int, params: [*c]f32) void {
     procs.glGetProgramResourcefvNV(program, programInterface, index, propCount, props, count, length, params);
 }
-pub inline fn glFramebufferSampleLocationsfvNV(target: Enum, start: c_uint, count: c_int, v: [*c]const f32) void {
+pub inline fn glFramebufferSampleLocationsfvNV(target: @"enum", start: c_uint, count: c_int, v: [*c]const f32) void {
     procs.glFramebufferSampleLocationsfvNV(target, start, count, v);
 }
 pub inline fn glNamedFramebufferSampleLocationsfvNV(framebuffer: c_uint, start: c_uint, count: c_int, v: [*c]const f32) void {
@@ -6064,31 +6065,31 @@ pub inline fn glScissorExclusiveNV(x: c_int, y: c_int, width: c_int, height: c_i
 pub inline fn glScissorExclusiveArrayvNV(first: c_uint, count: c_int, v: [*c]const c_int) void {
     procs.glScissorExclusiveArrayvNV(first, count, v);
 }
-pub inline fn glMakeBufferResidentNV(target: Enum, access: Enum) void {
+pub inline fn glMakeBufferResidentNV(target: @"enum", access: @"enum") void {
     procs.glMakeBufferResidentNV(target, access);
 }
-pub inline fn glMakeBufferNonResidentNV(target: Enum) void {
+pub inline fn glMakeBufferNonResidentNV(target: @"enum") void {
     procs.glMakeBufferNonResidentNV(target);
 }
-pub inline fn glIsBufferResidentNV(target: Enum) Boolean {
+pub inline fn glIsBufferResidentNV(target: @"enum") @"bool" {
     return procs.glIsBufferResidentNV(target);
 }
-pub inline fn glMakeNamedBufferResidentNV(buffer: c_uint, access: Enum) void {
+pub inline fn glMakeNamedBufferResidentNV(buffer: c_uint, access: @"enum") void {
     procs.glMakeNamedBufferResidentNV(buffer, access);
 }
 pub inline fn glMakeNamedBufferNonResidentNV(buffer: c_uint) void {
     procs.glMakeNamedBufferNonResidentNV(buffer);
 }
-pub inline fn glIsNamedBufferResidentNV(buffer: c_uint) Boolean {
+pub inline fn glIsNamedBufferResidentNV(buffer: c_uint) @"bool" {
     return procs.glIsNamedBufferResidentNV(buffer);
 }
-pub inline fn glGetBufferParameterui64vNV(target: Enum, pname: Enum, params: [*c]u64) void {
+pub inline fn glGetBufferParameterui64vNV(target: @"enum", pname: @"enum", params: [*c]u64) void {
     procs.glGetBufferParameterui64vNV(target, pname, params);
 }
-pub inline fn glGetNamedBufferParameterui64vNV(buffer: c_uint, pname: Enum, params: [*c]u64) void {
+pub inline fn glGetNamedBufferParameterui64vNV(buffer: c_uint, pname: @"enum", params: [*c]u64) void {
     procs.glGetNamedBufferParameterui64vNV(buffer, pname, params);
 }
-pub inline fn glGetIntegerui64vNV(value: Enum, result: [*c]u64) void {
+pub inline fn glGetIntegerui64vNV(value: @"enum", result: [*c]u64) void {
     procs.glGetIntegerui64vNV(value, result);
 }
 pub inline fn glUniformui64NV(location: c_int, value: u64) void {
@@ -6109,22 +6110,22 @@ pub inline fn glProgramUniformui64vNV(program: c_uint, location: c_int, count: c
 pub inline fn glBindShadingRateImageNV(texture: c_uint) void {
     procs.glBindShadingRateImageNV(texture);
 }
-pub inline fn glGetShadingRateImagePaletteNV(viewport: c_uint, entry: c_uint, rate: [*c]Enum) void {
+pub inline fn glGetShadingRateImagePaletteNV(viewport: c_uint, entry: c_uint, rate: [*c]@"enum") void {
     procs.glGetShadingRateImagePaletteNV(viewport, entry, rate);
 }
-pub inline fn glGetShadingRateSampleLocationivNV(rate: Enum, samples: c_uint, index: c_uint, location: [*c]c_int) void {
+pub inline fn glGetShadingRateSampleLocationivNV(rate: @"enum", samples: c_uint, index: c_uint, location: [*c]c_int) void {
     procs.glGetShadingRateSampleLocationivNV(rate, samples, index, location);
 }
-pub inline fn glShadingRateImageBarrierNV(synchronize: Boolean) void {
+pub inline fn glShadingRateImageBarrierNV(synchronize: @"bool") void {
     procs.glShadingRateImageBarrierNV(synchronize);
 }
-pub inline fn glShadingRateImagePaletteNV(viewport: c_uint, first: c_uint, count: c_int, rates: [*c]const Enum) void {
+pub inline fn glShadingRateImagePaletteNV(viewport: c_uint, first: c_uint, count: c_int, rates: [*c]const @"enum") void {
     procs.glShadingRateImagePaletteNV(viewport, first, count, rates);
 }
-pub inline fn glShadingRateSampleOrderNV(order: Enum) void {
+pub inline fn glShadingRateSampleOrderNV(order: @"enum") void {
     procs.glShadingRateSampleOrderNV(order);
 }
-pub inline fn glShadingRateSampleOrderCustomNV(rate: Enum, samples: c_uint, locations: [*c]const c_int) void {
+pub inline fn glShadingRateSampleOrderCustomNV(rate: @"enum", samples: c_uint, locations: [*c]const c_int) void {
     procs.glShadingRateSampleOrderCustomNV(rate, samples, locations);
 }
 pub inline fn glTextureBarrierNV() void {
@@ -6178,57 +6179,57 @@ pub inline fn glVertexAttribL3ui64vNV(index: c_uint, v: [*c]const u64) void {
 pub inline fn glVertexAttribL4ui64vNV(index: c_uint, v: [*c]const u64) void {
     procs.glVertexAttribL4ui64vNV(index, v);
 }
-pub inline fn glGetVertexAttribLi64vNV(index: c_uint, pname: Enum, params: [*c]i64) void {
+pub inline fn glGetVertexAttribLi64vNV(index: c_uint, pname: @"enum", params: [*c]i64) void {
     procs.glGetVertexAttribLi64vNV(index, pname, params);
 }
-pub inline fn glGetVertexAttribLui64vNV(index: c_uint, pname: Enum, params: [*c]u64) void {
+pub inline fn glGetVertexAttribLui64vNV(index: c_uint, pname: @"enum", params: [*c]u64) void {
     procs.glGetVertexAttribLui64vNV(index, pname, params);
 }
-pub inline fn glVertexAttribLFormatNV(index: c_uint, size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glVertexAttribLFormatNV(index: c_uint, size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glVertexAttribLFormatNV(index, size, @"type", stride);
 }
-pub inline fn glBufferAddressRangeNV(pname: Enum, index: c_uint, address: u64, length: c_ulong) void {
+pub inline fn glBufferAddressRangeNV(pname: @"enum", index: c_uint, address: u64, length: c_ulong) void {
     procs.glBufferAddressRangeNV(pname, index, address, length);
 }
-pub inline fn glVertexFormatNV(size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glVertexFormatNV(size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glVertexFormatNV(size, @"type", stride);
 }
-pub inline fn glNormalFormatNV(@"type": Enum, stride: c_int) void {
+pub inline fn glNormalFormatNV(@"type": @"enum", stride: c_int) void {
     procs.glNormalFormatNV(@"type", stride);
 }
-pub inline fn glColorFormatNV(size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glColorFormatNV(size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glColorFormatNV(size, @"type", stride);
 }
-pub inline fn glIndexFormatNV(@"type": Enum, stride: c_int) void {
+pub inline fn glIndexFormatNV(@"type": @"enum", stride: c_int) void {
     procs.glIndexFormatNV(@"type", stride);
 }
-pub inline fn glTexCoordFormatNV(size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glTexCoordFormatNV(size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glTexCoordFormatNV(size, @"type", stride);
 }
 pub inline fn glEdgeFlagFormatNV(stride: c_int) void {
     procs.glEdgeFlagFormatNV(stride);
 }
-pub inline fn glSecondaryColorFormatNV(size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glSecondaryColorFormatNV(size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glSecondaryColorFormatNV(size, @"type", stride);
 }
-pub inline fn glFogCoordFormatNV(@"type": Enum, stride: c_int) void {
+pub inline fn glFogCoordFormatNV(@"type": @"enum", stride: c_int) void {
     procs.glFogCoordFormatNV(@"type", stride);
 }
-pub inline fn glVertexAttribFormatNV(index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int) void {
+pub inline fn glVertexAttribFormatNV(index: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", stride: c_int) void {
     procs.glVertexAttribFormatNV(index, size, @"type", normalized, stride);
 }
-pub inline fn glVertexAttribIFormatNV(index: c_uint, size: c_int, @"type": Enum, stride: c_int) void {
+pub inline fn glVertexAttribIFormatNV(index: c_uint, size: c_int, @"type": @"enum", stride: c_int) void {
     procs.glVertexAttribIFormatNV(index, size, @"type", stride);
 }
-pub inline fn glGetIntegerui64i_vNV(value: Enum, index: c_uint, result: [*c]u64) void {
+pub inline fn glGetIntegerui64i_vNV(value: @"enum", index: c_uint, result: [*c]u64) void {
     procs.glGetIntegerui64i_vNV(value, index, result);
 }
-pub inline fn glViewportSwizzleNV(index: c_uint, swizzlex: Enum, swizzley: Enum, swizzlez: Enum, swizzlew: Enum) void {
+pub inline fn glViewportSwizzleNV(index: c_uint, swizzlex: @"enum", swizzley: @"enum", swizzlez: @"enum", swizzlew: @"enum") void {
     procs.glViewportSwizzleNV(index, swizzlex, swizzley, swizzlez, swizzlew);
 }
-pub inline fn glFramebufferTextureMultiviewOVR(target: Enum, attachment: Enum, texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void {
+pub inline fn glFramebufferTextureMultiviewOVR(target: @"enum", attachment: @"enum", texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void {
     procs.glFramebufferTextureMultiviewOVR(target, attachment, texture, level, baseViewIndex, numViews);
 }
-pub inline fn glNamedFramebufferTextureMultiviewOVR(framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void {
+pub inline fn glNamedFramebufferTextureMultiviewOVR(framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void {
     procs.glNamedFramebufferTextureMultiviewOVR(framebuffer, attachment, texture, level, baseViewIndex, numViews);
 }
