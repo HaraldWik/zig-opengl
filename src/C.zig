@@ -1,5 +1,3 @@
-pub const c = @cImport(@cInclude("GL/gl.h"));
-
 pub const APIENTRY: @import("std").builtin.CallingConvention = if (@import("builtin").os.tag == .windows) .winapi else .c;
 
 pub const GLenum = c_uint;
