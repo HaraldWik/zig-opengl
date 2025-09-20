@@ -1,6 +1,5 @@
 const std = @import("std");
 const builtin = @import("builtin");
-// pub const c = @import("c");
 pub const c = @cImport(@cInclude("GL/gl.h"));
 pub const Procs = @import("Procs.zig");
 
