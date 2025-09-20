@@ -1067,3 +1067,11 @@ glMultiTexCoord4ivARB: *const fn (target: GLenum, v: [*c]const GLint) callconv(A
 glMultiTexCoord4sARB: *const fn (target: GLenum, s: GLshort, t: GLshort, r: GLshort, q: GLshort) callconv(APIENTRY) void,
 glMultiTexCoord4svARB: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
 glBlendEquationSeparateATI: *const fn (modeRGB: GLenum, modeA: GLenum) callconv(APIENTRY) void,
+
+pub fn init(loader: anytype) !@This() {
+    var procs: @This() = undefined;
+    inline for (@typeInfo(@TypeOf(procs)).@"struct".fields) |proc| {
+        @field(procs, proc.name) = @ptrCast(loader(proc.name) orelse return error.ProcNotFound);
+    }
+    return procs;
+}

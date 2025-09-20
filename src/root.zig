@@ -1,11 +1,10 @@
-pub const C = @import("C.zig");
+pub const c = @import("c.zig");
+pub const Procs = @import("Procs.zig");
 
-pub var c: C = undefined;
+pub var procs: Procs = undefined;
 
 pub fn init(loader: anytype) !void {
-    inline for (@typeInfo(@TypeOf(c)).@"struct".fields) |proc| {
-        @field(c, proc.name) = @ptrCast(loader(proc.name) orelse return error.ProcNotFound);
-    }
+    procs = try .init(loader);
 }
 
 pub fn clearIndex(i: f32) void {
@@ -21,6 +20,6 @@ pub fn clear(mask: packed struct(u3) {
     depth: bool = false,
     stencil: bool = false,
 }) void {
-    const bitmask: c_uint = @intCast(if (mask.color) C.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) C.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) C.GL_STENCIL_BUFFER_BIT else 0);
+    const bitmask: c_uint = @intCast(if (mask.color) c.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0);
     c.glClear(bitmask);
 }

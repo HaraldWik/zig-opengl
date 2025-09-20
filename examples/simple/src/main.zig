@@ -19,7 +19,15 @@ pub fn main() !void {
 
     try gl.init(glfw.opengl.getProcAddress);
 
-    std.debug.print("{d}\n", .{@sizeOf(gl.C)});
+    std.debug.print("{d}\n", .{@sizeOf(gl.Procs)});
+
+    var n: c_int = undefined;
+    gl.c.glGetIntegerv(gl.C.GL_NUM_EXTENSIONS, &n);
+
+    for (0..@intCast(n)) |i| {
+        const ext = gl.c.glGetStringi(gl.c.GL_EXTENSIONS, i);
+        std.log.info("{s}", .{ext});
+    }
 
     while (!window.shouldClose()) {
         glfw.io.events.poll();
