@@ -1,1072 +1,1296 @@
 pub const APIENTRY: @import("std").builtin.CallingConvention = if (@import("builtin").os.tag == .windows) .winapi else .c;
 
-pub const GLenum = c_uint;
-pub const GLboolean = u8;
-pub const GLbitfield = c_uint;
-pub const GLvoid = anyopaque;
-pub const GLbyte = i8;
-pub const GLshort = c_short;
-pub const GLint = c_int;
-pub const GLubyte = u8;
-pub const GLushort = c_ushort;
-pub const GLuint = c_uint;
-pub const GLsizei = c_int;
-pub const GLclampf = f32;
-pub const GLclampd = f64;
+pub const Sync = *opaque {};
+pub const Enum = c_ushort;
+pub const Bitfield = c_uint;
+pub const Boolean = u8;
 
-// Boolean values
-pub const GL_FALSE: c_int = 0;
-pub const GL_TRUE: c_int = 1;
+pub const GLDEBUGPROC = ?*const fn (Enum, Enum, c_uint, Enum, c_int, [*c]const u8, ?*const anyopaque) callconv(.c) void;
+pub const GLDEBUGPROCARB = ?*const fn (Enum, Enum, c_uint, Enum, c_int, [*c]const u8, ?*const anyopaque) callconv(.c) void;
+pub const struct__cl_context = opaque {};
+pub const struct__cl_event = opaque {};
+pub const GLeglImageOES = ?*anyopaque;
+pub const GLVULKANPROCNV = ?*const fn () callconv(.c) void;
 
-// Data types
-pub const GL_BYTE: c_int = 0x1400;
-pub const GL_UNSIGNED_BYTE: c_int = 0x1401;
-pub const GL_SHORT: c_int = 0x1402;
-pub const GL_UNSIGNED_SHORT: c_int = 0x1403;
-pub const GL_INT: c_int = 0x1404;
-pub const GL_UNSIGNED_INT: c_int = 0x1405;
-pub const GL_FLOAT: c_int = 0x1406;
-pub const GL_2_BYTES: c_int = 0x1407;
-pub const GL_3_BYTES: c_int = 0x1408;
-pub const GL_4_BYTES: c_int = 0x1409;
-pub const GL_DOUBLE: c_int = 0x140A;
-
-// Primitives
-pub const GL_POINTS: c_int = 0x0000;
-pub const GL_LINES: c_int = 0x0001;
-pub const GL_LINE_LOOP: c_int = 0x0002;
-pub const GL_LINE_STRIP: c_int = 0x0003;
-pub const GL_TRIANGLES: c_int = 0x0004;
-pub const GL_TRIANGLE_STRIP: c_int = 0x0005;
-pub const GL_TRIANGLE_FAN: c_int = 0x0006;
-pub const GL_QUADS: c_int = 0x0007;
-pub const GL_QUAD_STRIP: c_int = 0x0008;
-pub const GL_POLYGON: c_int = 0x0009;
-
-// Vertex Arrays
-pub const GL_VERTEX_ARRAY: c_int = 0x8074;
-pub const GL_NORMAL_ARRAY: c_int = 0x8075;
-pub const GL_COLOR_ARRAY: c_int = 0x8076;
-pub const GL_INDEX_ARRAY: c_int = 0x8077;
-pub const GL_TEXTURE_COORD_ARRAY: c_int = 0x8078;
-pub const GL_EDGE_FLAG_ARRAY: c_int = 0x8079;
-pub const GL_VERTEX_ARRAY_SIZE: c_int = 0x807A;
-pub const GL_VERTEX_ARRAY_TYPE: c_int = 0x807B;
-pub const GL_VERTEX_ARRAY_STRIDE: c_int = 0x807C;
-pub const GL_NORMAL_ARRAY_TYPE: c_int = 0x807E;
-pub const GL_NORMAL_ARRAY_STRIDE: c_int = 0x807F;
-pub const GL_COLOR_ARRAY_SIZE: c_int = 0x8081;
-pub const GL_COLOR_ARRAY_TYPE: c_int = 0x8082;
-pub const GL_COLOR_ARRAY_STRIDE: c_int = 0x8083;
-pub const GL_INDEX_ARRAY_TYPE: c_int = 0x8085;
-pub const GL_INDEX_ARRAY_STRIDE: c_int = 0x8086;
-pub const GL_TEXTURE_COORD_ARRAY_SIZE: c_int = 0x8088;
-pub const GL_TEXTURE_COORD_ARRAY_TYPE: c_int = 0x8089;
-pub const GL_TEXTURE_COORD_ARRAY_STRIDE: c_int = 0x808A;
-pub const GL_EDGE_FLAG_ARRAY_STRIDE: c_int = 0x808C;
-pub const GL_VERTEX_ARRAY_POINTER: c_int = 0x808E;
-pub const GL_NORMAL_ARRAY_POINTER: c_int = 0x808F;
-pub const GL_COLOR_ARRAY_POINTER: c_int = 0x8090;
-pub const GL_INDEX_ARRAY_POINTER: c_int = 0x8091;
-pub const GL_TEXTURE_COORD_ARRAY_POINTER: c_int = 0x8092;
-pub const GL_EDGE_FLAG_ARRAY_POINTER: c_int = 0x8093;
-pub const GL_V2F: c_int = 0x2A20;
-pub const GL_V3F: c_int = 0x2A21;
-pub const GL_C4UB_V2F: c_int = 0x2A22;
-pub const GL_C4UB_V3F: c_int = 0x2A23;
-pub const GL_C3F_V3F: c_int = 0x2A24;
-pub const GL_N3F_V3F: c_int = 0x2A25;
-pub const GL_C4F_N3F_V3F: c_int = 0x2A26;
-pub const GL_T2F_V3F: c_int = 0x2A27;
-pub const GL_T4F_V4F: c_int = 0x2A28;
-pub const GL_T2F_C4UB_V3F: c_int = 0x2A29;
-pub const GL_T2F_C3F_V3F: c_int = 0x2A2A;
-pub const GL_T2F_N3F_V3F: c_int = 0x2A2B;
-pub const GL_T2F_C4F_N3F_V3F: c_int = 0x2A2C;
-pub const GL_T4F_C4F_N3F_V4F: c_int = 0x2A2D;
-
-// Matrix Mode
-pub const GL_MATRIX_MODE: c_int = 0x0BA0;
-pub const GL_MODELVIEW: c_int = 0x1700;
-pub const GL_PROJECTION: c_int = 0x1701;
-pub const GL_TEXTURE: c_int = 0x1702;
-
-// Points
-pub const GL_POINT_SMOOTH: c_int = 0x0B10;
-pub const GL_POINT_SIZE: c_int = 0x0B11;
-pub const GL_POINT_SIZE_GRANULARITY: c_int = 0x0B13;
-pub const GL_POINT_SIZE_RANGE: c_int = 0x0B12;
-
-// Lines
-pub const GL_LINE_SMOOTH: c_int = 0x0B20;
-pub const GL_LINE_STIPPLE: c_int = 0x0B24;
-pub const GL_LINE_STIPPLE_PATTERN: c_int = 0x0B25;
-pub const GL_LINE_STIPPLE_REPEAT: c_int = 0x0B26;
-pub const GL_LINE_WIDTH: c_int = 0x0B21;
-pub const GL_LINE_WIDTH_GRANULARITY: c_int = 0x0B23;
-pub const GL_LINE_WIDTH_RANGE: c_int = 0x0B22;
-
-// Polygons
-pub const GL_POINT: c_int = 0x1B00;
-pub const GL_LINE: c_int = 0x1B01;
-pub const GL_FILL: c_int = 0x1B02;
-pub const GL_CW: c_int = 0x0900;
-pub const GL_CCW: c_int = 0x0901;
-pub const GL_FRONT: c_int = 0x0404;
-pub const GL_BACK: c_int = 0x0405;
-pub const GL_POLYGON_MODE: c_int = 0x0B40;
-pub const GL_POLYGON_SMOOTH: c_int = 0x0B41;
-pub const GL_POLYGON_STIPPLE: c_int = 0x0B42;
-pub const GL_EDGE_FLAG: c_int = 0x0B43;
-pub const GL_CULL_FACE: c_int = 0x0B44;
-pub const GL_CULL_FACE_MODE: c_int = 0x0B45;
-pub const GL_FRONT_FACE: c_int = 0x0B46;
-pub const GL_POLYGON_OFFSET_FACTOR: c_int = 0x8038;
-pub const GL_POLYGON_OFFSET_UNITS: c_int = 0x2A00;
-pub const GL_POLYGON_OFFSET_POINT: c_int = 0x2A01;
-pub const GL_POLYGON_OFFSET_LINE: c_int = 0x2A02;
-pub const GL_POLYGON_OFFSET_FILL: c_int = 0x8037;
-
-// Display Lists
-pub const GL_COMPILE: c_int = 0x1300;
-pub const GL_COMPILE_AND_EXECUTE: c_int = 0x1301;
-pub const GL_LIST_BASE: c_int = 0x0B32;
-pub const GL_LIST_INDEX: c_int = 0x0B33;
-pub const GL_LIST_MODE: c_int = 0x0B30;
-
-// Depth buffer
-pub const GL_NEVER: c_int = 0x0200;
-pub const GL_LESS: c_int = 0x0201;
-pub const GL_EQUAL: c_int = 0x0202;
-pub const GL_LEQUAL: c_int = 0x0203;
-pub const GL_GREATER: c_int = 0x0204;
-pub const GL_NOTEQUAL: c_int = 0x0205;
-pub const GL_GEQUAL: c_int = 0x0206;
-pub const GL_ALWAYS: c_int = 0x0207;
-pub const GL_DEPTH_TEST: c_int = 0x0B71;
-pub const GL_DEPTH_BITS: c_int = 0x0D56;
-pub const GL_DEPTH_CLEAR_VALUE: c_int = 0x0B73;
-pub const GL_DEPTH_FUNC: c_int = 0x0B74;
-pub const GL_DEPTH_RANGE: c_int = 0x0B70;
-pub const GL_DEPTH_WRITEMASK: c_int = 0x0B72;
-pub const GL_DEPTH_COMPONENT: c_int = 0x1902;
-
-// Lighting
-pub const GL_LIGHTING: c_int = 0x0B50;
-pub const GL_LIGHT0: c_int = 0x4000;
-pub const GL_LIGHT1: c_int = 0x4001;
-pub const GL_LIGHT2: c_int = 0x4002;
-pub const GL_LIGHT3: c_int = 0x4003;
-pub const GL_LIGHT4: c_int = 0x4004;
-pub const GL_LIGHT5: c_int = 0x4005;
-pub const GL_LIGHT6: c_int = 0x4006;
-pub const GL_LIGHT7: c_int = 0x4007;
-pub const GL_SPOT_EXPONENT: c_int = 0x1205;
-pub const GL_SPOT_CUTOFF: c_int = 0x1206;
-pub const GL_CONSTANT_ATTENUATION: c_int = 0x1207;
-pub const GL_LINEAR_ATTENUATION: c_int = 0x1208;
-pub const GL_QUADRATIC_ATTENUATION: c_int = 0x1209;
-pub const GL_AMBIENT: c_int = 0x1200;
-pub const GL_DIFFUSE: c_int = 0x1201;
-pub const GL_SPECULAR: c_int = 0x1202;
-pub const GL_SHININESS: c_int = 0x1601;
-pub const GL_EMISSION: c_int = 0x1600;
-pub const GL_POSITION: c_int = 0x1203;
-pub const GL_SPOT_DIRECTION: c_int = 0x1204;
-pub const GL_AMBIENT_AND_DIFFUSE: c_int = 0x1602;
-pub const GL_COLOR_INDEXES: c_int = 0x1603;
-pub const GL_LIGHT_MODEL_TWO_SIDE: c_int = 0x0B52;
-pub const GL_LIGHT_MODEL_LOCAL_VIEWER: c_int = 0x0B51;
-pub const GL_LIGHT_MODEL_AMBIENT: c_int = 0x0B53;
-pub const GL_FRONT_AND_BACK: c_int = 0x0408;
-pub const GL_SHADE_MODEL: c_int = 0x0B54;
-pub const GL_FLAT: c_int = 0x1D00;
-pub const GL_SMOOTH: c_int = 0x1D01;
-pub const GL_COLOR_MATERIAL: c_int = 0x0B57;
-pub const GL_COLOR_MATERIAL_FACE: c_int = 0x0B55;
-pub const GL_COLOR_MATERIAL_PARAMETER: c_int = 0x0B56;
-pub const GL_NORMALIZE: c_int = 0x0BA1;
-
-// User clipping planes
-pub const GL_CLIP_PLANE0: c_int = 0x3000;
-pub const GL_CLIP_PLANE1: c_int = 0x3001;
-pub const GL_CLIP_PLANE2: c_int = 0x3002;
-pub const GL_CLIP_PLANE3: c_int = 0x3003;
-pub const GL_CLIP_PLANE4: c_int = 0x3004;
-pub const GL_CLIP_PLANE5: c_int = 0x3005;
-
-// Accumulation buffer
-pub const GL_ACCUM_RED_BITS: c_int = 0x0D58;
-pub const GL_ACCUM_GREEN_BITS: c_int = 0x0D59;
-pub const GL_ACCUM_BLUE_BITS: c_int = 0x0D5A;
-pub const GL_ACCUM_ALPHA_BITS: c_int = 0x0D5B;
-pub const GL_ACCUM_CLEAR_VALUE: c_int = 0x0B80;
-pub const GL_ACCUM: c_int = 0x0100;
-pub const GL_ADD: c_int = 0x0104;
-pub const GL_LOAD: c_int = 0x0101;
-pub const GL_MULT: c_int = 0x0103;
-pub const GL_RETURN: c_int = 0x0102;
-
-// Alpha testing
-pub const GL_ALPHA_TEST: c_int = 0x0BC0;
-pub const GL_ALPHA_TEST_REF: c_int = 0x0BC2;
-pub const GL_ALPHA_TEST_FUNC: c_int = 0x0BC1;
-
-// Blending
-pub const GL_BLEND: c_int = 0x0BE2;
-pub const GL_BLEND_SRC: c_int = 0x0BE1;
-pub const GL_BLEND_DST: c_int = 0x0BE0;
-pub const GL_ZERO: c_int = 0x0;
-pub const GL_ONE: c_int = 1;
-pub const GL_SRC_COLOR: c_int = 0x0300;
-pub const GL_ONE_MINUS_SRC_COLOR: c_int = 0x0301;
-pub const GL_SRC_ALPHA: c_int = 0x0302;
-pub const GL_ONE_MINUS_SRC_ALPHA: c_int = 0x0303;
-pub const GL_DST_ALPHA: c_int = 0x0304;
-pub const GL_ONE_MINUS_DST_ALPHA: c_int = 0x0305;
-pub const GL_DST_COLOR: c_int = 0x0306;
-pub const GL_ONE_MINUS_DST_COLOR: c_int = 0x0307;
-pub const GL_SRC_ALPHA_SATURATE: c_int = 0x0308;
-
-// Render Mode
-pub const GL_FEEDBACK: c_int = 0x1C01;
-pub const GL_RENDER: c_int = 0x1C00;
-pub const GL_SELECT: c_int = 0x1C02;
-
-// Feedback
-pub const GL_2D: c_int = 0x0600;
-pub const GL_3D: c_int = 0x0601;
-pub const GL_3D_COLOR: c_int = 0x0602;
-pub const GL_3D_COLOR_TEXTURE: c_int = 0x0603;
-pub const GL_4D_COLOR_TEXTURE: c_int = 0x0604;
-pub const GL_POINT_TOKEN: c_int = 0x0701;
-pub const GL_LINE_TOKEN: c_int = 0x0702;
-pub const GL_LINE_RESET_TOKEN: c_int = 0x0707;
-pub const GL_POLYGON_TOKEN: c_int = 0x0703;
-pub const GL_BITMAP_TOKEN: c_int = 0x0704;
-pub const GL_DRAW_PIXEL_TOKEN: c_int = 0x0705;
-pub const GL_COPY_PIXEL_TOKEN: c_int = 0x0706;
-pub const GL_PASS_THROUGH_TOKEN: c_int = 0x0700;
-pub const GL_FEEDBACK_BUFFER_POINTER: c_int = 0x0DF0;
-pub const GL_FEEDBACK_BUFFER_SIZE: c_int = 0x0DF1;
-pub const GL_FEEDBACK_BUFFER_TYPE: c_int = 0x0DF2;
-
-// Selection
-pub const GL_SELECTION_BUFFER_POINTER: c_int = 0x0DF3;
-pub const GL_SELECTION_BUFFER_SIZE: c_int = 0x0DF4;
-
-// Fog
-pub const GL_FOG: c_int = 0x0B60;
-pub const GL_FOG_MODE: c_int = 0x0B65;
-pub const GL_FOG_DENSITY: c_int = 0x0B62;
-pub const GL_FOG_COLOR: c_int = 0x0B66;
-pub const GL_FOG_INDEX: c_int = 0x0B61;
-pub const GL_FOG_START: c_int = 0x0B63;
-pub const GL_FOG_END: c_int = 0x0B64;
-pub const GL_LINEAR: c_int = 0x2601;
-pub const GL_EXP: c_int = 0x0800;
-pub const GL_EXP2: c_int = 0x0801;
-
-// Logic Ops
-pub const GL_LOGIC_OP: c_int = 0x0BF1;
-pub const GL_INDEX_LOGIC_OP: c_int = 0x0BF1;
-pub const GL_COLOR_LOGIC_OP: c_int = 0x0BF2;
-pub const GL_LOGIC_OP_MODE: c_int = 0x0BF0;
-pub const GL_CLEAR: c_int = 0x1500;
-pub const GL_SET: c_int = 0x150F;
-pub const GL_COPY: c_int = 0x1503;
-pub const GL_COPY_INVERTED: c_int = 0x150C;
-pub const GL_NOOP: c_int = 0x1505;
-pub const GL_INVERT: c_int = 0x150A;
-pub const GL_AND: c_int = 0x1501;
-pub const GL_NAND: c_int = 0x150E;
-pub const GL_OR: c_int = 0x1507;
-pub const GL_NOR: c_int = 0x1508;
-pub const GL_XOR: c_int = 0x1506;
-pub const GL_EQUIV: c_int = 0x1509;
-pub const GL_AND_REVERSE: c_int = 0x1502;
-pub const GL_AND_INVERTED: c_int = 0x1504;
-pub const GL_OR_REVERSE: c_int = 0x150B;
-pub const GL_OR_INVERTED: c_int = 0x150D;
-
-// Stencil
-pub const GL_STENCIL_BITS: c_int = 0x0D57;
-pub const GL_STENCIL_TEST: c_int = 0x0B90;
-pub const GL_STENCIL_CLEAR_VALUE: c_int = 0x0B91;
-pub const GL_STENCIL_FUNC: c_int = 0x0B92;
-pub const GL_STENCIL_VALUE_MASK: c_int = 0x0B93;
-pub const GL_STENCIL_FAIL: c_int = 0x0B94;
-pub const GL_STENCIL_PASS_DEPTH_FAIL: c_int = 0x0B95;
-pub const GL_STENCIL_PASS_DEPTH_PASS: c_int = 0x0B96;
-pub const GL_STENCIL_REF: c_int = 0x0B97;
-pub const GL_STENCIL_WRITEMASK: c_int = 0x0B98;
-pub const GL_STENCIL_INDEX: c_int = 0x1901;
-pub const GL_KEEP: c_int = 0x1E00;
-pub const GL_REPLACE: c_int = 0x1E01;
-pub const GL_INCR: c_int = 0x1E02;
-pub const GL_DECR: c_int = 0x1E03;
-
-// Buffers, Pixel Drawing/Reading
-pub const GL_NONE: c_int = 0x0;
-pub const GL_LEFT: c_int = 0x0406;
-pub const GL_RIGHT: c_int = 0x0407;
-//GL_FRONT 0x0404
-//GL_BACK 0x0405
-//GL_FRONT_AND_BACK 0x0408
-pub const GL_FRONT_LEFT: c_int = 0x0400;
-pub const GL_FRONT_RIGHT: c_int = 0x0401;
-pub const GL_BACK_LEFT: c_int = 0x0402;
-pub const GL_BACK_RIGHT: c_int = 0x0403;
-pub const GL_AUX0: c_int = 0x0409;
-pub const GL_AUX1: c_int = 0x040A;
-pub const GL_AUX2: c_int = 0x040B;
-pub const GL_AUX3: c_int = 0x040C;
-pub const GL_COLOR_INDEX: c_int = 0x1900;
-pub const GL_RED: c_int = 0x1903;
-pub const GL_GREEN: c_int = 0x1904;
-pub const GL_BLUE: c_int = 0x1905;
-pub const GL_ALPHA: c_int = 0x1906;
-pub const GL_LUMINANCE: c_int = 0x1909;
-pub const GL_LUMINANCE_ALPHA: c_int = 0x190A;
-pub const GL_ALPHA_BITS: c_int = 0x0D55;
-pub const GL_RED_BITS: c_int = 0x0D52;
-pub const GL_GREEN_BITS: c_int = 0x0D53;
-pub const GL_BLUE_BITS: c_int = 0x0D54;
-pub const GL_INDEX_BITS: c_int = 0x0D51;
-pub const GL_SUBPIXEL_BITS: c_int = 0x0D50;
-pub const GL_AUX_BUFFERS: c_int = 0x0C00;
-pub const GL_READ_BUFFER: c_int = 0x0C02;
-pub const GL_DRAW_BUFFER: c_int = 0x0C01;
-pub const GL_DOUBLEBUFFER: c_int = 0x0C32;
-pub const GL_STEREO: c_int = 0x0C33;
-pub const GL_BITMAP: c_int = 0x1A00;
-pub const GL_COLOR: c_int = 0x1800;
-pub const GL_DEPTH: c_int = 0x1801;
-pub const GL_STENCIL: c_int = 0x1802;
-pub const GL_DITHER: c_int = 0x0BD0;
-pub const GL_RGB: c_int = 0x1907;
-pub const GL_RGBA: c_int = 0x1908;
-
-// Implementation limits
-pub const GL_MAX_LIST_NESTING: c_int = 0x0B31;
-pub const GL_MAX_EVAL_ORDER: c_int = 0x0D30;
-pub const GL_MAX_LIGHTS: c_int = 0x0D31;
-pub const GL_MAX_CLIP_PLANES: c_int = 0x0D32;
-pub const GL_MAX_TEXTURE_SIZE: c_int = 0x0D33;
-pub const GL_MAX_PIXEL_MAP_TABLE: c_int = 0x0D34;
-pub const GL_MAX_ATTRIB_STACK_DEPTH: c_int = 0x0D35;
-pub const GL_MAX_MODELVIEW_STACK_DEPTH: c_int = 0x0D36;
-pub const GL_MAX_NAME_STACK_DEPTH: c_int = 0x0D37;
-pub const GL_MAX_PROJECTION_STACK_DEPTH: c_int = 0x0D38;
-pub const GL_MAX_TEXTURE_STACK_DEPTH: c_int = 0x0D39;
-pub const GL_MAX_VIEWPORT_DIMS: c_int = 0x0D3A;
-pub const GL_MAX_CLIENT_ATTRIB_STACK_DEPTH: c_int = 0x0D3B;
-
-// Gets
-pub const GL_ATTRIB_STACK_DEPTH: c_int = 0x0BB0;
-pub const GL_CLIENT_ATTRIB_STACK_DEPTH: c_int = 0x0BB1;
-pub const GL_COLOR_CLEAR_VALUE: c_int = 0x0C22;
-pub const GL_COLOR_WRITEMASK: c_int = 0x0C23;
-pub const GL_CURRENT_INDEX: c_int = 0x0B01;
-pub const GL_CURRENT_COLOR: c_int = 0x0B00;
-pub const GL_CURRENT_NORMAL: c_int = 0x0B02;
-pub const GL_CURRENT_RASTER_COLOR: c_int = 0x0B04;
-pub const GL_CURRENT_RASTER_DISTANCE: c_int = 0x0B09;
-pub const GL_CURRENT_RASTER_INDEX: c_int = 0x0B05;
-pub const GL_CURRENT_RASTER_POSITION: c_int = 0x0B07;
-pub const GL_CURRENT_RASTER_TEXTURE_COORDS: c_int = 0x0B06;
-pub const GL_CURRENT_RASTER_POSITION_VALID: c_int = 0x0B08;
-pub const GL_CURRENT_TEXTURE_COORDS: c_int = 0x0B03;
-pub const GL_INDEX_CLEAR_VALUE: c_int = 0x0C20;
-pub const GL_INDEX_MODE: c_int = 0x0C30;
-pub const GL_INDEX_WRITEMASK: c_int = 0x0C21;
-pub const GL_MODELVIEW_MATRIX: c_int = 0x0BA6;
-pub const GL_MODELVIEW_STACK_DEPTH: c_int = 0x0BA3;
-pub const GL_NAME_STACK_DEPTH: c_int = 0x0D70;
-pub const GL_PROJECTION_MATRIX: c_int = 0x0BA7;
-pub const GL_PROJECTION_STACK_DEPTH: c_int = 0x0BA4;
-pub const GL_RENDER_MODE: c_int = 0x0C40;
-pub const GL_RGBA_MODE: c_int = 0x0C31;
-pub const GL_TEXTURE_MATRIX: c_int = 0x0BA8;
-pub const GL_TEXTURE_STACK_DEPTH: c_int = 0x0BA5;
-pub const GL_VIEWPORT: c_int = 0x0BA2;
-
-// Evaluators
-pub const GL_AUTO_NORMAL: c_int = 0x0D80;
-pub const GL_MAP1_COLOR_4: c_int = 0x0D90;
-pub const GL_MAP1_INDEX: c_int = 0x0D91;
-pub const GL_MAP1_NORMAL: c_int = 0x0D92;
-pub const GL_MAP1_TEXTURE_COORD_1: c_int = 0x0D93;
-pub const GL_MAP1_TEXTURE_COORD_2: c_int = 0x0D94;
-pub const GL_MAP1_TEXTURE_COORD_3: c_int = 0x0D95;
-pub const GL_MAP1_TEXTURE_COORD_4: c_int = 0x0D96;
-pub const GL_MAP1_VERTEX_3: c_int = 0x0D97;
-pub const GL_MAP1_VERTEX_4: c_int = 0x0D98;
-pub const GL_MAP2_COLOR_4: c_int = 0x0DB0;
-pub const GL_MAP2_INDEX: c_int = 0x0DB1;
-pub const GL_MAP2_NORMAL: c_int = 0x0DB2;
-pub const GL_MAP2_TEXTURE_COORD_1: c_int = 0x0DB3;
-pub const GL_MAP2_TEXTURE_COORD_2: c_int = 0x0DB4;
-pub const GL_MAP2_TEXTURE_COORD_3: c_int = 0x0DB5;
-pub const GL_MAP2_TEXTURE_COORD_4: c_int = 0x0DB6;
-pub const GL_MAP2_VERTEX_3: c_int = 0x0DB7;
-pub const GL_MAP2_VERTEX_4: c_int = 0x0DB8;
-pub const GL_MAP1_GRID_DOMAIN: c_int = 0x0DD0;
-pub const GL_MAP1_GRID_SEGMENTS: c_int = 0x0DD1;
-pub const GL_MAP2_GRID_DOMAIN: c_int = 0x0DD2;
-pub const GL_MAP2_GRID_SEGMENTS: c_int = 0x0DD3;
-pub const GL_COEFF: c_int = 0x0A00;
-pub const GL_ORDER: c_int = 0x0A01;
-pub const GL_DOMAIN: c_int = 0x0A02;
-
-// Hints
-pub const GL_PERSPECTIVE_CORRECTION_HINT: c_int = 0x0C50;
-pub const GL_POINT_SMOOTH_HINT: c_int = 0x0C51;
-pub const GL_LINE_SMOOTH_HINT: c_int = 0x0C52;
-pub const GL_POLYGON_SMOOTH_HINT: c_int = 0x0C53;
-pub const GL_FOG_HINT: c_int = 0x0C54;
-pub const GL_DONT_CARE: c_int = 0x1100;
-pub const GL_FASTEST: c_int = 0x1101;
-pub const GL_NICEST: c_int = 0x1102;
-
-// Scissor box
-pub const GL_SCISSOR_BOX: c_int = 0x0C10;
-pub const GL_SCISSOR_TEST: c_int = 0x0C11;
-
-// Pixel Mode / Transfer
-pub const GL_MAP_COLOR: c_int = 0x0D10;
-pub const GL_MAP_STENCIL: c_int = 0x0D11;
-pub const GL_INDEX_SHIFT: c_int = 0x0D12;
-pub const GL_INDEX_OFFSET: c_int = 0x0D13;
-pub const GL_RED_SCALE: c_int = 0x0D14;
-pub const GL_RED_BIAS: c_int = 0x0D15;
-pub const GL_GREEN_SCALE: c_int = 0x0D18;
-pub const GL_GREEN_BIAS: c_int = 0x0D19;
-pub const GL_BLUE_SCALE: c_int = 0x0D1A;
-pub const GL_BLUE_BIAS: c_int = 0x0D1B;
-pub const GL_ALPHA_SCALE: c_int = 0x0D1C;
-pub const GL_ALPHA_BIAS: c_int = 0x0D1D;
-pub const GL_DEPTH_SCALE: c_int = 0x0D1E;
-pub const GL_DEPTH_BIAS: c_int = 0x0D1F;
-pub const GL_PIXEL_MAP_S_TO_S_SIZE: c_int = 0x0CB1;
-pub const GL_PIXEL_MAP_I_TO_I_SIZE: c_int = 0x0CB0;
-pub const GL_PIXEL_MAP_I_TO_R_SIZE: c_int = 0x0CB2;
-pub const GL_PIXEL_MAP_I_TO_G_SIZE: c_int = 0x0CB3;
-pub const GL_PIXEL_MAP_I_TO_B_SIZE: c_int = 0x0CB4;
-pub const GL_PIXEL_MAP_I_TO_A_SIZE: c_int = 0x0CB5;
-pub const GL_PIXEL_MAP_R_TO_R_SIZE: c_int = 0x0CB6;
-pub const GL_PIXEL_MAP_G_TO_G_SIZE: c_int = 0x0CB7;
-pub const GL_PIXEL_MAP_B_TO_B_SIZE: c_int = 0x0CB8;
-pub const GL_PIXEL_MAP_A_TO_A_SIZE: c_int = 0x0CB9;
-pub const GL_PIXEL_MAP_S_TO_S: c_int = 0x0C71;
-pub const GL_PIXEL_MAP_I_TO_I: c_int = 0x0C70;
-pub const GL_PIXEL_MAP_I_TO_R: c_int = 0x0C72;
-pub const GL_PIXEL_MAP_I_TO_G: c_int = 0x0C73;
-pub const GL_PIXEL_MAP_I_TO_B: c_int = 0x0C74;
-pub const GL_PIXEL_MAP_I_TO_A: c_int = 0x0C75;
-pub const GL_PIXEL_MAP_R_TO_R: c_int = 0x0C76;
-pub const GL_PIXEL_MAP_G_TO_G: c_int = 0x0C77;
-pub const GL_PIXEL_MAP_B_TO_B: c_int = 0x0C78;
-pub const GL_PIXEL_MAP_A_TO_A: c_int = 0x0C79;
-pub const GL_PACK_ALIGNMENT: c_int = 0x0D05;
-pub const GL_PACK_LSB_FIRST: c_int = 0x0D01;
-pub const GL_PACK_ROW_LENGTH: c_int = 0x0D02;
-pub const GL_PACK_SKIP_PIXELS: c_int = 0x0D04;
-pub const GL_PACK_SKIP_ROWS: c_int = 0x0D03;
-pub const GL_PACK_SWAP_BYTES: c_int = 0x0D00;
-pub const GL_UNPACK_ALIGNMENT: c_int = 0x0CF5;
-pub const GL_UNPACK_LSB_FIRST: c_int = 0x0CF1;
-pub const GL_UNPACK_ROW_LENGTH: c_int = 0x0CF2;
-pub const GL_UNPACK_SKIP_PIXELS: c_int = 0x0CF4;
-pub const GL_UNPACK_SKIP_ROWS: c_int = 0x0CF3;
-pub const GL_UNPACK_SWAP_BYTES: c_int = 0x0CF0;
-pub const GL_ZOOM_X: c_int = 0x0D16;
-pub const GL_ZOOM_Y: c_int = 0x0D17;
-
-// Texture mapping
-pub const GL_TEXTURE_ENV: c_int = 0x2300;
-pub const GL_TEXTURE_ENV_MODE: c_int = 0x2200;
-pub const GL_TEXTURE_1D: c_int = 0x0DE0;
-pub const GL_TEXTURE_2D: c_int = 0x0DE1;
-pub const GL_TEXTURE_WRAP_S: c_int = 0x2802;
-pub const GL_TEXTURE_WRAP_T: c_int = 0x2803;
-pub const GL_TEXTURE_MAG_FILTER: c_int = 0x2800;
-pub const GL_TEXTURE_MIN_FILTER: c_int = 0x2801;
-pub const GL_TEXTURE_ENV_COLOR: c_int = 0x2201;
-pub const GL_TEXTURE_GEN_S: c_int = 0x0C60;
-pub const GL_TEXTURE_GEN_T: c_int = 0x0C61;
-pub const GL_TEXTURE_GEN_R: c_int = 0x0C62;
-pub const GL_TEXTURE_GEN_Q: c_int = 0x0C63;
-pub const GL_TEXTURE_GEN_MODE: c_int = 0x2500;
-pub const GL_TEXTURE_BORDER_COLOR: c_int = 0x1004;
-pub const GL_TEXTURE_WIDTH: c_int = 0x1000;
-pub const GL_TEXTURE_HEIGHT: c_int = 0x1001;
-pub const GL_TEXTURE_BORDER: c_int = 0x1005;
-pub const GL_TEXTURE_COMPONENTS: c_int = 0x1003;
-pub const GL_TEXTURE_RED_SIZE: c_int = 0x805C;
-pub const GL_TEXTURE_GREEN_SIZE: c_int = 0x805D;
-pub const GL_TEXTURE_BLUE_SIZE: c_int = 0x805E;
-pub const GL_TEXTURE_ALPHA_SIZE: c_int = 0x805F;
-pub const GL_TEXTURE_LUMINANCE_SIZE: c_int = 0x8060;
-pub const GL_TEXTURE_INTENSITY_SIZE: c_int = 0x8061;
-pub const GL_NEAREST_MIPMAP_NEAREST: c_int = 0x2700;
-pub const GL_NEAREST_MIPMAP_LINEAR: c_int = 0x2702;
-pub const GL_LINEAR_MIPMAP_NEAREST: c_int = 0x2701;
-pub const GL_LINEAR_MIPMAP_LINEAR: c_int = 0x2703;
-pub const GL_OBJECT_LINEAR: c_int = 0x2401;
-pub const GL_OBJECT_PLANE: c_int = 0x2501;
-pub const GL_EYE_LINEAR: c_int = 0x2400;
-pub const GL_EYE_PLANE: c_int = 0x2502;
-pub const GL_SPHERE_MAP: c_int = 0x2402;
-pub const GL_DECAL: c_int = 0x2101;
-pub const GL_MODULATE: c_int = 0x2100;
-pub const GL_NEAREST: c_int = 0x2600;
-pub const GL_REPEAT: c_int = 0x2901;
-pub const GL_CLAMP: c_int = 0x2900;
-pub const GL_S: c_int = 0x2000;
-pub const GL_T: c_int = 0x2001;
-pub const GL_R: c_int = 0x2002;
-pub const GL_Q: c_int = 0x2003;
-
-// Utility
-pub const GL_VENDOR: c_int = 0x1F00;
-pub const GL_RENDERER: c_int = 0x1F01;
-pub const GL_VERSION: c_int = 0x1F02;
-pub const GL_EXTENSIONS: c_int = 0x1F03;
-
-// Errors
-pub const GL_NO_ERROR: c_int = 0x0;
-pub const GL_INVALID_ENUM: c_int = 0x0500;
-pub const GL_INVALID_VALUE: c_int = 0x0501;
-pub const GL_INVALID_OPERATION: c_int = 0x0502;
-pub const GL_STACK_OVERFLOW: c_int = 0x0503;
-pub const GL_STACK_UNDERFLOW: c_int = 0x0504;
-pub const GL_OUT_OF_MEMORY: c_int = 0x0505;
-
-// glPush/PopAttrib bits
-pub const GL_CURRENT_BIT: c_int = 0x00000001;
-pub const GL_POINT_BIT: c_int = 0x00000002;
-pub const GL_LINE_BIT: c_int = 0x00000004;
-pub const GL_POLYGON_BIT: c_int = 0x00000008;
-pub const GL_POLYGON_STIPPLE_BIT: c_int = 0x00000010;
-pub const GL_PIXEL_MODE_BIT: c_int = 0x00000020;
-pub const GL_LIGHTING_BIT: c_int = 0x00000040;
-pub const GL_FOG_BIT: c_int = 0x00000080;
-pub const GL_DEPTH_BUFFER_BIT: c_int = 0x00000100;
-pub const GL_ACCUM_BUFFER_BIT: c_int = 0x00000200;
-pub const GL_STENCIL_BUFFER_BIT: c_int = 0x00000400;
-pub const GL_VIEWPORT_BIT: c_int = 0x00000800;
-pub const GL_TRANSFORM_BIT: c_int = 0x00001000;
-pub const GL_ENABLE_BIT: c_int = 0x00002000;
-pub const GL_COLOR_BUFFER_BIT: c_int = 0x00004000;
-pub const GL_HINT_BIT: c_int = 0x00008000;
-pub const GL_EVAL_BIT: c_int = 0x00010000;
-pub const GL_LIST_BIT: c_int = 0x00020000;
-pub const GL_TEXTURE_BIT: c_int = 0x00040000;
-pub const GL_SCISSOR_BIT: c_int = 0x00080000;
-pub const GL_ALL_ATTRIB_BITS: c_int = 0xFFFFFFFF;
-
-// OpenGL 1.1
-pub const GL_PROXY_TEXTURE_1D: c_int = 0x8063;
-pub const GL_PROXY_TEXTURE_2D: c_int = 0x8064;
-pub const GL_TEXTURE_PRIORITY: c_int = 0x8066;
-pub const GL_TEXTURE_RESIDENT: c_int = 0x8067;
-pub const GL_TEXTURE_BINDING_1D: c_int = 0x8068;
-pub const GL_TEXTURE_BINDING_2D: c_int = 0x8069;
-pub const GL_TEXTURE_INTERNAL_FORMAT: c_int = 0x1003;
-pub const GL_ALPHA4: c_int = 0x803B;
-pub const GL_ALPHA8: c_int = 0x803C;
-pub const GL_ALPHA12: c_int = 0x803D;
-pub const GL_ALPHA16: c_int = 0x803E;
-pub const GL_LUMINANCE4: c_int = 0x803F;
-pub const GL_LUMINANCE8: c_int = 0x8040;
-pub const GL_LUMINANCE12: c_int = 0x8041;
-pub const GL_LUMINANCE16: c_int = 0x8042;
-pub const GL_LUMINANCE4_ALPHA4: c_int = 0x8043;
-pub const GL_LUMINANCE6_ALPHA2: c_int = 0x8044;
-pub const GL_LUMINANCE8_ALPHA8: c_int = 0x8045;
-pub const GL_LUMINANCE12_ALPHA4: c_int = 0x8046;
-pub const GL_LUMINANCE12_ALPHA12: c_int = 0x8047;
-pub const GL_LUMINANCE16_ALPHA16: c_int = 0x8048;
-pub const GL_INTENSITY: c_int = 0x8049;
-pub const GL_INTENSITY4: c_int = 0x804A;
-pub const GL_INTENSITY8: c_int = 0x804B;
-pub const GL_INTENSITY12: c_int = 0x804C;
-pub const GL_INTENSITY16: c_int = 0x804D;
-pub const GL_R3_G3_B2: c_int = 0x2A10;
-pub const GL_RGB4: c_int = 0x804F;
-pub const GL_RGB5: c_int = 0x8050;
-pub const GL_RGB8: c_int = 0x8051;
-pub const GL_RGB10: c_int = 0x8052;
-pub const GL_RGB12: c_int = 0x8053;
-pub const GL_RGB16: c_int = 0x8054;
-pub const GL_RGBA2: c_int = 0x8055;
-pub const GL_RGBA4: c_int = 0x8056;
-pub const GL_RGB5_A1: c_int = 0x8057;
-pub const GL_RGBA8: c_int = 0x8058;
-pub const GL_RGB10_A2: c_int = 0x8059;
-pub const GL_RGBA12: c_int = 0x805A;
-pub const GL_RGBA16: c_int = 0x805B;
-pub const GL_CLIENT_PIXEL_STORE_BIT: c_int = 0x00000001;
-pub const GL_CLIENT_VERTEX_ARRAY_BIT: c_int = 0x00000002;
-pub const GL_ALL_CLIENT_ATTRIB_BITS: c_int = 0xFFFFFFFF;
-pub const GL_CLIENT_ALL_ATTRIB_BITS: c_int = 0xFFFFFFFF;
-
-glClearIndex: *const fn (c: f32) callconv(APIENTRY) void,
-glClearColor: *const fn (red: GLclampf, green: GLclampf, blue: GLclampf, alpha: GLclampf) callconv(APIENTRY) void,
-glClear: *const fn (mask: GLbitfield) callconv(APIENTRY) void,
-glIndexMask: *const fn (mask: GLuint) callconv(APIENTRY) void,
-glColorMask: *const fn (red: GLboolean, green: GLboolean, blue: GLboolean, alpha: GLboolean) callconv(APIENTRY) void,
-glAlphaFunc: *const fn (func: GLenum, ref: GLclampf) callconv(APIENTRY) void,
-glBlendFunc: *const fn (sfactor: GLenum, dfactor: GLenum) callconv(APIENTRY) void,
-glLogicOp: *const fn (opcode: GLenum) callconv(APIENTRY) void,
-glCullFace: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glFrontFace: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glPointSize: *const fn (size: f32) callconv(APIENTRY) void,
+glCullFace: *const fn (mode: Enum) callconv(APIENTRY) void,
+glFrontFace: *const fn (mode: Enum) callconv(APIENTRY) void,
+glHint: *const fn (target: Enum, mode: Enum) callconv(APIENTRY) void,
 glLineWidth: *const fn (width: f32) callconv(APIENTRY) void,
-glLineStipple: *const fn (factor: GLint, pattern: GLushort) callconv(APIENTRY) void,
-glPolygonMode: *const fn (face: GLenum, mode: GLenum) callconv(APIENTRY) void,
-glPolygonOffset: *const fn (factor: f32, units: f32) callconv(APIENTRY) void,
-glPolygonStipple: *const fn (mask: [*c]const GLubyte) callconv(APIENTRY) void,
-glGetPolygonStipple: *const fn (mask: [*c]GLubyte) callconv(APIENTRY) void,
-glEdgeFlag: *const fn (flag: GLboolean) callconv(APIENTRY) void,
-glEdgeFlagv: *const fn (flag: [*c]const GLboolean) callconv(APIENTRY) void,
-glScissor: *const fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) callconv(APIENTRY) void,
-glClipPlane: *const fn (plane: GLenum, equation: [*c]const f64) callconv(APIENTRY) void,
-glGetClipPlane: *const fn (plane: GLenum, equation: [*c]f64) callconv(APIENTRY) void,
-glDrawBuffer: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glReadBuffer: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glEnable: *const fn (cap: GLenum) callconv(APIENTRY) void,
-glDisable: *const fn (cap: GLenum) callconv(APIENTRY) void,
-glIsEnabled: *const fn (cap: GLenum) callconv(APIENTRY) GLboolean,
-glEnableClientState: *const fn (cap: GLenum) callconv(APIENTRY) void,
-glDisableClientState: *const fn (cap: GLenum) callconv(APIENTRY) void,
-glGetBooleanv: *const fn (pname: GLenum, params: [*c]GLboolean) callconv(APIENTRY) void,
-glGetDoublev: *const fn (pname: GLenum, params: [*c]f64) callconv(APIENTRY) void,
-glGetFloatv: *const fn (pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetIntegerv: *const fn (pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glPushAttrib: *const fn (mask: GLbitfield) callconv(APIENTRY) void,
-glPopAttrib: *const fn () callconv(APIENTRY) void,
-glPushClientAttrib: *const fn (mask: GLbitfield) callconv(APIENTRY) void,
-glPopClientAttrib: *const fn () callconv(APIENTRY) void,
-glRenderMode: *const fn (mode: GLenum) callconv(APIENTRY) GLint,
-glGetError: *const fn () callconv(APIENTRY) GLenum,
-glGetString: *const fn (name: GLenum) callconv(APIENTRY) [*c]const GLubyte,
+glPointSize: *const fn (size: f32) callconv(APIENTRY) void,
+glPolygonMode: *const fn (face: Enum, mode: Enum) callconv(APIENTRY) void,
+glScissor: *const fn (x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTexParameterf: *const fn (target: Enum, pname: Enum, param: f32) callconv(APIENTRY) void,
+glTexParameterfv: *const fn (target: Enum, pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glTexParameteri: *const fn (target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glTexParameteriv: *const fn (target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glTexImage1D: *const fn (target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTexImage2D: *const fn (target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glDrawBuffer: *const fn (buf: Enum) callconv(APIENTRY) void,
+glClear: *const fn (mask: Bitfield) callconv(APIENTRY) void,
+glClearColor: *const fn (red: f32, green: f32, blue: f32, alpha: f32) callconv(APIENTRY) void,
+glClearStencil: *const fn (s: c_int) callconv(APIENTRY) void,
+glClearDepth: *const fn (depth: f64) callconv(APIENTRY) void,
+glStencilMask: *const fn (mask: c_uint) callconv(APIENTRY) void,
+glColorMask: *const fn (red: Boolean, green: Boolean, blue: Boolean, alpha: Boolean) callconv(APIENTRY) void,
+glDepthMask: *const fn (flag: Boolean) callconv(APIENTRY) void,
+glDisable: *const fn (cap: Enum) callconv(APIENTRY) void,
+glEnable: *const fn (cap: Enum) callconv(APIENTRY) void,
 glFinish: *const fn () callconv(APIENTRY) void,
 glFlush: *const fn () callconv(APIENTRY) void,
-glHint: *const fn (target: GLenum, mode: GLenum) callconv(APIENTRY) void,
-glClearDepth: *const fn (depth: GLclampd) callconv(APIENTRY) void,
-glDepthFunc: *const fn (func: GLenum) callconv(APIENTRY) void,
-glDepthMask: *const fn (flag: GLboolean) callconv(APIENTRY) void,
-glDepthRange: *const fn (near_val: GLclampd, far_val: GLclampd) callconv(APIENTRY) void,
-glClearAccum: *const fn (red: f32, green: f32, blue: f32, alpha: f32) callconv(APIENTRY) void,
-glAccum: *const fn (op: GLenum, value: f32) callconv(APIENTRY) void,
-glMatrixMode: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glOrtho: *const fn (left: f64, right: f64, bottom: f64, top: f64, near_val: f64, far_val: f64) callconv(APIENTRY) void,
-glFrustum: *const fn (left: f64, right: f64, bottom: f64, top: f64, near_val: f64, far_val: f64) callconv(APIENTRY) void,
-glViewport: *const fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) callconv(APIENTRY) void,
-glPushMatrix: *const fn () callconv(APIENTRY) void,
-glPopMatrix: *const fn () callconv(APIENTRY) void,
-glLoadIdentity: *const fn () callconv(APIENTRY) void,
-glLoadMatrixd: *const fn (m: [*c]const f64) callconv(APIENTRY) void,
-glLoadMatrixf: *const fn (m: [*c]const f32) callconv(APIENTRY) void,
-glMultMatrixd: *const fn (m: [*c]const f64) callconv(APIENTRY) void,
-glMultMatrixf: *const fn (m: [*c]const f32) callconv(APIENTRY) void,
-glRotated: *const fn (angle: f64, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
-glRotatef: *const fn (angle: f32, x: f32, y: f32, z: f32) callconv(APIENTRY) void,
-glScaled: *const fn (x: f64, y: f64, z: f64) callconv(APIENTRY) void,
-glScalef: *const fn (x: f32, y: f32, z: f32) callconv(APIENTRY) void,
-glTranslated: *const fn (x: f64, y: f64, z: f64) callconv(APIENTRY) void,
-glTranslatef: *const fn (x: f32, y: f32, z: f32) callconv(APIENTRY) void,
-glIsList: *const fn (list: GLuint) callconv(APIENTRY) GLboolean,
-glDeleteLists: *const fn (list: GLuint, range: GLsizei) callconv(APIENTRY) void,
-glGenLists: *const fn (range: GLsizei) callconv(APIENTRY) GLuint,
-glNewList: *const fn (list: GLuint, mode: GLenum) callconv(APIENTRY) void,
-glEndList: *const fn () callconv(APIENTRY) void,
-glCallList: *const fn (list: GLuint) callconv(APIENTRY) void,
-glCallLists: *const fn (n: GLsizei, @"type": GLenum, lists: ?*const GLvoid) callconv(APIENTRY) void,
-glListBase: *const fn (base: GLuint) callconv(APIENTRY) void,
-glBegin: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glEnd: *const fn () callconv(APIENTRY) void,
-glVertex2d: *const fn (x: f64, y: f64) callconv(APIENTRY) void,
-glVertex2f: *const fn (x: f32, y: f32) callconv(APIENTRY) void,
-glVertex2i: *const fn (x: GLint, y: GLint) callconv(APIENTRY) void,
-glVertex2s: *const fn (x: GLshort, y: GLshort) callconv(APIENTRY) void,
-glVertex3d: *const fn (x: f64, y: f64, z: f64) callconv(APIENTRY) void,
-glVertex3f: *const fn (x: f32, y: f32, z: f32) callconv(APIENTRY) void,
-glVertex3i: *const fn (x: GLint, y: GLint, z: GLint) callconv(APIENTRY) void,
-glVertex3s: *const fn (x: GLshort, y: GLshort, z: GLshort) callconv(APIENTRY) void,
-glVertex4d: *const fn (x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
-glVertex4f: *const fn (x: f32, y: f32, z: f32, w: f32) callconv(APIENTRY) void,
-glVertex4i: *const fn (x: GLint, y: GLint, z: GLint, w: GLint) callconv(APIENTRY) void,
-glVertex4s: *const fn (x: GLshort, y: GLshort, z: GLshort, w: GLshort) callconv(APIENTRY) void,
-glVertex2dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glVertex2fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glVertex2iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glVertex2sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glVertex3dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glVertex3fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glVertex3iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glVertex3sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glVertex4dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glVertex4fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glVertex4iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glVertex4sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glNormal3b: *const fn (nx: GLbyte, ny: GLbyte, nz: GLbyte) callconv(APIENTRY) void,
-glNormal3d: *const fn (nx: f64, ny: f64, nz: f64) callconv(APIENTRY) void,
-glNormal3f: *const fn (nx: f32, ny: f32, nz: f32) callconv(APIENTRY) void,
-glNormal3i: *const fn (nx: GLint, ny: GLint, nz: GLint) callconv(APIENTRY) void,
-glNormal3s: *const fn (nx: GLshort, ny: GLshort, nz: GLshort) callconv(APIENTRY) void,
-glNormal3bv: *const fn (v: [*c]const GLbyte) callconv(APIENTRY) void,
-glNormal3dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glNormal3fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glNormal3iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glNormal3sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glIndexd: *const fn (c: f64) callconv(APIENTRY) void,
-glIndexf: *const fn (c: f32) callconv(APIENTRY) void,
-glIndexi: *const fn (c: GLint) callconv(APIENTRY) void,
-glIndexs: *const fn (c: GLshort) callconv(APIENTRY) void,
-glIndexub: *const fn (c: GLubyte) callconv(APIENTRY) void,
-glIndexdv: *const fn (c: [*c]const f64) callconv(APIENTRY) void,
-glIndexfv: *const fn (c: [*c]const f32) callconv(APIENTRY) void,
-glIndexiv: *const fn (c: [*c]const GLint) callconv(APIENTRY) void,
-glIndexsv: *const fn (c: [*c]const GLshort) callconv(APIENTRY) void,
-glIndexubv: *const fn (c: [*c]const GLubyte) callconv(APIENTRY) void,
-glColor3b: *const fn (red: GLbyte, green: GLbyte, blue: GLbyte) callconv(APIENTRY) void,
-glColor3d: *const fn (red: f64, green: f64, blue: f64) callconv(APIENTRY) void,
-glColor3f: *const fn (red: f32, green: f32, blue: f32) callconv(APIENTRY) void,
-glColor3i: *const fn (red: GLint, green: GLint, blue: GLint) callconv(APIENTRY) void,
-glColor3s: *const fn (red: GLshort, green: GLshort, blue: GLshort) callconv(APIENTRY) void,
-glColor3ub: *const fn (red: GLubyte, green: GLubyte, blue: GLubyte) callconv(APIENTRY) void,
-glColor3ui: *const fn (red: GLuint, green: GLuint, blue: GLuint) callconv(APIENTRY) void,
-glColor3us: *const fn (red: GLushort, green: GLushort, blue: GLushort) callconv(APIENTRY) void,
-glColor4b: *const fn (red: GLbyte, green: GLbyte, blue: GLbyte, alpha: GLbyte) callconv(APIENTRY) void,
-glColor4d: *const fn (red: f64, green: f64, blue: f64, alpha: f64) callconv(APIENTRY) void,
-glColor4f: *const fn (red: f32, green: f32, blue: f32, alpha: f32) callconv(APIENTRY) void,
-glColor4i: *const fn (red: GLint, green: GLint, blue: GLint, alpha: GLint) callconv(APIENTRY) void,
-glColor4s: *const fn (red: GLshort, green: GLshort, blue: GLshort, alpha: GLshort) callconv(APIENTRY) void,
-glColor4ub: *const fn (red: GLubyte, green: GLubyte, blue: GLubyte, alpha: GLubyte) callconv(APIENTRY) void,
-glColor4ui: *const fn (red: GLuint, green: GLuint, blue: GLuint, alpha: GLuint) callconv(APIENTRY) void,
-glColor4us: *const fn (red: GLushort, green: GLushort, blue: GLushort, alpha: GLushort) callconv(APIENTRY) void,
-glColor3bv: *const fn (v: [*c]const GLbyte) callconv(APIENTRY) void,
-glColor3dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glColor3fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glColor3iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glColor3sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glColor3ubv: *const fn (v: [*c]const GLubyte) callconv(APIENTRY) void,
-glColor3uiv: *const fn (v: [*c]const GLuint) callconv(APIENTRY) void,
-glColor3usv: *const fn (v: [*c]const GLushort) callconv(APIENTRY) void,
-glColor4bv: *const fn (v: [*c]const GLbyte) callconv(APIENTRY) void,
-glColor4dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glColor4fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glColor4iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glColor4sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glColor4ubv: *const fn (v: [*c]const GLubyte) callconv(APIENTRY) void,
-glColor4uiv: *const fn (v: [*c]const GLuint) callconv(APIENTRY) void,
-glColor4usv: *const fn (v: [*c]const GLushort) callconv(APIENTRY) void,
-glTexCoord1d: *const fn (s: f64) callconv(APIENTRY) void,
-glTexCoord1f: *const fn (s: f32) callconv(APIENTRY) void,
-glTexCoord1i: *const fn (s: GLint) callconv(APIENTRY) void,
-glTexCoord1s: *const fn (s: GLshort) callconv(APIENTRY) void,
-glTexCoord2d: *const fn (s: f64, t: f64) callconv(APIENTRY) void,
-glTexCoord2f: *const fn (s: f32, t: f32) callconv(APIENTRY) void,
-glTexCoord2i: *const fn (s: GLint, t: GLint) callconv(APIENTRY) void,
-glTexCoord2s: *const fn (s: GLshort, t: GLshort) callconv(APIENTRY) void,
-glTexCoord3d: *const fn (s: f64, t: f64, r: f64) callconv(APIENTRY) void,
-glTexCoord3f: *const fn (s: f32, t: f32, r: f32) callconv(APIENTRY) void,
-glTexCoord3i: *const fn (s: GLint, t: GLint, r: GLint) callconv(APIENTRY) void,
-glTexCoord3s: *const fn (s: GLshort, t: GLshort, r: GLshort) callconv(APIENTRY) void,
-glTexCoord4d: *const fn (s: f64, t: f64, r: f64, q: f64) callconv(APIENTRY) void,
-glTexCoord4f: *const fn (s: f32, t: f32, r: f32, q: f32) callconv(APIENTRY) void,
-glTexCoord4i: *const fn (s: GLint, t: GLint, r: GLint, q: GLint) callconv(APIENTRY) void,
-glTexCoord4s: *const fn (s: GLshort, t: GLshort, r: GLshort, q: GLshort) callconv(APIENTRY) void,
-glTexCoord1dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glTexCoord1fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glTexCoord1iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glTexCoord1sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glTexCoord2dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glTexCoord2fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glTexCoord2iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glTexCoord2sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glTexCoord3dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glTexCoord3fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glTexCoord3iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glTexCoord3sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glTexCoord4dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glTexCoord4fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glTexCoord4iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glTexCoord4sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glRasterPos2d: *const fn (x: f64, y: f64) callconv(APIENTRY) void,
-glRasterPos2f: *const fn (x: f32, y: f32) callconv(APIENTRY) void,
-glRasterPos2i: *const fn (x: GLint, y: GLint) callconv(APIENTRY) void,
-glRasterPos2s: *const fn (x: GLshort, y: GLshort) callconv(APIENTRY) void,
-glRasterPos3d: *const fn (x: f64, y: f64, z: f64) callconv(APIENTRY) void,
-glRasterPos3f: *const fn (x: f32, y: f32, z: f32) callconv(APIENTRY) void,
-glRasterPos3i: *const fn (x: GLint, y: GLint, z: GLint) callconv(APIENTRY) void,
-glRasterPos3s: *const fn (x: GLshort, y: GLshort, z: GLshort) callconv(APIENTRY) void,
-glRasterPos4d: *const fn (x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
-glRasterPos4f: *const fn (x: f32, y: f32, z: f32, w: f32) callconv(APIENTRY) void,
-glRasterPos4i: *const fn (x: GLint, y: GLint, z: GLint, w: GLint) callconv(APIENTRY) void,
-glRasterPos4s: *const fn (x: GLshort, y: GLshort, z: GLshort, w: GLshort) callconv(APIENTRY) void,
-glRasterPos2dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glRasterPos2fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glRasterPos2iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glRasterPos2sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glRasterPos3dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glRasterPos3fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glRasterPos3iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glRasterPos3sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glRasterPos4dv: *const fn (v: [*c]const f64) callconv(APIENTRY) void,
-glRasterPos4fv: *const fn (v: [*c]const f32) callconv(APIENTRY) void,
-glRasterPos4iv: *const fn (v: [*c]const GLint) callconv(APIENTRY) void,
-glRasterPos4sv: *const fn (v: [*c]const GLshort) callconv(APIENTRY) void,
-glRectd: *const fn (x1: f64, y1: f64, x2: f64, y2: f64) callconv(APIENTRY) void,
-glRectf: *const fn (x1: f32, y1: f32, x2: f32, y2: f32) callconv(APIENTRY) void,
-glRecti: *const fn (x1: GLint, y1: GLint, x2: GLint, y2: GLint) callconv(APIENTRY) void,
-glRects: *const fn (x1: GLshort, y1: GLshort, x2: GLshort, y2: GLshort) callconv(APIENTRY) void,
-glRectdv: *const fn (v1: [*c]const f64, v2: [*c]const f64) callconv(APIENTRY) void,
-glRectfv: *const fn (v1: [*c]const f32, v2: [*c]const f32) callconv(APIENTRY) void,
-glRectiv: *const fn (v1: [*c]const GLint, v2: [*c]const GLint) callconv(APIENTRY) void,
-glRectsv: *const fn (v1: [*c]const GLshort, v2: [*c]const GLshort) callconv(APIENTRY) void,
-glVertexPointer: *const fn (size: GLint, @"type": GLenum, stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glNormalPointer: *const fn (@"type": GLenum, stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glColorPointer: *const fn (size: GLint, @"type": GLenum, stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glIndexPointer: *const fn (@"type": GLenum, stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glTexCoordPointer: *const fn (size: GLint, @"type": GLenum, stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glEdgeFlagPointer: *const fn (stride: GLsizei, ptr: ?*const GLvoid) callconv(APIENTRY) void,
-glGetPointerv: *const fn (pname: GLenum, params: [*c]?*GLvoid) callconv(APIENTRY) void,
-glArrayElement: *const fn (i: GLint) callconv(APIENTRY) void,
-glDrawArrays: *const fn (mode: GLenum, first: GLint, count: GLsizei) callconv(APIENTRY) void,
-glDrawElements: *const fn (mode: GLenum, count: GLsizei, @"type": GLenum, indices: ?*const GLvoid) callconv(APIENTRY) void,
-glInterleavedArrays: *const fn (format: GLenum, stride: GLsizei, pointer: ?*const GLvoid) callconv(APIENTRY) void,
-glShadeModel: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glLightf: *const fn (light: GLenum, pname: GLenum, param: f32) callconv(APIENTRY) void,
-glLighti: *const fn (light: GLenum, pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glLightfv: *const fn (light: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glLightiv: *const fn (light: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glGetLightfv: *const fn (light: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetLightiv: *const fn (light: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glLightModelf: *const fn (pname: GLenum, param: f32) callconv(APIENTRY) void,
-glLightModeli: *const fn (pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glLightModelfv: *const fn (pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glLightModeliv: *const fn (pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glMaterialf: *const fn (face: GLenum, pname: GLenum, param: f32) callconv(APIENTRY) void,
-glMateriali: *const fn (face: GLenum, pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glMaterialfv: *const fn (face: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glMaterialiv: *const fn (face: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glGetMaterialfv: *const fn (face: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetMaterialiv: *const fn (face: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glColorMaterial: *const fn (face: GLenum, mode: GLenum) callconv(APIENTRY) void,
-glPixelZoom: *const fn (xfactor: f32, yfactor: f32) callconv(APIENTRY) void,
-glPixelStoref: *const fn (pname: GLenum, param: f32) callconv(APIENTRY) void,
-glPixelStorei: *const fn (pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glPixelTransferf: *const fn (pname: GLenum, param: f32) callconv(APIENTRY) void,
-glPixelTransferi: *const fn (pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glPixelMapfv: *const fn (map: GLenum, mapsize: GLsizei, values: [*c]const f32) callconv(APIENTRY) void,
-glPixelMapuiv: *const fn (map: GLenum, mapsize: GLsizei, values: [*c]const GLuint) callconv(APIENTRY) void,
-glPixelMapusv: *const fn (map: GLenum, mapsize: GLsizei, values: [*c]const GLushort) callconv(APIENTRY) void,
-glGetPixelMapfv: *const fn (map: GLenum, values: [*c]f32) callconv(APIENTRY) void,
-glGetPixelMapuiv: *const fn (map: GLenum, values: [*c]GLuint) callconv(APIENTRY) void,
-glGetPixelMapusv: *const fn (map: GLenum, values: [*c]GLushort) callconv(APIENTRY) void,
-glBitmap: *const fn (width: GLsizei, height: GLsizei, xorig: f32, yorig: f32, xmove: f32, ymove: f32, bitmap: [*c]const GLubyte) callconv(APIENTRY) void,
-glReadPixels: *const fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: GLenum, @"type": GLenum, pixels: ?*GLvoid) callconv(APIENTRY) void,
-glDrawPixels: *const fn (width: GLsizei, height: GLsizei, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glCopyPixels: *const fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, @"type": GLenum) callconv(APIENTRY) void,
-glStencilFunc: *const fn (func: GLenum, ref: GLint, mask: GLuint) callconv(APIENTRY) void,
-glStencilMask: *const fn (mask: GLuint) callconv(APIENTRY) void,
-glStencilOp: *const fn (fail: GLenum, zfail: GLenum, zpass: GLenum) callconv(APIENTRY) void,
-glClearStencil: *const fn (s: GLint) callconv(APIENTRY) void,
-glTexGend: *const fn (coord: GLenum, pname: GLenum, param: f64) callconv(APIENTRY) void,
-glTexGenf: *const fn (coord: GLenum, pname: GLenum, param: f32) callconv(APIENTRY) void,
-glTexGeni: *const fn (coord: GLenum, pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glTexGendv: *const fn (coord: GLenum, pname: GLenum, params: [*c]const f64) callconv(APIENTRY) void,
-glTexGenfv: *const fn (coord: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glTexGeniv: *const fn (coord: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glGetTexGendv: *const fn (coord: GLenum, pname: GLenum, params: [*c]f64) callconv(APIENTRY) void,
-glGetTexGenfv: *const fn (coord: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetTexGeniv: *const fn (coord: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glTexEnvf: *const fn (target: GLenum, pname: GLenum, param: f32) callconv(APIENTRY) void,
-glTexEnvi: *const fn (target: GLenum, pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glTexEnvfv: *const fn (target: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glTexEnviv: *const fn (target: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glGetTexEnvfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetTexEnviv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glTexParameterf: *const fn (target: GLenum, pname: GLenum, param: f32) callconv(APIENTRY) void,
-glTexParameteri: *const fn (target: GLenum, pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glTexParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glTexParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glGetTexParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetTexParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glGetTexLevelParameterfv: *const fn (target: GLenum, level: GLint, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetTexLevelParameteriv: *const fn (target: GLenum, level: GLint, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glTexImage1D: *const fn (target: GLenum, level: GLint, internalFormat: GLint, width: GLsizei, border: GLint, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glTexImage2D: *const fn (target: GLenum, level: GLint, internalFormat: GLint, width: GLsizei, height: GLsizei, border: GLint, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glGetTexImage: *const fn (target: GLenum, level: GLint, format: GLenum, @"type": GLenum, pixels: ?*GLvoid) callconv(APIENTRY) void,
-glGenTextures: *const fn (n: GLsizei, textures: [*c]GLuint) callconv(APIENTRY) void,
-glDeleteTextures: *const fn (n: GLsizei, textures: [*c]const GLuint) callconv(APIENTRY) void,
-glBindTexture: *const fn (target: GLenum, texture: GLuint) callconv(APIENTRY) void,
-glPrioritizeTextures: *const fn (n: GLsizei, textures: [*c]const GLuint, priorities: [*c]const GLclampf) callconv(APIENTRY) void,
-glAreTexturesResident: *const fn (n: GLsizei, textures: [*c]const GLuint, residences: [*c]GLboolean) callconv(APIENTRY) GLboolean,
-glIsTexture: *const fn (texture: GLuint) callconv(APIENTRY) GLboolean,
-glTexSubImage1D: *const fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glTexSubImage2D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glCopyTexImage1D: *const fn (target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, border: GLint) callconv(APIENTRY) void,
-glCopyTexImage2D: *const fn (target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint) callconv(APIENTRY) void,
-glCopyTexSubImage1D: *const fn (target: GLenum, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) callconv(APIENTRY) void,
-glCopyTexSubImage2D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) callconv(APIENTRY) void,
-glMap1d: *const fn (target: GLenum, @"u1": f64, @"u2": f64, stride: GLint, order: GLint, points: [*c]const f64) callconv(APIENTRY) void,
-glMap1f: *const fn (target: GLenum, @"u1": f32, @"u2": f32, stride: GLint, order: GLint, points: [*c]const f32) callconv(APIENTRY) void,
-glMap2d: *const fn (target: GLenum, @"u1": f64, @"u2": f64, ustride: GLint, uorder: GLint, v1: f64, v2: f64, vstride: GLint, vorder: GLint, points: [*c]const f64) callconv(APIENTRY) void,
-glMap2f: *const fn (target: GLenum, @"u1": f32, @"u2": f32, ustride: GLint, uorder: GLint, v1: f32, v2: f32, vstride: GLint, vorder: GLint, points: [*c]const f32) callconv(APIENTRY) void,
-glGetMapdv: *const fn (target: GLenum, query: GLenum, v: [*c]f64) callconv(APIENTRY) void,
-glGetMapfv: *const fn (target: GLenum, query: GLenum, v: [*c]f32) callconv(APIENTRY) void,
-glGetMapiv: *const fn (target: GLenum, query: GLenum, v: [*c]GLint) callconv(APIENTRY) void,
-glEvalCoord1d: *const fn (u: f64) callconv(APIENTRY) void,
-glEvalCoord1f: *const fn (u: f32) callconv(APIENTRY) void,
-glEvalCoord1dv: *const fn (u: [*c]const f64) callconv(APIENTRY) void,
-glEvalCoord1fv: *const fn (u: [*c]const f32) callconv(APIENTRY) void,
-glEvalCoord2d: *const fn (u: f64, v: f64) callconv(APIENTRY) void,
-glEvalCoord2f: *const fn (u: f32, v: f32) callconv(APIENTRY) void,
-glEvalCoord2dv: *const fn (u: [*c]const f64) callconv(APIENTRY) void,
-glEvalCoord2fv: *const fn (u: [*c]const f32) callconv(APIENTRY) void,
-glMapGrid1d: *const fn (un: GLint, @"u1": f64, @"u2": f64) callconv(APIENTRY) void,
-glMapGrid1f: *const fn (un: GLint, @"u1": f32, @"u2": f32) callconv(APIENTRY) void,
-glMapGrid2d: *const fn (un: GLint, @"u1": f64, @"u2": f64, vn: GLint, v1: f64, v2: f64) callconv(APIENTRY) void,
-glMapGrid2f: *const fn (un: GLint, @"u1": f32, @"u2": f32, vn: GLint, v1: f32, v2: f32) callconv(APIENTRY) void,
-glEvalPoint1: *const fn (i: GLint) callconv(APIENTRY) void,
-glEvalPoint2: *const fn (i: GLint, j: GLint) callconv(APIENTRY) void,
-glEvalMesh1: *const fn (mode: GLenum, @"i1": GLint, @"i2": GLint) callconv(APIENTRY) void,
-glEvalMesh2: *const fn (mode: GLenum, @"i1": GLint, @"i2": GLint, j1: GLint, j2: GLint) callconv(APIENTRY) void,
-glFogf: *const fn (pname: GLenum, param: f32) callconv(APIENTRY) void,
-glFogi: *const fn (pname: GLenum, param: GLint) callconv(APIENTRY) void,
-glFogfv: *const fn (pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glFogiv: *const fn (pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glFeedbackBuffer: *const fn (size: GLsizei, @"type": GLenum, buffer: [*c]f32) callconv(APIENTRY) void,
-glPassThrough: *const fn (token: f32) callconv(APIENTRY) void,
-glSelectBuffer: *const fn (size: GLsizei, buffer: [*c]GLuint) callconv(APIENTRY) void,
-glInitNames: *const fn () callconv(APIENTRY) void,
-glLoadName: *const fn (name: GLuint) callconv(APIENTRY) void,
-glPushName: *const fn (name: GLuint) callconv(APIENTRY) void,
-glPopName: *const fn () callconv(APIENTRY) void,
-glDrawRangeElements: *const fn (mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, @"type": GLenum, indices: ?*const GLvoid) callconv(APIENTRY) void,
-glTexImage3D: *const fn (target: GLenum, level: GLint, internalFormat: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glTexSubImage3D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, @"type": GLenum, pixels: ?*const GLvoid) callconv(APIENTRY) void,
-glCopyTexSubImage3D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) callconv(APIENTRY) void,
-glColorTable: *const fn (target: GLenum, internalformat: GLenum, width: GLsizei, format: GLenum, @"type": GLenum, table: ?*const GLvoid) callconv(APIENTRY) void,
-glColorSubTable: *const fn (target: GLenum, start: GLsizei, count: GLsizei, format: GLenum, @"type": GLenum, data: ?*const GLvoid) callconv(APIENTRY) void,
-glColorTableParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glColorTableParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glCopyColorSubTable: *const fn (target: GLenum, start: GLsizei, x: GLint, y: GLint, width: GLsizei) callconv(APIENTRY) void,
-glCopyColorTable: *const fn (target: GLenum, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei) callconv(APIENTRY) void,
-glGetColorTable: *const fn (target: GLenum, format: GLenum, @"type": GLenum, table: ?*GLvoid) callconv(APIENTRY) void,
-glGetColorTableParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetColorTableParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glBlendEquation: *const fn (mode: GLenum) callconv(APIENTRY) void,
-glBlendColor: *const fn (red: GLclampf, green: GLclampf, blue: GLclampf, alpha: GLclampf) callconv(APIENTRY) void,
-glHistogram: *const fn (target: GLenum, width: GLsizei, internalformat: GLenum, sink: GLboolean) callconv(APIENTRY) void,
-glResetHistogram: *const fn (target: GLenum) callconv(APIENTRY) void,
-glGetHistogram: *const fn (target: GLenum, reset: GLboolean, format: GLenum, @"type": GLenum, values: ?*GLvoid) callconv(APIENTRY) void,
-glGetHistogramParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetHistogramParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glMinmax: *const fn (target: GLenum, internalformat: GLenum, sink: GLboolean) callconv(APIENTRY) void,
-glResetMinmax: *const fn (target: GLenum) callconv(APIENTRY) void,
-glGetMinmax: *const fn (target: GLenum, reset: GLboolean, format: GLenum, types: GLenum, values: ?*GLvoid) callconv(APIENTRY) void,
-glGetMinmaxParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetMinmaxParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glConvolutionFilter1D: *const fn (target: GLenum, internalformat: GLenum, width: GLsizei, format: GLenum, @"type": GLenum, image: ?*const GLvoid) callconv(APIENTRY) void,
-glConvolutionFilter2D: *const fn (target: GLenum, internalformat: GLenum, width: GLsizei, height: GLsizei, format: GLenum, @"type": GLenum, image: ?*const GLvoid) callconv(APIENTRY) void,
-glConvolutionParameterf: *const fn (target: GLenum, pname: GLenum, params: f32) callconv(APIENTRY) void,
-glConvolutionParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]const f32) callconv(APIENTRY) void,
-glConvolutionParameteri: *const fn (target: GLenum, pname: GLenum, params: GLint) callconv(APIENTRY) void,
-glConvolutionParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]const GLint) callconv(APIENTRY) void,
-glCopyConvolutionFilter1D: *const fn (target: GLenum, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei) callconv(APIENTRY) void,
-glCopyConvolutionFilter2D: *const fn (target: GLenum, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei) callconv(APIENTRY) void,
-glGetConvolutionFilter: *const fn (target: GLenum, format: GLenum, @"type": GLenum, image: ?*GLvoid) callconv(APIENTRY) void,
-glGetConvolutionParameterfv: *const fn (target: GLenum, pname: GLenum, params: [*c]f32) callconv(APIENTRY) void,
-glGetConvolutionParameteriv: *const fn (target: GLenum, pname: GLenum, params: [*c]GLint) callconv(APIENTRY) void,
-glSeparableFilter2D: *const fn (target: GLenum, internalformat: GLenum, width: GLsizei, height: GLsizei, format: GLenum, @"type": GLenum, row: ?*const GLvoid, column: ?*const GLvoid) callconv(APIENTRY) void,
-glGetSeparableFilter: *const fn (target: GLenum, format: GLenum, @"type": GLenum, row: ?*GLvoid, column: ?*GLvoid, span: ?*GLvoid) callconv(APIENTRY) void,
-glActiveTexture: *const fn (texture: GLenum) callconv(APIENTRY) void,
-glClientActiveTexture: *const fn (texture: GLenum) callconv(APIENTRY) void,
-glCompressedTexImage1D: *const fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, border: GLint, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glCompressedTexImage2D: *const fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, border: GLint, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glCompressedTexImage3D: *const fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glCompressedTexSubImage1D: *const fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glCompressedTexSubImage2D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glCompressedTexSubImage3D: *const fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, imageSize: GLsizei, data: ?*const GLvoid) callconv(APIENTRY) void,
-glGetCompressedTexImage: *const fn (target: GLenum, lod: GLint, img: ?*GLvoid) callconv(APIENTRY) void,
-glMultiTexCoord1d: *const fn (target: GLenum, s: f64) callconv(APIENTRY) void,
-glMultiTexCoord1dv: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord1f: *const fn (target: GLenum, s: f32) callconv(APIENTRY) void,
-glMultiTexCoord1fv: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord1i: *const fn (target: GLenum, s: GLint) callconv(APIENTRY) void,
-glMultiTexCoord1iv: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord1s: *const fn (target: GLenum, s: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord1sv: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord2d: *const fn (target: GLenum, s: f64, t: f64) callconv(APIENTRY) void,
-glMultiTexCoord2dv: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord2f: *const fn (target: GLenum, s: f32, t: f32) callconv(APIENTRY) void,
-glMultiTexCoord2fv: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord2i: *const fn (target: GLenum, s: GLint, t: GLint) callconv(APIENTRY) void,
-glMultiTexCoord2iv: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord2s: *const fn (target: GLenum, s: GLshort, t: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord2sv: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord3d: *const fn (target: GLenum, s: f64, t: f64, r: f64) callconv(APIENTRY) void,
-glMultiTexCoord3dv: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord3f: *const fn (target: GLenum, s: f32, t: f32, r: f32) callconv(APIENTRY) void,
-glMultiTexCoord3fv: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord3i: *const fn (target: GLenum, s: GLint, t: GLint, r: GLint) callconv(APIENTRY) void,
-glMultiTexCoord3iv: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord3s: *const fn (target: GLenum, s: GLshort, t: GLshort, r: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord3sv: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord4d: *const fn (target: GLenum, s: f64, t: f64, r: f64, q: f64) callconv(APIENTRY) void,
-glMultiTexCoord4dv: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord4f: *const fn (target: GLenum, s: f32, t: f32, r: f32, q: f32) callconv(APIENTRY) void,
-glMultiTexCoord4fv: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord4i: *const fn (target: GLenum, s: GLint, t: GLint, r: GLint, q: GLint) callconv(APIENTRY) void,
-glMultiTexCoord4iv: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord4s: *const fn (target: GLenum, s: GLshort, t: GLshort, r: GLshort, q: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord4sv: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glLoadTransposeMatrixd: *const fn (m: [*c]const f64) callconv(APIENTRY) void,
-glLoadTransposeMatrixf: *const fn (m: [*c]const f32) callconv(APIENTRY) void,
-glMultTransposeMatrixd: *const fn (m: [*c]const f64) callconv(APIENTRY) void,
-glMultTransposeMatrixf: *const fn (m: [*c]const f32) callconv(APIENTRY) void,
-glSampleCoverage: *const fn (value: GLclampf, invert: GLboolean) callconv(APIENTRY) void,
-glActiveTextureARB: *const fn (texture: GLenum) callconv(APIENTRY) void,
-glClientActiveTextureARB: *const fn (texture: GLenum) callconv(APIENTRY) void,
-glMultiTexCoord1dARB: *const fn (target: GLenum, s: f64) callconv(APIENTRY) void,
-glMultiTexCoord1dvARB: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord1fARB: *const fn (target: GLenum, s: f32) callconv(APIENTRY) void,
-glMultiTexCoord1fvARB: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord1iARB: *const fn (target: GLenum, s: GLint) callconv(APIENTRY) void,
-glMultiTexCoord1ivARB: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord1sARB: *const fn (target: GLenum, s: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord1svARB: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord2dARB: *const fn (target: GLenum, s: f64, t: f64) callconv(APIENTRY) void,
-glMultiTexCoord2dvARB: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord2fARB: *const fn (target: GLenum, s: f32, t: f32) callconv(APIENTRY) void,
-glMultiTexCoord2fvARB: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord2iARB: *const fn (target: GLenum, s: GLint, t: GLint) callconv(APIENTRY) void,
-glMultiTexCoord2ivARB: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord2sARB: *const fn (target: GLenum, s: GLshort, t: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord2svARB: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord3dARB: *const fn (target: GLenum, s: f64, t: f64, r: f64) callconv(APIENTRY) void,
-glMultiTexCoord3dvARB: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord3fARB: *const fn (target: GLenum, s: f32, t: f32, r: f32) callconv(APIENTRY) void,
-glMultiTexCoord3fvARB: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord3iARB: *const fn (target: GLenum, s: GLint, t: GLint, r: GLint) callconv(APIENTRY) void,
-glMultiTexCoord3ivARB: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord3sARB: *const fn (target: GLenum, s: GLshort, t: GLshort, r: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord3svARB: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glMultiTexCoord4dARB: *const fn (target: GLenum, s: f64, t: f64, r: f64, q: f64) callconv(APIENTRY) void,
-glMultiTexCoord4dvARB: *const fn (target: GLenum, v: [*c]const f64) callconv(APIENTRY) void,
-glMultiTexCoord4fARB: *const fn (target: GLenum, s: f32, t: f32, r: f32, q: f32) callconv(APIENTRY) void,
-glMultiTexCoord4fvARB: *const fn (target: GLenum, v: [*c]const f32) callconv(APIENTRY) void,
-glMultiTexCoord4iARB: *const fn (target: GLenum, s: GLint, t: GLint, r: GLint, q: GLint) callconv(APIENTRY) void,
-glMultiTexCoord4ivARB: *const fn (target: GLenum, v: [*c]const GLint) callconv(APIENTRY) void,
-glMultiTexCoord4sARB: *const fn (target: GLenum, s: GLshort, t: GLshort, r: GLshort, q: GLshort) callconv(APIENTRY) void,
-glMultiTexCoord4svARB: *const fn (target: GLenum, v: [*c]const GLshort) callconv(APIENTRY) void,
-glBlendEquationSeparateATI: *const fn (modeRGB: GLenum, modeA: GLenum) callconv(APIENTRY) void,
+glBlendFunc: *const fn (sfactor: Enum, dfactor: Enum) callconv(APIENTRY) void,
+glLogicOp: *const fn (opcode: Enum) callconv(APIENTRY) void,
+glStencilFunc: *const fn (func: Enum, ref: c_int, mask: c_uint) callconv(APIENTRY) void,
+glStencilOp: *const fn (fail: Enum, zfail: Enum, zpass: Enum) callconv(APIENTRY) void,
+glDepthFunc: *const fn (func: Enum) callconv(APIENTRY) void,
+glPixelStoref: *const fn (pname: Enum, param: f32) callconv(APIENTRY) void,
+glPixelStorei: *const fn (pname: Enum, param: c_int) callconv(APIENTRY) void,
+glReadBuffer: *const fn (src: Enum) callconv(APIENTRY) void,
+glReadPixels: *const fn (x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetBooleanv: *const fn (pname: Enum, data: [*c]Boolean) callconv(APIENTRY) void,
+glGetDoublev: *const fn (pname: Enum, data: [*c]f64) callconv(APIENTRY) void,
+glGetError: *const fn () callconv(APIENTRY) Enum,
+glGetFloatv: *const fn (pname: Enum, data: [*c]f32) callconv(APIENTRY) void,
+glGetIntegerv: *const fn (pname: Enum, data: [*c]c_int) callconv(APIENTRY) void,
+glGetString: *const fn (name: Enum) callconv(APIENTRY) [*c]const u8,
+glGetTexImage: *const fn (target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetTexParameterfv: *const fn (target: Enum, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTexParameteriv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTexLevelParameterfv: *const fn (target: Enum, level: c_int, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTexLevelParameteriv: *const fn (target: Enum, level: c_int, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glIsEnabled: *const fn (cap: Enum) callconv(APIENTRY) Boolean,
+glDepthRange: *const fn (n: f64, f: f64) callconv(APIENTRY) void,
+glViewport: *const fn (x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glDrawArrays: *const fn (mode: Enum, first: c_int, count: c_int) callconv(APIENTRY) void,
+glDrawElements: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque) callconv(APIENTRY) void,
+glGetPointerv: *const fn (pname: Enum, params: [*c]?*anyopaque) callconv(APIENTRY) void,
+glPolygonOffset: *const fn (factor: f32, units: f32) callconv(APIENTRY) void,
+glCopyTexImage1D: *const fn (target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyTexImage2D: *const fn (target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyTexSubImage1D: *const fn (target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) callconv(APIENTRY) void,
+glCopyTexSubImage2D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTexSubImage1D: *const fn (target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTexSubImage2D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glBindTexture: *const fn (target: Enum, texture: c_uint) callconv(APIENTRY) void,
+glDeleteTextures: *const fn (n: c_int, textures: [*c]const c_uint) callconv(APIENTRY) void,
+glGenTextures: *const fn (n: c_int, textures: [*c]c_uint) callconv(APIENTRY) void,
+glIsTexture: *const fn (texture: c_uint) callconv(APIENTRY) Boolean,
+glDrawRangeElements: *const fn (mode: Enum, start: c_uint, end: c_uint, count: c_int, @"type": Enum, indices: ?*const anyopaque) callconv(APIENTRY) void,
+glTexImage3D: *const fn (target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTexSubImage3D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyTexSubImage3D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glActiveTexture: *const fn (texture: Enum) callconv(APIENTRY) void,
+glSampleCoverage: *const fn (value: f32, invert: Boolean) callconv(APIENTRY) void,
+glCompressedTexImage3D: *const fn (target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTexImage2D: *const fn (target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTexImage1D: *const fn (target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTexSubImage3D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTexSubImage2D: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTexSubImage1D: *const fn (target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glGetCompressedTexImage: *const fn (target: Enum, level: c_int, img: ?*anyopaque) callconv(APIENTRY) void,
+glBlendFuncSeparate: *const fn (sfactorRGB: Enum, dfactorRGB: Enum, sfactorAlpha: Enum, dfactorAlpha: Enum) callconv(APIENTRY) void,
+glMultiDrawArrays: *const fn (mode: Enum, first: [*c]const c_int, count: [*c]const c_int, drawcount: c_int) callconv(APIENTRY) void,
+glMultiDrawElements: *const fn (mode: Enum, count: [*c]const c_int, @"type": Enum, indices: [*c]const ?*const anyopaque, drawcount: c_int) callconv(APIENTRY) void,
+glPointParameterf: *const fn (pname: Enum, param: f32) callconv(APIENTRY) void,
+glPointParameterfv: *const fn (pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glPointParameteri: *const fn (pname: Enum, param: c_int) callconv(APIENTRY) void,
+glPointParameteriv: *const fn (pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glBlendColor: *const fn (red: f32, green: f32, blue: f32, alpha: f32) callconv(APIENTRY) void,
+glBlendEquation: *const fn (mode: Enum) callconv(APIENTRY) void,
+glGenQueries: *const fn (n: c_int, ids: [*c]c_uint) callconv(APIENTRY) void,
+glDeleteQueries: *const fn (n: c_int, ids: [*c]const c_uint) callconv(APIENTRY) void,
+glIsQuery: *const fn (id: c_uint) callconv(APIENTRY) Boolean,
+glBeginQuery: *const fn (target: Enum, id: c_uint) callconv(APIENTRY) void,
+glEndQuery: *const fn (target: Enum) callconv(APIENTRY) void,
+glGetQueryiv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetQueryObjectiv: *const fn (id: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetQueryObjectuiv: *const fn (id: c_uint, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glBindBuffer: *const fn (target: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glDeleteBuffers: *const fn (n: c_int, buffers: [*c]const c_uint) callconv(APIENTRY) void,
+glGenBuffers: *const fn (n: c_int, buffers: [*c]c_uint) callconv(APIENTRY) void,
+glIsBuffer: *const fn (buffer: c_uint) callconv(APIENTRY) Boolean,
+glBufferData: *const fn (target: Enum, size: c_ulong, data: ?*const anyopaque, usage: Enum) callconv(APIENTRY) void,
+glBufferSubData: *const fn (target: Enum, offset: c_long, size: c_ulong, data: ?*const anyopaque) callconv(APIENTRY) void,
+glGetBufferSubData: *const fn (target: Enum, offset: c_long, size: c_ulong, data: ?*anyopaque) callconv(APIENTRY) void,
+glMapBuffer: *const fn (target: Enum, access: Enum) callconv(APIENTRY) ?*anyopaque,
+glUnmapBuffer: *const fn (target: Enum) callconv(APIENTRY) Boolean,
+glGetBufferParameteriv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetBufferPointerv: *const fn (target: Enum, pname: Enum, params: [*c]?*anyopaque) callconv(APIENTRY) void,
+glBlendEquationSeparate: *const fn (modeRGB: Enum, modeAlpha: Enum) callconv(APIENTRY) void,
+glDrawBuffers: *const fn (n: c_int, bufs: [*c]const Enum) callconv(APIENTRY) void,
+glStencilOpSeparate: *const fn (face: Enum, sfail: Enum, dpfail: Enum, dppass: Enum) callconv(APIENTRY) void,
+glStencilFuncSeparate: *const fn (face: Enum, func: Enum, ref: c_int, mask: c_uint) callconv(APIENTRY) void,
+glStencilMaskSeparate: *const fn (face: Enum, mask: c_uint) callconv(APIENTRY) void,
+glAttachShader: *const fn (program: c_uint, shader: c_uint) callconv(APIENTRY) void,
+glBindAttribLocation: *const fn (program: c_uint, index: c_uint, name: [*c]const u8) callconv(APIENTRY) void,
+glCompileShader: *const fn (shader: c_uint) callconv(APIENTRY) void,
+glCreateProgram: *const fn () callconv(APIENTRY) c_uint,
+glCreateShader: *const fn (@"type": Enum) callconv(APIENTRY) c_uint,
+glDeleteProgram: *const fn (program: c_uint) callconv(APIENTRY) void,
+glDeleteShader: *const fn (shader: c_uint) callconv(APIENTRY) void,
+glDetachShader: *const fn (program: c_uint, shader: c_uint) callconv(APIENTRY) void,
+glDisableVertexAttribArray: *const fn (index: c_uint) callconv(APIENTRY) void,
+glEnableVertexAttribArray: *const fn (index: c_uint) callconv(APIENTRY) void,
+glGetActiveAttrib: *const fn (program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) callconv(APIENTRY) void,
+glGetActiveUniform: *const fn (program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) callconv(APIENTRY) void,
+glGetAttachedShaders: *const fn (program: c_uint, maxCount: c_int, count: [*c]c_int, shaders: [*c]c_uint) callconv(APIENTRY) void,
+glGetAttribLocation: *const fn (program: c_uint, name: [*c]const u8) callconv(APIENTRY) c_int,
+glGetProgramiv: *const fn (program: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetProgramInfoLog: *const fn (program: c_uint, bufSize: c_int, length: [*c]c_int, infoLog: [*c]u8) callconv(APIENTRY) void,
+glGetShaderiv: *const fn (shader: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetShaderInfoLog: *const fn (shader: c_uint, bufSize: c_int, length: [*c]c_int, infoLog: [*c]u8) callconv(APIENTRY) void,
+glGetShaderSource: *const fn (shader: c_uint, bufSize: c_int, length: [*c]c_int, source: [*c]u8) callconv(APIENTRY) void,
+glGetUniformLocation: *const fn (program: c_uint, name: [*c]const u8) callconv(APIENTRY) c_int,
+glGetUniformfv: *const fn (program: c_uint, location: c_int, params: [*c]f32) callconv(APIENTRY) void,
+glGetUniformiv: *const fn (program: c_uint, location: c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexAttribdv: *const fn (index: c_uint, pname: Enum, params: [*c]f64) callconv(APIENTRY) void,
+glGetVertexAttribfv: *const fn (index: c_uint, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetVertexAttribiv: *const fn (index: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexAttribPointerv: *const fn (index: c_uint, pname: Enum, pointer: [*c]?*anyopaque) callconv(APIENTRY) void,
+glIsProgram: *const fn (program: c_uint) callconv(APIENTRY) Boolean,
+glIsShader: *const fn (shader: c_uint) callconv(APIENTRY) Boolean,
+glLinkProgram: *const fn (program: c_uint) callconv(APIENTRY) void,
+glShaderSource: *const fn (shader: c_uint, count: c_int, string: [*c]const [*c]const u8, length: [*c]const c_int) callconv(APIENTRY) void,
+glUseProgram: *const fn (program: c_uint) callconv(APIENTRY) void,
+glUniform1f: *const fn (location: c_int, v0: f32) callconv(APIENTRY) void,
+glUniform2f: *const fn (location: c_int, v0: f32, v1: f32) callconv(APIENTRY) void,
+glUniform3f: *const fn (location: c_int, v0: f32, v1: f32, v2: f32) callconv(APIENTRY) void,
+glUniform4f: *const fn (location: c_int, v0: f32, v1: f32, v2: f32, v3: f32) callconv(APIENTRY) void,
+glUniform1i: *const fn (location: c_int, v0: c_int) callconv(APIENTRY) void,
+glUniform2i: *const fn (location: c_int, v0: c_int, v1: c_int) callconv(APIENTRY) void,
+glUniform3i: *const fn (location: c_int, v0: c_int, v1: c_int, v2: c_int) callconv(APIENTRY) void,
+glUniform4i: *const fn (location: c_int, v0: c_int, v1: c_int, v2: c_int, v3: c_int) callconv(APIENTRY) void,
+glUniform1fv: *const fn (location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glUniform2fv: *const fn (location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glUniform3fv: *const fn (location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glUniform4fv: *const fn (location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glUniform1iv: *const fn (location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glUniform2iv: *const fn (location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glUniform3iv: *const fn (location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glUniform4iv: *const fn (location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glUniformMatrix2fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix3fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix4fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glValidateProgram: *const fn (program: c_uint) callconv(APIENTRY) void,
+glVertexAttrib1d: *const fn (index: c_uint, x: f64) callconv(APIENTRY) void,
+glVertexAttrib1dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttrib1f: *const fn (index: c_uint, x: f32) callconv(APIENTRY) void,
+glVertexAttrib1fv: *const fn (index: c_uint, v: [*c]const f32) callconv(APIENTRY) void,
+glVertexAttrib1s: *const fn (index: c_uint, x: c_short) callconv(APIENTRY) void,
+glVertexAttrib1sv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttrib2d: *const fn (index: c_uint, x: f64, y: f64) callconv(APIENTRY) void,
+glVertexAttrib2dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttrib2f: *const fn (index: c_uint, x: f32, y: f32) callconv(APIENTRY) void,
+glVertexAttrib2fv: *const fn (index: c_uint, v: [*c]const f32) callconv(APIENTRY) void,
+glVertexAttrib2s: *const fn (index: c_uint, x: c_short, y: c_short) callconv(APIENTRY) void,
+glVertexAttrib2sv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttrib3d: *const fn (index: c_uint, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glVertexAttrib3dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttrib3f: *const fn (index: c_uint, x: f32, y: f32, z: f32) callconv(APIENTRY) void,
+glVertexAttrib3fv: *const fn (index: c_uint, v: [*c]const f32) callconv(APIENTRY) void,
+glVertexAttrib3s: *const fn (index: c_uint, x: c_short, y: c_short, z: c_short) callconv(APIENTRY) void,
+glVertexAttrib3sv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttrib4Nbv: *const fn (index: c_uint, v: [*c]const i8) callconv(APIENTRY) void,
+glVertexAttrib4Niv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttrib4Nsv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttrib4Nub: *const fn (index: c_uint, x: u8, y: u8, z: u8, w: u8) callconv(APIENTRY) void,
+glVertexAttrib4Nubv: *const fn (index: c_uint, v: [*c]const u8) callconv(APIENTRY) void,
+glVertexAttrib4Nuiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttrib4Nusv: *const fn (index: c_uint, v: [*c]const c_ushort) callconv(APIENTRY) void,
+glVertexAttrib4bv: *const fn (index: c_uint, v: [*c]const i8) callconv(APIENTRY) void,
+glVertexAttrib4d: *const fn (index: c_uint, x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
+glVertexAttrib4dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttrib4f: *const fn (index: c_uint, x: f32, y: f32, z: f32, w: f32) callconv(APIENTRY) void,
+glVertexAttrib4fv: *const fn (index: c_uint, v: [*c]const f32) callconv(APIENTRY) void,
+glVertexAttrib4iv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttrib4s: *const fn (index: c_uint, x: c_short, y: c_short, z: c_short, w: c_short) callconv(APIENTRY) void,
+glVertexAttrib4sv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttrib4ubv: *const fn (index: c_uint, v: [*c]const u8) callconv(APIENTRY) void,
+glVertexAttrib4uiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttrib4usv: *const fn (index: c_uint, v: [*c]const c_ushort) callconv(APIENTRY) void,
+glVertexAttribPointer: *const fn (index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int, pointer: ?*const anyopaque) callconv(APIENTRY) void,
+glUniformMatrix2x3fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix3x2fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix2x4fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix4x2fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix3x4fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glUniformMatrix4x3fv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glColorMaski: *const fn (index: c_uint, r: Boolean, g: Boolean, b: Boolean, a: Boolean) callconv(APIENTRY) void,
+glGetBooleani_v: *const fn (target: Enum, index: c_uint, data: [*c]Boolean) callconv(APIENTRY) void,
+glGetIntegeri_v: *const fn (target: Enum, index: c_uint, data: [*c]c_int) callconv(APIENTRY) void,
+glEnablei: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) void,
+glDisablei: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) void,
+glIsEnabledi: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) Boolean,
+glBeginTransformFeedback: *const fn (primitiveMode: Enum) callconv(APIENTRY) void,
+glEndTransformFeedback: *const fn () callconv(APIENTRY) void,
+glBindBufferRange: *const fn (target: Enum, index: c_uint, buffer: c_uint, offset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glBindBufferBase: *const fn (target: Enum, index: c_uint, buffer: c_uint) callconv(APIENTRY) void,
+glTransformFeedbackVaryings: *const fn (program: c_uint, count: c_int, varyings: [*c]const [*c]const u8, bufferMode: Enum) callconv(APIENTRY) void,
+glGetTransformFeedbackVarying: *const fn (program: c_uint, index: c_uint, bufSize: c_int, length: [*c]c_int, size: [*c]c_int, @"type": [*c]Enum, name: [*c]u8) callconv(APIENTRY) void,
+glClampColor: *const fn (target: Enum, clamp: Enum) callconv(APIENTRY) void,
+glBeginConditionalRender: *const fn (id: c_uint, mode: Enum) callconv(APIENTRY) void,
+glEndConditionalRender: *const fn () callconv(APIENTRY) void,
+glVertexAttribIPointer: *const fn (index: c_uint, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) callconv(APIENTRY) void,
+glGetVertexAttribIiv: *const fn (index: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexAttribIuiv: *const fn (index: c_uint, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glVertexAttribI1i: *const fn (index: c_uint, x: c_int) callconv(APIENTRY) void,
+glVertexAttribI2i: *const fn (index: c_uint, x: c_int, y: c_int) callconv(APIENTRY) void,
+glVertexAttribI3i: *const fn (index: c_uint, x: c_int, y: c_int, z: c_int) callconv(APIENTRY) void,
+glVertexAttribI4i: *const fn (index: c_uint, x: c_int, y: c_int, z: c_int, w: c_int) callconv(APIENTRY) void,
+glVertexAttribI1ui: *const fn (index: c_uint, x: c_uint) callconv(APIENTRY) void,
+glVertexAttribI2ui: *const fn (index: c_uint, x: c_uint, y: c_uint) callconv(APIENTRY) void,
+glVertexAttribI3ui: *const fn (index: c_uint, x: c_uint, y: c_uint, z: c_uint) callconv(APIENTRY) void,
+glVertexAttribI4ui: *const fn (index: c_uint, x: c_uint, y: c_uint, z: c_uint, w: c_uint) callconv(APIENTRY) void,
+glVertexAttribI1iv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttribI2iv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttribI3iv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttribI4iv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glVertexAttribI1uiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribI2uiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribI3uiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribI4uiv: *const fn (index: c_uint, v: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribI4bv: *const fn (index: c_uint, v: [*c]const i8) callconv(APIENTRY) void,
+glVertexAttribI4sv: *const fn (index: c_uint, v: [*c]const c_short) callconv(APIENTRY) void,
+glVertexAttribI4ubv: *const fn (index: c_uint, v: [*c]const u8) callconv(APIENTRY) void,
+glVertexAttribI4usv: *const fn (index: c_uint, v: [*c]const c_ushort) callconv(APIENTRY) void,
+glGetUniformuiv: *const fn (program: c_uint, location: c_int, params: [*c]c_uint) callconv(APIENTRY) void,
+glBindFragDataLocation: *const fn (program: c_uint, color: c_uint, name: [*c]const u8) callconv(APIENTRY) void,
+glGetFragDataLocation: *const fn (program: c_uint, name: [*c]const u8) callconv(APIENTRY) c_int,
+glUniform1ui: *const fn (location: c_int, v0: c_uint) callconv(APIENTRY) void,
+glUniform2ui: *const fn (location: c_int, v0: c_uint, v1: c_uint) callconv(APIENTRY) void,
+glUniform3ui: *const fn (location: c_int, v0: c_uint, v1: c_uint, v2: c_uint) callconv(APIENTRY) void,
+glUniform4ui: *const fn (location: c_int, v0: c_uint, v1: c_uint, v2: c_uint, v3: c_uint) callconv(APIENTRY) void,
+glUniform1uiv: *const fn (location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glUniform2uiv: *const fn (location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glUniform3uiv: *const fn (location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glUniform4uiv: *const fn (location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glTexParameterIiv: *const fn (target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glTexParameterIuiv: *const fn (target: Enum, pname: Enum, params: [*c]const c_uint) callconv(APIENTRY) void,
+glGetTexParameterIiv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTexParameterIuiv: *const fn (target: Enum, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glClearBufferiv: *const fn (buffer: Enum, drawbuffer: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glClearBufferuiv: *const fn (buffer: Enum, drawbuffer: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glClearBufferfv: *const fn (buffer: Enum, drawbuffer: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glClearBufferfi: *const fn (buffer: Enum, drawbuffer: c_int, depth: f32, stencil: c_int) callconv(APIENTRY) void,
+glGetStringi: *const fn (name: Enum, index: c_uint) callconv(APIENTRY) [*c]const u8,
+glIsRenderbuffer: *const fn (renderbuffer: c_uint) callconv(APIENTRY) Boolean,
+glBindRenderbuffer: *const fn (target: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glDeleteRenderbuffers: *const fn (n: c_int, renderbuffers: [*c]const c_uint) callconv(APIENTRY) void,
+glGenRenderbuffers: *const fn (n: c_int, renderbuffers: [*c]c_uint) callconv(APIENTRY) void,
+glRenderbufferStorage: *const fn (target: Enum, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetRenderbufferParameteriv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glIsFramebuffer: *const fn (framebuffer: c_uint) callconv(APIENTRY) Boolean,
+glBindFramebuffer: *const fn (target: Enum, framebuffer: c_uint) callconv(APIENTRY) void,
+glDeleteFramebuffers: *const fn (n: c_int, framebuffers: [*c]const c_uint) callconv(APIENTRY) void,
+glGenFramebuffers: *const fn (n: c_int, framebuffers: [*c]c_uint) callconv(APIENTRY) void,
+glCheckFramebufferStatus: *const fn (target: Enum) callconv(APIENTRY) Enum,
+glFramebufferTexture1D: *const fn (target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glFramebufferTexture2D: *const fn (target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glFramebufferTexture3D: *const fn (target: Enum, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int, zoffset: c_int) callconv(APIENTRY) void,
+glFramebufferRenderbuffer: *const fn (target: Enum, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glGetFramebufferAttachmentParameteriv: *const fn (target: Enum, attachment: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGenerateMipmap: *const fn (target: Enum) callconv(APIENTRY) void,
+glBlitFramebuffer: *const fn (srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: Enum) callconv(APIENTRY) void,
+glRenderbufferStorageMultisample: *const fn (target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glFramebufferTextureLayer: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) callconv(APIENTRY) void,
+glMapBufferRange: *const fn (target: Enum, offset: c_long, length: c_ulong, access: Bitfield) callconv(APIENTRY) ?*anyopaque,
+glFlushMappedBufferRange: *const fn (target: Enum, offset: c_long, length: c_ulong) callconv(APIENTRY) void,
+glBindVertexArray: *const fn (array: c_uint) callconv(APIENTRY) void,
+glDeleteVertexArrays: *const fn (n: c_int, arrays: [*c]const c_uint) callconv(APIENTRY) void,
+glGenVertexArrays: *const fn (n: c_int, arrays: [*c]c_uint) callconv(APIENTRY) void,
+glIsVertexArray: *const fn (array: c_uint) callconv(APIENTRY) Boolean,
+glDrawArraysInstanced: *const fn (mode: Enum, first: c_int, count: c_int, instancecount: c_int) callconv(APIENTRY) void,
+glDrawElementsInstanced: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int) callconv(APIENTRY) void,
+glTexBuffer: *const fn (target: Enum, internalformat: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glPrimitiveRestartIndex: *const fn (index: c_uint) callconv(APIENTRY) void,
+glCopyBufferSubData: *const fn (readTarget: Enum, writeTarget: Enum, readOffset: c_long, writeOffset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glGetUniformIndices: *const fn (program: c_uint, uniformCount: c_int, uniformNames: [*c]const [*c]const u8, uniformIndices: [*c]c_uint) callconv(APIENTRY) void,
+glGetActiveUniformsiv: *const fn (program: c_uint, uniformCount: c_int, uniformIndices: [*c]const c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetActiveUniformName: *const fn (program: c_uint, uniformIndex: c_uint, bufSize: c_int, length: [*c]c_int, uniformName: [*c]u8) callconv(APIENTRY) void,
+glGetUniformBlockIndex: *const fn (program: c_uint, uniformBlockName: [*c]const u8) callconv(APIENTRY) c_uint,
+glGetActiveUniformBlockiv: *const fn (program: c_uint, uniformBlockIndex: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetActiveUniformBlockName: *const fn (program: c_uint, uniformBlockIndex: c_uint, bufSize: c_int, length: [*c]c_int, uniformBlockName: [*c]u8) callconv(APIENTRY) void,
+glUniformBlockBinding: *const fn (program: c_uint, uniformBlockIndex: c_uint, uniformBlockBinding: c_uint) callconv(APIENTRY) void,
+glDrawElementsBaseVertex: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, basevertex: c_int) callconv(APIENTRY) void,
+glDrawRangeElementsBaseVertex: *const fn (mode: Enum, start: c_uint, end: c_uint, count: c_int, @"type": Enum, indices: ?*const anyopaque, basevertex: c_int) callconv(APIENTRY) void,
+glDrawElementsInstancedBaseVertex: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsBaseVertex: *const fn (mode: Enum, count: [*c]const c_int, @"type": Enum, indices: [*c]const ?*const anyopaque, drawcount: c_int, basevertex: [*c]const c_int) callconv(APIENTRY) void,
+glProvokingVertex: *const fn (mode: Enum) callconv(APIENTRY) void,
+glFenceSync: *const fn (condition: Enum, flags: Bitfield) callconv(APIENTRY) Sync,
+glIsSync: *const fn (sync: Sync) callconv(APIENTRY) Boolean,
+glDeleteSync: *const fn (sync: Sync) callconv(APIENTRY) void,
+glClientWaitSync: *const fn (sync: Sync, flags: Bitfield, timeout: u64) callconv(APIENTRY) Enum,
+glWaitSync: *const fn (sync: Sync, flags: Bitfield, timeout: u64) callconv(APIENTRY) void,
+glGetInteger64v: *const fn (pname: Enum, data: [*c]i64) callconv(APIENTRY) void,
+glGetSynciv: *const fn (sync: Sync, pname: Enum, count: c_int, length: [*c]c_int, values: [*c]c_int) callconv(APIENTRY) void,
+glGetInteger64i_v: *const fn (target: Enum, index: c_uint, data: [*c]i64) callconv(APIENTRY) void,
+glGetBufferParameteri64v: *const fn (target: Enum, pname: Enum, params: [*c]i64) callconv(APIENTRY) void,
+glFramebufferTexture: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glTexImage2DMultisample: *const fn (target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTexImage3DMultisample: *const fn (target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glGetMultisamplefv: *const fn (pname: Enum, index: c_uint, val: [*c]f32) callconv(APIENTRY) void,
+glSampleMaski: *const fn (maskNumber: c_uint, mask: Bitfield) callconv(APIENTRY) void,
+glBindFragDataLocationIndexed: *const fn (program: c_uint, colorNumber: c_uint, index: c_uint, name: [*c]const u8) callconv(APIENTRY) void,
+glGetFragDataIndex: *const fn (program: c_uint, name: [*c]const u8) callconv(APIENTRY) c_int,
+glGenSamplers: *const fn (count: c_int, samplers: [*c]c_uint) callconv(APIENTRY) void,
+glDeleteSamplers: *const fn (count: c_int, samplers: [*c]const c_uint) callconv(APIENTRY) void,
+glIsSampler: *const fn (sampler: c_uint) callconv(APIENTRY) Boolean,
+glBindSampler: *const fn (unit: c_uint, sampler: c_uint) callconv(APIENTRY) void,
+glSamplerParameteri: *const fn (sampler: c_uint, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glSamplerParameteriv: *const fn (sampler: c_uint, pname: Enum, param: [*c]const c_int) callconv(APIENTRY) void,
+glSamplerParameterf: *const fn (sampler: c_uint, pname: Enum, param: f32) callconv(APIENTRY) void,
+glSamplerParameterfv: *const fn (sampler: c_uint, pname: Enum, param: [*c]const f32) callconv(APIENTRY) void,
+glSamplerParameterIiv: *const fn (sampler: c_uint, pname: Enum, param: [*c]const c_int) callconv(APIENTRY) void,
+glSamplerParameterIuiv: *const fn (sampler: c_uint, pname: Enum, param: [*c]const c_uint) callconv(APIENTRY) void,
+glGetSamplerParameteriv: *const fn (sampler: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetSamplerParameterIiv: *const fn (sampler: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetSamplerParameterfv: *const fn (sampler: c_uint, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetSamplerParameterIuiv: *const fn (sampler: c_uint, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glQueryCounter: *const fn (id: c_uint, target: Enum) callconv(APIENTRY) void,
+glGetQueryObjecti64v: *const fn (id: c_uint, pname: Enum, params: [*c]i64) callconv(APIENTRY) void,
+glGetQueryObjectui64v: *const fn (id: c_uint, pname: Enum, params: [*c]u64) callconv(APIENTRY) void,
+glVertexAttribDivisor: *const fn (index: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glVertexAttribP1ui: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) callconv(APIENTRY) void,
+glVertexAttribP1uiv: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribP2ui: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) callconv(APIENTRY) void,
+glVertexAttribP2uiv: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribP3ui: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) callconv(APIENTRY) void,
+glVertexAttribP3uiv: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) callconv(APIENTRY) void,
+glVertexAttribP4ui: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: c_uint) callconv(APIENTRY) void,
+glVertexAttribP4uiv: *const fn (index: c_uint, @"type": Enum, normalized: Boolean, value: [*c]const c_uint) callconv(APIENTRY) void,
+glMinSampleShading: *const fn (value: f32) callconv(APIENTRY) void,
+glBlendEquationi: *const fn (buf: c_uint, mode: Enum) callconv(APIENTRY) void,
+glBlendEquationSeparatei: *const fn (buf: c_uint, modeRGB: Enum, modeAlpha: Enum) callconv(APIENTRY) void,
+glBlendFunci: *const fn (buf: c_uint, src: Enum, dst: Enum) callconv(APIENTRY) void,
+glBlendFuncSeparatei: *const fn (buf: c_uint, srcRGB: Enum, dstRGB: Enum, srcAlpha: Enum, dstAlpha: Enum) callconv(APIENTRY) void,
+glDrawArraysIndirect: *const fn (mode: Enum, indirect: ?*const anyopaque) callconv(APIENTRY) void,
+glDrawElementsIndirect: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque) callconv(APIENTRY) void,
+glUniform1d: *const fn (location: c_int, x: f64) callconv(APIENTRY) void,
+glUniform2d: *const fn (location: c_int, x: f64, y: f64) callconv(APIENTRY) void,
+glUniform3d: *const fn (location: c_int, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glUniform4d: *const fn (location: c_int, x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
+glUniform1dv: *const fn (location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glUniform2dv: *const fn (location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glUniform3dv: *const fn (location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glUniform4dv: *const fn (location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix2dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix3dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix4dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix2x3dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix2x4dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix3x2dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix3x4dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix4x2dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glUniformMatrix4x3dv: *const fn (location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glGetUniformdv: *const fn (program: c_uint, location: c_int, params: [*c]f64) callconv(APIENTRY) void,
+glGetSubroutineUniformLocation: *const fn (program: c_uint, shadertype: Enum, name: [*c]const u8) callconv(APIENTRY) c_int,
+glGetSubroutineIndex: *const fn (program: c_uint, shadertype: Enum, name: [*c]const u8) callconv(APIENTRY) c_uint,
+glGetActiveSubroutineUniformiv: *const fn (program: c_uint, shadertype: Enum, index: c_uint, pname: Enum, values: [*c]c_int) callconv(APIENTRY) void,
+glGetActiveSubroutineUniformName: *const fn (program: c_uint, shadertype: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) callconv(APIENTRY) void,
+glGetActiveSubroutineName: *const fn (program: c_uint, shadertype: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) callconv(APIENTRY) void,
+glUniformSubroutinesuiv: *const fn (shadertype: Enum, count: c_int, indices: [*c]const c_uint) callconv(APIENTRY) void,
+glGetUniformSubroutineuiv: *const fn (shadertype: Enum, location: c_int, params: [*c]c_uint) callconv(APIENTRY) void,
+glGetProgramStageiv: *const fn (program: c_uint, shadertype: Enum, pname: Enum, values: [*c]c_int) callconv(APIENTRY) void,
+glPatchParameteri: *const fn (pname: Enum, value: c_int) callconv(APIENTRY) void,
+glPatchParameterfv: *const fn (pname: Enum, values: [*c]const f32) callconv(APIENTRY) void,
+glBindTransformFeedback: *const fn (target: Enum, id: c_uint) callconv(APIENTRY) void,
+glDeleteTransformFeedbacks: *const fn (n: c_int, ids: [*c]const c_uint) callconv(APIENTRY) void,
+glGenTransformFeedbacks: *const fn (n: c_int, ids: [*c]c_uint) callconv(APIENTRY) void,
+glIsTransformFeedback: *const fn (id: c_uint) callconv(APIENTRY) Boolean,
+glPauseTransformFeedback: *const fn () callconv(APIENTRY) void,
+glResumeTransformFeedback: *const fn () callconv(APIENTRY) void,
+glDrawTransformFeedback: *const fn (mode: Enum, id: c_uint) callconv(APIENTRY) void,
+glDrawTransformFeedbackStream: *const fn (mode: Enum, id: c_uint, stream: c_uint) callconv(APIENTRY) void,
+glBeginQueryIndexed: *const fn (target: Enum, index: c_uint, id: c_uint) callconv(APIENTRY) void,
+glEndQueryIndexed: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) void,
+glGetQueryIndexediv: *const fn (target: Enum, index: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glReleaseShaderCompiler: *const fn () callconv(APIENTRY) void,
+glShaderBinary: *const fn (count: c_int, shaders: [*c]const c_uint, binaryFormat: Enum, binary: ?*const anyopaque, length: c_int) callconv(APIENTRY) void,
+glGetShaderPrecisionFormat: *const fn (shadertype: Enum, precisiontype: Enum, range: [*c]c_int, precision: [*c]c_int) callconv(APIENTRY) void,
+glDepthRangef: *const fn (n: f32, f: f32) callconv(APIENTRY) void,
+glClearDepthf: *const fn (d: f32) callconv(APIENTRY) void,
+glGetProgramBinary: *const fn (program: c_uint, bufSize: c_int, length: [*c]c_int, binaryFormat: [*c]Enum, binary: ?*anyopaque) callconv(APIENTRY) void,
+glProgramBinary: *const fn (program: c_uint, binaryFormat: Enum, binary: ?*const anyopaque, length: c_int) callconv(APIENTRY) void,
+glProgramParameteri: *const fn (program: c_uint, pname: Enum, value: c_int) callconv(APIENTRY) void,
+glUseProgramStages: *const fn (pipeline: c_uint, stages: Bitfield, program: c_uint) callconv(APIENTRY) void,
+glActiveShaderProgram: *const fn (pipeline: c_uint, program: c_uint) callconv(APIENTRY) void,
+glCreateShaderProgramv: *const fn (@"type": Enum, count: c_int, strings: [*c]const [*c]const u8) callconv(APIENTRY) c_uint,
+glBindProgramPipeline: *const fn (pipeline: c_uint) callconv(APIENTRY) void,
+glDeleteProgramPipelines: *const fn (n: c_int, pipelines: [*c]const c_uint) callconv(APIENTRY) void,
+glGenProgramPipelines: *const fn (n: c_int, pipelines: [*c]c_uint) callconv(APIENTRY) void,
+glIsProgramPipeline: *const fn (pipeline: c_uint) callconv(APIENTRY) Boolean,
+glGetProgramPipelineiv: *const fn (pipeline: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glProgramUniform1i: *const fn (program: c_uint, location: c_int, v0: c_int) callconv(APIENTRY) void,
+glProgramUniform1iv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform1f: *const fn (program: c_uint, location: c_int, v0: f32) callconv(APIENTRY) void,
+glProgramUniform1fv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform1d: *const fn (program: c_uint, location: c_int, v0: f64) callconv(APIENTRY) void,
+glProgramUniform1dv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform1ui: *const fn (program: c_uint, location: c_int, v0: c_uint) callconv(APIENTRY) void,
+glProgramUniform1uiv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform2i: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int) callconv(APIENTRY) void,
+glProgramUniform2iv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform2f: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32) callconv(APIENTRY) void,
+glProgramUniform2fv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform2d: *const fn (program: c_uint, location: c_int, v0: f64, v1: f64) callconv(APIENTRY) void,
+glProgramUniform2dv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform2ui: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint) callconv(APIENTRY) void,
+glProgramUniform2uiv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform3i: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int, v2: c_int) callconv(APIENTRY) void,
+glProgramUniform3iv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform3f: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32, v2: f32) callconv(APIENTRY) void,
+glProgramUniform3fv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform3d: *const fn (program: c_uint, location: c_int, v0: f64, v1: f64, v2: f64) callconv(APIENTRY) void,
+glProgramUniform3dv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform3ui: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint, v2: c_uint) callconv(APIENTRY) void,
+glProgramUniform3uiv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform4i: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int, v2: c_int, v3: c_int) callconv(APIENTRY) void,
+glProgramUniform4iv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform4f: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32, v2: f32, v3: f32) callconv(APIENTRY) void,
+glProgramUniform4fv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform4d: *const fn (program: c_uint, location: c_int, v0: f64, v1: f64, v2: f64, v3: f64) callconv(APIENTRY) void,
+glProgramUniform4dv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform4ui: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint, v2: c_uint, v3: c_uint) callconv(APIENTRY) void,
+glProgramUniform4uiv: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniformMatrix2fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix2dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix2x3fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3x2fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix2x4fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4x2fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3x4fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4x3fv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix2x3dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3x2dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix2x4dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4x2dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3x4dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4x3dv: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glValidateProgramPipeline: *const fn (pipeline: c_uint) callconv(APIENTRY) void,
+glGetProgramPipelineInfoLog: *const fn (pipeline: c_uint, bufSize: c_int, length: [*c]c_int, infoLog: [*c]u8) callconv(APIENTRY) void,
+glVertexAttribL1d: *const fn (index: c_uint, x: f64) callconv(APIENTRY) void,
+glVertexAttribL2d: *const fn (index: c_uint, x: f64, y: f64) callconv(APIENTRY) void,
+glVertexAttribL3d: *const fn (index: c_uint, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glVertexAttribL4d: *const fn (index: c_uint, x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
+glVertexAttribL1dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttribL2dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttribL3dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttribL4dv: *const fn (index: c_uint, v: [*c]const f64) callconv(APIENTRY) void,
+glVertexAttribLPointer: *const fn (index: c_uint, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) callconv(APIENTRY) void,
+glGetVertexAttribLdv: *const fn (index: c_uint, pname: Enum, params: [*c]f64) callconv(APIENTRY) void,
+glViewportArrayv: *const fn (first: c_uint, count: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glViewportIndexedf: *const fn (index: c_uint, x: f32, y: f32, w: f32, h: f32) callconv(APIENTRY) void,
+glViewportIndexedfv: *const fn (index: c_uint, v: [*c]const f32) callconv(APIENTRY) void,
+glScissorArrayv: *const fn (first: c_uint, count: c_int, v: [*c]const c_int) callconv(APIENTRY) void,
+glScissorIndexed: *const fn (index: c_uint, left: c_int, bottom: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glScissorIndexedv: *const fn (index: c_uint, v: [*c]const c_int) callconv(APIENTRY) void,
+glDepthRangeArrayv: *const fn (first: c_uint, count: c_int, v: [*c]const f64) callconv(APIENTRY) void,
+glDepthRangeIndexed: *const fn (index: c_uint, n: f64, f: f64) callconv(APIENTRY) void,
+glGetFloati_v: *const fn (target: Enum, index: c_uint, data: [*c]f32) callconv(APIENTRY) void,
+glGetDoublei_v: *const fn (target: Enum, index: c_uint, data: [*c]f64) callconv(APIENTRY) void,
+glDrawArraysInstancedBaseInstance: *const fn (mode: Enum, first: c_int, count: c_int, instancecount: c_int, baseinstance: c_uint) callconv(APIENTRY) void,
+glDrawElementsInstancedBaseInstance: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, baseinstance: c_uint) callconv(APIENTRY) void,
+glDrawElementsInstancedBaseVertexBaseInstance: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int, baseinstance: c_uint) callconv(APIENTRY) void,
+glGetInternalformativ: *const fn (target: Enum, internalformat: Enum, pname: Enum, count: c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetActiveAtomicCounterBufferiv: *const fn (program: c_uint, bufferIndex: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glBindImageTexture: *const fn (unit: c_uint, texture: c_uint, level: c_int, layered: Boolean, layer: c_int, access: Enum, format: Enum) callconv(APIENTRY) void,
+glMemoryBarrier: *const fn (barriers: Bitfield) callconv(APIENTRY) void,
+glTexStorage1D: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int) callconv(APIENTRY) void,
+glTexStorage2D: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTexStorage3D: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) callconv(APIENTRY) void,
+glDrawTransformFeedbackInstanced: *const fn (mode: Enum, id: c_uint, instancecount: c_int) callconv(APIENTRY) void,
+glDrawTransformFeedbackStreamInstanced: *const fn (mode: Enum, id: c_uint, stream: c_uint, instancecount: c_int) callconv(APIENTRY) void,
+glClearBufferData: *const fn (target: Enum, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glClearBufferSubData: *const fn (target: Enum, internalformat: Enum, offset: c_long, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glDispatchCompute: *const fn (num_groups_x: c_uint, num_groups_y: c_uint, num_groups_z: c_uint) callconv(APIENTRY) void,
+glDispatchComputeIndirect: *const fn (indirect: c_long) callconv(APIENTRY) void,
+glCopyImageSubData: *const fn (srcName: c_uint, srcTarget: Enum, srcLevel: c_int, srcX: c_int, srcY: c_int, srcZ: c_int, dstName: c_uint, dstTarget: Enum, dstLevel: c_int, dstX: c_int, dstY: c_int, dstZ: c_int, srcWidth: c_int, srcHeight: c_int, srcDepth: c_int) callconv(APIENTRY) void,
+glFramebufferParameteri: *const fn (target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glGetFramebufferParameteriv: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetInternalformati64v: *const fn (target: Enum, internalformat: Enum, pname: Enum, count: c_int, params: [*c]i64) callconv(APIENTRY) void,
+glInvalidateTexSubImage: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int) callconv(APIENTRY) void,
+glInvalidateTexImage: *const fn (texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glInvalidateBufferSubData: *const fn (buffer: c_uint, offset: c_long, length: c_ulong) callconv(APIENTRY) void,
+glInvalidateBufferData: *const fn (buffer: c_uint) callconv(APIENTRY) void,
+glInvalidateFramebuffer: *const fn (target: Enum, numAttachments: c_int, attachments: [*c]const Enum) callconv(APIENTRY) void,
+glInvalidateSubFramebuffer: *const fn (target: Enum, numAttachments: c_int, attachments: [*c]const Enum, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glMultiDrawArraysIndirect: *const fn (mode: Enum, indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsIndirect: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glGetProgramInterfaceiv: *const fn (program: c_uint, programInterface: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetProgramResourceIndex: *const fn (program: c_uint, programInterface: Enum, name: [*c]const u8) callconv(APIENTRY) c_uint,
+glGetProgramResourceName: *const fn (program: c_uint, programInterface: Enum, index: c_uint, bufSize: c_int, length: [*c]c_int, name: [*c]u8) callconv(APIENTRY) void,
+glGetProgramResourceiv: *const fn (program: c_uint, programInterface: Enum, index: c_uint, propCount: c_int, props: [*c]const Enum, count: c_int, length: [*c]c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetProgramResourceLocation: *const fn (program: c_uint, programInterface: Enum, name: [*c]const u8) callconv(APIENTRY) c_int,
+glGetProgramResourceLocationIndex: *const fn (program: c_uint, programInterface: Enum, name: [*c]const u8) callconv(APIENTRY) c_int,
+glShaderStorageBlockBinding: *const fn (program: c_uint, storageBlockIndex: c_uint, storageBlockBinding: c_uint) callconv(APIENTRY) void,
+glTexBufferRange: *const fn (target: Enum, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glTexStorage2DMultisample: *const fn (target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTexStorage3DMultisample: *const fn (target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTextureView: *const fn (texture: c_uint, target: Enum, origtexture: c_uint, internalformat: Enum, minlevel: c_uint, numlevels: c_uint, minlayer: c_uint, numlayers: c_uint) callconv(APIENTRY) void,
+glBindVertexBuffer: *const fn (bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) callconv(APIENTRY) void,
+glVertexAttribFormat: *const fn (attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexAttribIFormat: *const fn (attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexAttribLFormat: *const fn (attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexAttribBinding: *const fn (attribindex: c_uint, bindingindex: c_uint) callconv(APIENTRY) void,
+glVertexBindingDivisor: *const fn (bindingindex: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glDebugMessageControl: *const fn (source: Enum, @"type": Enum, severity: Enum, count: c_int, ids: [*c]const c_uint, enabled: Boolean) callconv(APIENTRY) void,
+glDebugMessageInsert: *const fn (source: Enum, @"type": Enum, id: c_uint, severity: Enum, length: c_int, buf: [*c]const u8) callconv(APIENTRY) void,
+glDebugMessageCallback: *const fn (callback: GLDEBUGPROC, userParam: ?*const anyopaque) callconv(APIENTRY) void,
+glGetDebugMessageLog: *const fn (count: c_uint, bufSize: c_int, sources: [*c]Enum, types: [*c]Enum, ids: [*c]c_uint, severities: [*c]Enum, lengths: [*c]c_int, messageLog: [*c]u8) callconv(APIENTRY) c_uint,
+glPushDebugGroup: *const fn (source: Enum, id: c_uint, length: c_int, message: [*c]const u8) callconv(APIENTRY) void,
+glPopDebugGroup: *const fn () callconv(APIENTRY) void,
+glObjectLabel: *const fn (identifier: Enum, name: c_uint, length: c_int, label: [*c]const u8) callconv(APIENTRY) void,
+glGetObjectLabel: *const fn (identifier: Enum, name: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) callconv(APIENTRY) void,
+glObjectPtrLabel: *const fn (ptr: ?*const anyopaque, length: c_int, label: [*c]const u8) callconv(APIENTRY) void,
+glGetObjectPtrLabel: *const fn (ptr: ?*const anyopaque, bufSize: c_int, length: [*c]c_int, label: [*c]u8) callconv(APIENTRY) void,
+glBufferStorage: *const fn (target: Enum, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) callconv(APIENTRY) void,
+glClearTexImage: *const fn (texture: c_uint, level: c_int, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glClearTexSubImage: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glBindBuffersBase: *const fn (target: Enum, first: c_uint, count: c_int, buffers: [*c]const c_uint) callconv(APIENTRY) void,
+glBindBuffersRange: *const fn (target: Enum, first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, sizes: [*c]const c_ulong) callconv(APIENTRY) void,
+glBindTextures: *const fn (first: c_uint, count: c_int, textures: [*c]const c_uint) callconv(APIENTRY) void,
+glBindSamplers: *const fn (first: c_uint, count: c_int, samplers: [*c]const c_uint) callconv(APIENTRY) void,
+glBindImageTextures: *const fn (first: c_uint, count: c_int, textures: [*c]const c_uint) callconv(APIENTRY) void,
+glBindVertexBuffers: *const fn (first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, strides: [*c]const c_int) callconv(APIENTRY) void,
+glClipControl: *const fn (origin: Enum, depth: Enum) callconv(APIENTRY) void,
+glCreateTransformFeedbacks: *const fn (n: c_int, ids: [*c]c_uint) callconv(APIENTRY) void,
+glTransformFeedbackBufferBase: *const fn (xfb: c_uint, index: c_uint, buffer: c_uint) callconv(APIENTRY) void,
+glTransformFeedbackBufferRange: *const fn (xfb: c_uint, index: c_uint, buffer: c_uint, offset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glGetTransformFeedbackiv: *const fn (xfb: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetTransformFeedbacki_v: *const fn (xfb: c_uint, pname: Enum, index: c_uint, param: [*c]c_int) callconv(APIENTRY) void,
+glGetTransformFeedbacki64_v: *const fn (xfb: c_uint, pname: Enum, index: c_uint, param: [*c]i64) callconv(APIENTRY) void,
+glCreateBuffers: *const fn (n: c_int, buffers: [*c]c_uint) callconv(APIENTRY) void,
+glNamedBufferStorage: *const fn (buffer: c_uint, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) callconv(APIENTRY) void,
+glNamedBufferData: *const fn (buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: Enum) callconv(APIENTRY) void,
+glNamedBufferSubData: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyNamedBufferSubData: *const fn (readBuffer: c_uint, writeBuffer: c_uint, readOffset: c_long, writeOffset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glClearNamedBufferData: *const fn (buffer: c_uint, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glClearNamedBufferSubData: *const fn (buffer: c_uint, internalformat: Enum, offset: c_long, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glMapNamedBuffer: *const fn (buffer: c_uint, access: Enum) callconv(APIENTRY) ?*anyopaque,
+glMapNamedBufferRange: *const fn (buffer: c_uint, offset: c_long, length: c_ulong, access: Bitfield) callconv(APIENTRY) ?*anyopaque,
+glUnmapNamedBuffer: *const fn (buffer: c_uint) callconv(APIENTRY) Boolean,
+glFlushMappedNamedBufferRange: *const fn (buffer: c_uint, offset: c_long, length: c_ulong) callconv(APIENTRY) void,
+glGetNamedBufferParameteriv: *const fn (buffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetNamedBufferParameteri64v: *const fn (buffer: c_uint, pname: Enum, params: [*c]i64) callconv(APIENTRY) void,
+glGetNamedBufferPointerv: *const fn (buffer: c_uint, pname: Enum, params: [*c]?*anyopaque) callconv(APIENTRY) void,
+glGetNamedBufferSubData: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, data: ?*anyopaque) callconv(APIENTRY) void,
+glCreateFramebuffers: *const fn (n: c_int, framebuffers: [*c]c_uint) callconv(APIENTRY) void,
+glNamedFramebufferRenderbuffer: *const fn (framebuffer: c_uint, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glNamedFramebufferParameteri: *const fn (framebuffer: c_uint, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTexture: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTextureLayer: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) callconv(APIENTRY) void,
+glNamedFramebufferDrawBuffer: *const fn (framebuffer: c_uint, buf: Enum) callconv(APIENTRY) void,
+glNamedFramebufferDrawBuffers: *const fn (framebuffer: c_uint, n: c_int, bufs: [*c]const Enum) callconv(APIENTRY) void,
+glNamedFramebufferReadBuffer: *const fn (framebuffer: c_uint, src: Enum) callconv(APIENTRY) void,
+glInvalidateNamedFramebufferData: *const fn (framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const Enum) callconv(APIENTRY) void,
+glInvalidateNamedFramebufferSubData: *const fn (framebuffer: c_uint, numAttachments: c_int, attachments: [*c]const Enum, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glClearNamedFramebufferiv: *const fn (framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glClearNamedFramebufferuiv: *const fn (framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glClearNamedFramebufferfv: *const fn (framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glClearNamedFramebufferfi: *const fn (framebuffer: c_uint, buffer: Enum, drawbuffer: c_int, depth: f32, stencil: c_int) callconv(APIENTRY) void,
+glBlitNamedFramebuffer: *const fn (readFramebuffer: c_uint, drawFramebuffer: c_uint, srcX0: c_int, srcY0: c_int, srcX1: c_int, srcY1: c_int, dstX0: c_int, dstY0: c_int, dstX1: c_int, dstY1: c_int, mask: Bitfield, filter: Enum) callconv(APIENTRY) void,
+glCheckNamedFramebufferStatus: *const fn (framebuffer: c_uint, target: Enum) callconv(APIENTRY) Enum,
+glGetNamedFramebufferParameteriv: *const fn (framebuffer: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetNamedFramebufferAttachmentParameteriv: *const fn (framebuffer: c_uint, attachment: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glCreateRenderbuffers: *const fn (n: c_int, renderbuffers: [*c]c_uint) callconv(APIENTRY) void,
+glNamedRenderbufferStorage: *const fn (renderbuffer: c_uint, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glNamedRenderbufferStorageMultisample: *const fn (renderbuffer: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetNamedRenderbufferParameteriv: *const fn (renderbuffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glCreateTextures: *const fn (target: Enum, n: c_int, textures: [*c]c_uint) callconv(APIENTRY) void,
+glTextureBuffer: *const fn (texture: c_uint, internalformat: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glTextureBufferRange: *const fn (texture: c_uint, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glTextureStorage1D: *const fn (texture: c_uint, levels: c_int, internalformat: Enum, width: c_int) callconv(APIENTRY) void,
+glTextureStorage2D: *const fn (texture: c_uint, levels: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTextureStorage3D: *const fn (texture: c_uint, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) callconv(APIENTRY) void,
+glTextureStorage2DMultisample: *const fn (texture: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTextureStorage3DMultisample: *const fn (texture: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTextureSubImage1D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureSubImage2D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureSubImage3D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage1D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage2D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage3D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, data: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyTextureSubImage1D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) callconv(APIENTRY) void,
+glCopyTextureSubImage2D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glCopyTextureSubImage3D: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTextureParameterf: *const fn (texture: c_uint, pname: Enum, param: f32) callconv(APIENTRY) void,
+glTextureParameterfv: *const fn (texture: c_uint, pname: Enum, param: [*c]const f32) callconv(APIENTRY) void,
+glTextureParameteri: *const fn (texture: c_uint, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glTextureParameterIiv: *const fn (texture: c_uint, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glTextureParameterIuiv: *const fn (texture: c_uint, pname: Enum, params: [*c]const c_uint) callconv(APIENTRY) void,
+glTextureParameteriv: *const fn (texture: c_uint, pname: Enum, param: [*c]const c_int) callconv(APIENTRY) void,
+glGenerateTextureMipmap: *const fn (texture: c_uint) callconv(APIENTRY) void,
+glBindTextureUnit: *const fn (unit: c_uint, texture: c_uint) callconv(APIENTRY) void,
+glGetTextureImage: *const fn (texture: c_uint, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetCompressedTextureImage: *const fn (texture: c_uint, level: c_int, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetTextureLevelParameterfv: *const fn (texture: c_uint, level: c_int, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTextureLevelParameteriv: *const fn (texture: c_uint, level: c_int, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTextureParameterfv: *const fn (texture: c_uint, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTextureParameterIiv: *const fn (texture: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTextureParameterIuiv: *const fn (texture: c_uint, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glGetTextureParameteriv: *const fn (texture: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glCreateVertexArrays: *const fn (n: c_int, arrays: [*c]c_uint) callconv(APIENTRY) void,
+glDisableVertexArrayAttrib: *const fn (vaobj: c_uint, index: c_uint) callconv(APIENTRY) void,
+glEnableVertexArrayAttrib: *const fn (vaobj: c_uint, index: c_uint) callconv(APIENTRY) void,
+glVertexArrayElementBuffer: *const fn (vaobj: c_uint, buffer: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexBuffer: *const fn (vaobj: c_uint, bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) callconv(APIENTRY) void,
+glVertexArrayVertexBuffers: *const fn (vaobj: c_uint, first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, strides: [*c]const c_int) callconv(APIENTRY) void,
+glVertexArrayAttribBinding: *const fn (vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) callconv(APIENTRY) void,
+glVertexArrayAttribFormat: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayAttribIFormat: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayAttribLFormat: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayBindingDivisor: *const fn (vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glGetVertexArrayiv: *const fn (vaobj: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexArrayIndexediv: *const fn (vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexArrayIndexed64iv: *const fn (vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]i64) callconv(APIENTRY) void,
+glCreateSamplers: *const fn (n: c_int, samplers: [*c]c_uint) callconv(APIENTRY) void,
+glCreateProgramPipelines: *const fn (n: c_int, pipelines: [*c]c_uint) callconv(APIENTRY) void,
+glCreateQueries: *const fn (target: Enum, n: c_int, ids: [*c]c_uint) callconv(APIENTRY) void,
+glGetQueryBufferObjecti64v: *const fn (id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) callconv(APIENTRY) void,
+glGetQueryBufferObjectiv: *const fn (id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) callconv(APIENTRY) void,
+glGetQueryBufferObjectui64v: *const fn (id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) callconv(APIENTRY) void,
+glGetQueryBufferObjectuiv: *const fn (id: c_uint, buffer: c_uint, pname: Enum, offset: c_long) callconv(APIENTRY) void,
+glMemoryBarrierByRegion: *const fn (barriers: Bitfield) callconv(APIENTRY) void,
+glGetTextureSubImage: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetCompressedTextureSubImage: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetGraphicsResetStatus: *const fn () callconv(APIENTRY) Enum,
+glGetnCompressedTexImage: *const fn (target: Enum, lod: c_int, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetnTexImage: *const fn (target: Enum, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetnUniformdv: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]f64) callconv(APIENTRY) void,
+glGetnUniformfv: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]f32) callconv(APIENTRY) void,
+glGetnUniformiv: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetnUniformuiv: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]c_uint) callconv(APIENTRY) void,
+glReadnPixels: *const fn (x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, bufSize: c_int, data: ?*anyopaque) callconv(APIENTRY) void,
+glTextureBarrier: *const fn () callconv(APIENTRY) void,
+glSpecializeShader: *const fn (shader: c_uint, pEntryPoint: [*c]const u8, numSpecializationConstants: c_uint, pConstantIndex: [*c]const c_uint, pConstantValue: [*c]const c_uint) callconv(APIENTRY) void,
+glMultiDrawArraysIndirectCount: *const fn (mode: Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsIndirectCount: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glPolygonOffsetClamp: *const fn (factor: f32, units: f32, clamp: f32) callconv(APIENTRY) void,
+glPrimitiveBoundingBoxARB: *const fn (minX: f32, minY: f32, minZ: f32, minW: f32, maxX: f32, maxY: f32, maxZ: f32, maxW: f32) callconv(APIENTRY) void,
+glGetTextureHandleARB: *const fn (texture: c_uint) callconv(APIENTRY) u64,
+glGetTextureSamplerHandleARB: *const fn (texture: c_uint, sampler: c_uint) callconv(APIENTRY) u64,
+glMakeTextureHandleResidentARB: *const fn (handle: u64) callconv(APIENTRY) void,
+glMakeTextureHandleNonResidentARB: *const fn (handle: u64) callconv(APIENTRY) void,
+glGetImageHandleARB: *const fn (texture: c_uint, level: c_int, layered: Boolean, layer: c_int, format: Enum) callconv(APIENTRY) u64,
+glMakeImageHandleResidentARB: *const fn (handle: u64, access: Enum) callconv(APIENTRY) void,
+glMakeImageHandleNonResidentARB: *const fn (handle: u64) callconv(APIENTRY) void,
+glUniformHandleui64ARB: *const fn (location: c_int, value: u64) callconv(APIENTRY) void,
+glUniformHandleui64vARB: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniformHandleui64ARB: *const fn (program: c_uint, location: c_int, value: u64) callconv(APIENTRY) void,
+glProgramUniformHandleui64vARB: *const fn (program: c_uint, location: c_int, count: c_int, values: [*c]const u64) callconv(APIENTRY) void,
+glIsTextureHandleResidentARB: *const fn (handle: u64) callconv(APIENTRY) Boolean,
+glIsImageHandleResidentARB: *const fn (handle: u64) callconv(APIENTRY) Boolean,
+glVertexAttribL1ui64ARB: *const fn (index: c_uint, x: u64) callconv(APIENTRY) void,
+glVertexAttribL1ui64vARB: *const fn (index: c_uint, v: [*c]const u64) callconv(APIENTRY) void,
+glGetVertexAttribLui64vARB: *const fn (index: c_uint, pname: Enum, params: [*c]u64) callconv(APIENTRY) void,
+glCreateSyncFromCLeventARB: *const fn (context: ?*struct__cl_context, event: ?*struct__cl_event, flags: Bitfield) callconv(APIENTRY) Sync,
+glDispatchComputeGroupSizeARB: *const fn (num_groups_x: c_uint, num_groups_y: c_uint, num_groups_z: c_uint, group_size_x: c_uint, group_size_y: c_uint, group_size_z: c_uint) callconv(APIENTRY) void,
+glDebugMessageControlARB: *const fn (source: Enum, @"type": Enum, severity: Enum, count: c_int, ids: [*c]const c_uint, enabled: Boolean) callconv(APIENTRY) void,
+glDebugMessageInsertARB: *const fn (source: Enum, @"type": Enum, id: c_uint, severity: Enum, length: c_int, buf: [*c]const u8) callconv(APIENTRY) void,
+glDebugMessageCallbackARB: *const fn (callback: GLDEBUGPROCARB, userParam: ?*const anyopaque) callconv(APIENTRY) void,
+glGetDebugMessageLogARB: *const fn (count: c_uint, bufSize: c_int, sources: [*c]Enum, types: [*c]Enum, ids: [*c]c_uint, severities: [*c]Enum, lengths: [*c]c_int, messageLog: [*c]u8) callconv(APIENTRY) c_uint,
+glBlendEquationiARB: *const fn (buf: c_uint, mode: Enum) callconv(APIENTRY) void,
+glBlendEquationSeparateiARB: *const fn (buf: c_uint, modeRGB: Enum, modeAlpha: Enum) callconv(APIENTRY) void,
+glBlendFunciARB: *const fn (buf: c_uint, src: Enum, dst: Enum) callconv(APIENTRY) void,
+glBlendFuncSeparateiARB: *const fn (buf: c_uint, srcRGB: Enum, dstRGB: Enum, srcAlpha: Enum, dstAlpha: Enum) callconv(APIENTRY) void,
+glDrawArraysInstancedARB: *const fn (mode: Enum, first: c_int, count: c_int, primcount: c_int) callconv(APIENTRY) void,
+glDrawElementsInstancedARB: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, primcount: c_int) callconv(APIENTRY) void,
+glProgramParameteriARB: *const fn (program: c_uint, pname: Enum, value: c_int) callconv(APIENTRY) void,
+glFramebufferTextureARB: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glFramebufferTextureLayerARB: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) callconv(APIENTRY) void,
+glFramebufferTextureFaceARB: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int, face: Enum) callconv(APIENTRY) void,
+glSpecializeShaderARB: *const fn (shader: c_uint, pEntryPoint: [*c]const u8, numSpecializationConstants: c_uint, pConstantIndex: [*c]const c_uint, pConstantValue: [*c]const c_uint) callconv(APIENTRY) void,
+glUniform1i64ARB: *const fn (location: c_int, x: i64) callconv(APIENTRY) void,
+glUniform2i64ARB: *const fn (location: c_int, x: i64, y: i64) callconv(APIENTRY) void,
+glUniform3i64ARB: *const fn (location: c_int, x: i64, y: i64, z: i64) callconv(APIENTRY) void,
+glUniform4i64ARB: *const fn (location: c_int, x: i64, y: i64, z: i64, w: i64) callconv(APIENTRY) void,
+glUniform1i64vARB: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform2i64vARB: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform3i64vARB: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform4i64vARB: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform1ui64ARB: *const fn (location: c_int, x: u64) callconv(APIENTRY) void,
+glUniform2ui64ARB: *const fn (location: c_int, x: u64, y: u64) callconv(APIENTRY) void,
+glUniform3ui64ARB: *const fn (location: c_int, x: u64, y: u64, z: u64) callconv(APIENTRY) void,
+glUniform4ui64ARB: *const fn (location: c_int, x: u64, y: u64, z: u64, w: u64) callconv(APIENTRY) void,
+glUniform1ui64vARB: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform2ui64vARB: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform3ui64vARB: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform4ui64vARB: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glGetUniformi64vARB: *const fn (program: c_uint, location: c_int, params: [*c]i64) callconv(APIENTRY) void,
+glGetUniformui64vARB: *const fn (program: c_uint, location: c_int, params: [*c]u64) callconv(APIENTRY) void,
+glGetnUniformi64vARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]i64) callconv(APIENTRY) void,
+glGetnUniformui64vARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]u64) callconv(APIENTRY) void,
+glProgramUniform1i64ARB: *const fn (program: c_uint, location: c_int, x: i64) callconv(APIENTRY) void,
+glProgramUniform2i64ARB: *const fn (program: c_uint, location: c_int, x: i64, y: i64) callconv(APIENTRY) void,
+glProgramUniform3i64ARB: *const fn (program: c_uint, location: c_int, x: i64, y: i64, z: i64) callconv(APIENTRY) void,
+glProgramUniform4i64ARB: *const fn (program: c_uint, location: c_int, x: i64, y: i64, z: i64, w: i64) callconv(APIENTRY) void,
+glProgramUniform1i64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform2i64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform3i64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform4i64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform1ui64ARB: *const fn (program: c_uint, location: c_int, x: u64) callconv(APIENTRY) void,
+glProgramUniform2ui64ARB: *const fn (program: c_uint, location: c_int, x: u64, y: u64) callconv(APIENTRY) void,
+glProgramUniform3ui64ARB: *const fn (program: c_uint, location: c_int, x: u64, y: u64, z: u64) callconv(APIENTRY) void,
+glProgramUniform4ui64ARB: *const fn (program: c_uint, location: c_int, x: u64, y: u64, z: u64, w: u64) callconv(APIENTRY) void,
+glProgramUniform1ui64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform2ui64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform3ui64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform4ui64vARB: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glMultiDrawArraysIndirectCountARB: *const fn (mode: Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsIndirectCountARB: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawcount: c_long, maxdrawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glVertexAttribDivisorARB: *const fn (index: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glMaxShaderCompilerThreadsARB: *const fn (count: c_uint) callconv(APIENTRY) void,
+glGetGraphicsResetStatusARB: *const fn () callconv(APIENTRY) Enum,
+glGetnTexImageARB: *const fn (target: Enum, level: c_int, format: Enum, @"type": Enum, bufSize: c_int, img: ?*anyopaque) callconv(APIENTRY) void,
+glReadnPixelsARB: *const fn (x: c_int, y: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, bufSize: c_int, data: ?*anyopaque) callconv(APIENTRY) void,
+glGetnCompressedTexImageARB: *const fn (target: Enum, lod: c_int, bufSize: c_int, img: ?*anyopaque) callconv(APIENTRY) void,
+glGetnUniformfvARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]f32) callconv(APIENTRY) void,
+glGetnUniformivARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetnUniformuivARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]c_uint) callconv(APIENTRY) void,
+glGetnUniformdvARB: *const fn (program: c_uint, location: c_int, bufSize: c_int, params: [*c]f64) callconv(APIENTRY) void,
+glFramebufferSampleLocationsfvARB: *const fn (target: Enum, start: c_uint, count: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glNamedFramebufferSampleLocationsfvARB: *const fn (framebuffer: c_uint, start: c_uint, count: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glEvaluateDepthValuesARB: *const fn () callconv(APIENTRY) void,
+glMinSampleShadingARB: *const fn (value: f32) callconv(APIENTRY) void,
+glNamedStringARB: *const fn (@"type": Enum, namelen: c_int, name: [*c]const u8, stringlen: c_int, string: [*c]const u8) callconv(APIENTRY) void,
+glDeleteNamedStringARB: *const fn (namelen: c_int, name: [*c]const u8) callconv(APIENTRY) void,
+glCompileShaderIncludeARB: *const fn (shader: c_uint, count: c_int, path: [*c]const [*c]const u8, length: [*c]const c_int) callconv(APIENTRY) void,
+glIsNamedStringARB: *const fn (namelen: c_int, name: [*c]const u8) callconv(APIENTRY) Boolean,
+glGetNamedStringARB: *const fn (namelen: c_int, name: [*c]const u8, bufSize: c_int, stringlen: [*c]c_int, string: [*c]u8) callconv(APIENTRY) void,
+glGetNamedStringivARB: *const fn (namelen: c_int, name: [*c]const u8, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glBufferPageCommitmentARB: *const fn (target: Enum, offset: c_long, size: c_ulong, commit: Boolean) callconv(APIENTRY) void,
+glNamedBufferPageCommitmentEXT: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, commit: Boolean) callconv(APIENTRY) void,
+glNamedBufferPageCommitmentARB: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, commit: Boolean) callconv(APIENTRY) void,
+glTexPageCommitmentARB: *const fn (target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: Boolean) callconv(APIENTRY) void,
+glTexBufferARB: *const fn (target: Enum, internalformat: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glDepthRangeArraydvNV: *const fn (first: c_uint, count: c_int, v: [*c]const f64) callconv(APIENTRY) void,
+glDepthRangeIndexeddNV: *const fn (index: c_uint, n: f64, f: f64) callconv(APIENTRY) void,
+glBlendBarrierKHR: *const fn () callconv(APIENTRY) void,
+glMaxShaderCompilerThreadsKHR: *const fn (count: c_uint) callconv(APIENTRY) void,
+glRenderbufferStorageMultisampleAdvancedAMD: *const fn (target: Enum, samples: c_int, storageSamples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glNamedRenderbufferStorageMultisampleAdvancedAMD: *const fn (renderbuffer: c_uint, samples: c_int, storageSamples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetPerfMonitorGroupsAMD: *const fn (numGroups: [*c]c_int, groupsSize: c_int, groups: [*c]c_uint) callconv(APIENTRY) void,
+glGetPerfMonitorCountersAMD: *const fn (group: c_uint, numCounters: [*c]c_int, maxActiveCounters: [*c]c_int, counterSize: c_int, counters: [*c]c_uint) callconv(APIENTRY) void,
+glGetPerfMonitorGroupStringAMD: *const fn (group: c_uint, bufSize: c_int, length: [*c]c_int, groupString: [*c]u8) callconv(APIENTRY) void,
+glGetPerfMonitorCounterStringAMD: *const fn (group: c_uint, counter: c_uint, bufSize: c_int, length: [*c]c_int, counterString: [*c]u8) callconv(APIENTRY) void,
+glGetPerfMonitorCounterInfoAMD: *const fn (group: c_uint, counter: c_uint, pname: Enum, data: ?*anyopaque) callconv(APIENTRY) void,
+glGenPerfMonitorsAMD: *const fn (n: c_int, monitors: [*c]c_uint) callconv(APIENTRY) void,
+glDeletePerfMonitorsAMD: *const fn (n: c_int, monitors: [*c]c_uint) callconv(APIENTRY) void,
+glSelectPerfMonitorCountersAMD: *const fn (monitor: c_uint, enable: Boolean, group: c_uint, numCounters: c_int, counterList: [*c]c_uint) callconv(APIENTRY) void,
+glBeginPerfMonitorAMD: *const fn (monitor: c_uint) callconv(APIENTRY) void,
+glEndPerfMonitorAMD: *const fn (monitor: c_uint) callconv(APIENTRY) void,
+glGetPerfMonitorCounterDataAMD: *const fn (monitor: c_uint, pname: Enum, dataSize: c_int, data: [*c]c_uint, bytesWritten: [*c]c_int) callconv(APIENTRY) void,
+glEGLImageTargetTexStorageEXT: *const fn (target: Enum, image: GLeglImageOES, attrib_list: [*c]const c_int) callconv(APIENTRY) void,
+glEGLImageTargetTextureStorageEXT: *const fn (texture: c_uint, image: GLeglImageOES, attrib_list: [*c]const c_int) callconv(APIENTRY) void,
+glLabelObjectEXT: *const fn (@"type": Enum, object: c_uint, length: c_int, label: [*c]const u8) callconv(APIENTRY) void,
+glGetObjectLabelEXT: *const fn (@"type": Enum, object: c_uint, bufSize: c_int, length: [*c]c_int, label: [*c]u8) callconv(APIENTRY) void,
+glInsertEventMarkerEXT: *const fn (length: c_int, marker: [*c]const u8) callconv(APIENTRY) void,
+glPushGroupMarkerEXT: *const fn (length: c_int, marker: [*c]const u8) callconv(APIENTRY) void,
+glPopGroupMarkerEXT: *const fn () callconv(APIENTRY) void,
+glMatrixLoadfEXT: *const fn (mode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixLoaddEXT: *const fn (mode: Enum, m: [*c]const f64) callconv(APIENTRY) void,
+glMatrixMultfEXT: *const fn (mode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixMultdEXT: *const fn (mode: Enum, m: [*c]const f64) callconv(APIENTRY) void,
+glMatrixLoadIdentityEXT: *const fn (mode: Enum) callconv(APIENTRY) void,
+glMatrixRotatefEXT: *const fn (mode: Enum, angle: f32, x: f32, y: f32, z: f32) callconv(APIENTRY) void,
+glMatrixRotatedEXT: *const fn (mode: Enum, angle: f64, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glMatrixScalefEXT: *const fn (mode: Enum, x: f32, y: f32, z: f32) callconv(APIENTRY) void,
+glMatrixScaledEXT: *const fn (mode: Enum, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glMatrixTranslatefEXT: *const fn (mode: Enum, x: f32, y: f32, z: f32) callconv(APIENTRY) void,
+glMatrixTranslatedEXT: *const fn (mode: Enum, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glMatrixFrustumEXT: *const fn (mode: Enum, left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) callconv(APIENTRY) void,
+glMatrixOrthoEXT: *const fn (mode: Enum, left: f64, right: f64, bottom: f64, top: f64, zNear: f64, zFar: f64) callconv(APIENTRY) void,
+glMatrixPopEXT: *const fn (mode: Enum) callconv(APIENTRY) void,
+glMatrixPushEXT: *const fn (mode: Enum) callconv(APIENTRY) void,
+glClientAttribDefaultEXT: *const fn (mask: Bitfield) callconv(APIENTRY) void,
+glPushClientAttribDefaultEXT: *const fn (mask: Bitfield) callconv(APIENTRY) void,
+glTextureParameterfEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, param: f32) callconv(APIENTRY) void,
+glTextureParameterfvEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glTextureParameteriEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glTextureParameterivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glTextureImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureSubImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureSubImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyTextureImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyTextureImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyTextureSubImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) callconv(APIENTRY) void,
+glCopyTextureSubImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetTextureImageEXT: *const fn (texture: c_uint, target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetTextureParameterfvEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTextureParameterivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTextureLevelParameterfvEXT: *const fn (texture: c_uint, target: Enum, level: c_int, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetTextureLevelParameterivEXT: *const fn (texture: c_uint, target: Enum, level: c_int, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glTextureImage3DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glTextureSubImage3DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyTextureSubImage3DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glBindMultiTextureEXT: *const fn (texunit: Enum, target: Enum, texture: c_uint) callconv(APIENTRY) void,
+glMultiTexCoordPointerEXT: *const fn (texunit: Enum, size: c_int, @"type": Enum, stride: c_int, pointer: ?*const anyopaque) callconv(APIENTRY) void,
+glMultiTexEnvfEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, param: f32) callconv(APIENTRY) void,
+glMultiTexEnvfvEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glMultiTexEnviEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glMultiTexEnvivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glMultiTexGendEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, param: f64) callconv(APIENTRY) void,
+glMultiTexGendvEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]const f64) callconv(APIENTRY) void,
+glMultiTexGenfEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, param: f32) callconv(APIENTRY) void,
+glMultiTexGenfvEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glMultiTexGeniEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glMultiTexGenivEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glGetMultiTexEnvfvEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetMultiTexEnvivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetMultiTexGendvEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]f64) callconv(APIENTRY) void,
+glGetMultiTexGenfvEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetMultiTexGenivEXT: *const fn (texunit: Enum, coord: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glMultiTexParameteriEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glMultiTexParameterivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glMultiTexParameterfEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, param: f32) callconv(APIENTRY) void,
+glMultiTexParameterfvEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const f32) callconv(APIENTRY) void,
+glMultiTexImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glMultiTexImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glMultiTexSubImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glMultiTexSubImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyMultiTexImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyMultiTexImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: Enum, x: c_int, y: c_int, width: c_int, height: c_int, border: c_int) callconv(APIENTRY) void,
+glCopyMultiTexSubImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, x: c_int, y: c_int, width: c_int) callconv(APIENTRY) void,
+glCopyMultiTexSubImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetMultiTexImageEXT: *const fn (texunit: Enum, target: Enum, level: c_int, format: Enum, @"type": Enum, pixels: ?*anyopaque) callconv(APIENTRY) void,
+glGetMultiTexParameterfvEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetMultiTexParameterivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetMultiTexLevelParameterfvEXT: *const fn (texunit: Enum, target: Enum, level: c_int, pname: Enum, params: [*c]f32) callconv(APIENTRY) void,
+glGetMultiTexLevelParameterivEXT: *const fn (texunit: Enum, target: Enum, level: c_int, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glMultiTexImage3DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: c_int, width: c_int, height: c_int, depth: c_int, border: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glMultiTexSubImage3DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, @"type": Enum, pixels: ?*const anyopaque) callconv(APIENTRY) void,
+glCopyMultiTexSubImage3DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glEnableClientStateIndexedEXT: *const fn (array: Enum, index: c_uint) callconv(APIENTRY) void,
+glDisableClientStateIndexedEXT: *const fn (array: Enum, index: c_uint) callconv(APIENTRY) void,
+glGetFloatIndexedvEXT: *const fn (target: Enum, index: c_uint, data: [*c]f32) callconv(APIENTRY) void,
+glGetDoubleIndexedvEXT: *const fn (target: Enum, index: c_uint, data: [*c]f64) callconv(APIENTRY) void,
+glGetPointerIndexedvEXT: *const fn (target: Enum, index: c_uint, data: [*c]?*anyopaque) callconv(APIENTRY) void,
+glEnableIndexedEXT: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) void,
+glDisableIndexedEXT: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) void,
+glIsEnabledIndexedEXT: *const fn (target: Enum, index: c_uint) callconv(APIENTRY) Boolean,
+glGetIntegerIndexedvEXT: *const fn (target: Enum, index: c_uint, data: [*c]c_int) callconv(APIENTRY) void,
+glGetBooleanIndexedvEXT: *const fn (target: Enum, index: c_uint, data: [*c]Boolean) callconv(APIENTRY) void,
+glCompressedTextureImage3DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage3DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage2DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedTextureSubImage1DEXT: *const fn (texture: c_uint, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glGetCompressedTextureImageEXT: *const fn (texture: c_uint, target: Enum, lod: c_int, img: ?*anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexImage3DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, height: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, internalformat: Enum, width: c_int, border: c_int, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexSubImage3DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexSubImage2DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, yoffset: c_int, width: c_int, height: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glCompressedMultiTexSubImage1DEXT: *const fn (texunit: Enum, target: Enum, level: c_int, xoffset: c_int, width: c_int, format: Enum, imageSize: c_int, bits: ?*const anyopaque) callconv(APIENTRY) void,
+glGetCompressedMultiTexImageEXT: *const fn (texunit: Enum, target: Enum, lod: c_int, img: ?*anyopaque) callconv(APIENTRY) void,
+glMatrixLoadTransposefEXT: *const fn (mode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixLoadTransposedEXT: *const fn (mode: Enum, m: [*c]const f64) callconv(APIENTRY) void,
+glMatrixMultTransposefEXT: *const fn (mode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixMultTransposedEXT: *const fn (mode: Enum, m: [*c]const f64) callconv(APIENTRY) void,
+glNamedBufferDataEXT: *const fn (buffer: c_uint, size: c_ulong, data: ?*const anyopaque, usage: Enum) callconv(APIENTRY) void,
+glNamedBufferSubDataEXT: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, data: ?*const anyopaque) callconv(APIENTRY) void,
+glMapNamedBufferEXT: *const fn (buffer: c_uint, access: Enum) callconv(APIENTRY) ?*anyopaque,
+glUnmapNamedBufferEXT: *const fn (buffer: c_uint) callconv(APIENTRY) Boolean,
+glGetNamedBufferParameterivEXT: *const fn (buffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetNamedBufferPointervEXT: *const fn (buffer: c_uint, pname: Enum, params: [*c]?*anyopaque) callconv(APIENTRY) void,
+glGetNamedBufferSubDataEXT: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, data: ?*anyopaque) callconv(APIENTRY) void,
+glProgramUniform1fEXT: *const fn (program: c_uint, location: c_int, v0: f32) callconv(APIENTRY) void,
+glProgramUniform2fEXT: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32) callconv(APIENTRY) void,
+glProgramUniform3fEXT: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32, v2: f32) callconv(APIENTRY) void,
+glProgramUniform4fEXT: *const fn (program: c_uint, location: c_int, v0: f32, v1: f32, v2: f32, v3: f32) callconv(APIENTRY) void,
+glProgramUniform1iEXT: *const fn (program: c_uint, location: c_int, v0: c_int) callconv(APIENTRY) void,
+glProgramUniform2iEXT: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int) callconv(APIENTRY) void,
+glProgramUniform3iEXT: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int, v2: c_int) callconv(APIENTRY) void,
+glProgramUniform4iEXT: *const fn (program: c_uint, location: c_int, v0: c_int, v1: c_int, v2: c_int, v3: c_int) callconv(APIENTRY) void,
+glProgramUniform1fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform2fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform3fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform4fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniform1ivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform2ivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform3ivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniform4ivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_int) callconv(APIENTRY) void,
+glProgramUniformMatrix2fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix2x3fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3x2fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix2x4fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4x2fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix3x4fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glProgramUniformMatrix4x3fvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f32) callconv(APIENTRY) void,
+glTextureBufferEXT: *const fn (texture: c_uint, target: Enum, internalformat: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glMultiTexBufferEXT: *const fn (texunit: Enum, target: Enum, internalformat: Enum, buffer: c_uint) callconv(APIENTRY) void,
+glTextureParameterIivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glTextureParameterIuivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]const c_uint) callconv(APIENTRY) void,
+glGetTextureParameterIivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetTextureParameterIuivEXT: *const fn (texture: c_uint, target: Enum, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glMultiTexParameterIivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_int) callconv(APIENTRY) void,
+glMultiTexParameterIuivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]const c_uint) callconv(APIENTRY) void,
+glGetMultiTexParameterIivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetMultiTexParameterIuivEXT: *const fn (texunit: Enum, target: Enum, pname: Enum, params: [*c]c_uint) callconv(APIENTRY) void,
+glProgramUniform1uiEXT: *const fn (program: c_uint, location: c_int, v0: c_uint) callconv(APIENTRY) void,
+glProgramUniform2uiEXT: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint) callconv(APIENTRY) void,
+glProgramUniform3uiEXT: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint, v2: c_uint) callconv(APIENTRY) void,
+glProgramUniform4uiEXT: *const fn (program: c_uint, location: c_int, v0: c_uint, v1: c_uint, v2: c_uint, v3: c_uint) callconv(APIENTRY) void,
+glProgramUniform1uivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform2uivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform3uivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glProgramUniform4uivEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const c_uint) callconv(APIENTRY) void,
+glNamedProgramLocalParameters4fvEXT: *const fn (program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const f32) callconv(APIENTRY) void,
+glNamedProgramLocalParameterI4iEXT: *const fn (program: c_uint, target: Enum, index: c_uint, x: c_int, y: c_int, z: c_int, w: c_int) callconv(APIENTRY) void,
+glNamedProgramLocalParameterI4ivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]const c_int) callconv(APIENTRY) void,
+glNamedProgramLocalParametersI4ivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const c_int) callconv(APIENTRY) void,
+glNamedProgramLocalParameterI4uiEXT: *const fn (program: c_uint, target: Enum, index: c_uint, x: c_uint, y: c_uint, z: c_uint, w: c_uint) callconv(APIENTRY) void,
+glNamedProgramLocalParameterI4uivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]const c_uint) callconv(APIENTRY) void,
+glNamedProgramLocalParametersI4uivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, count: c_int, params: [*c]const c_uint) callconv(APIENTRY) void,
+glGetNamedProgramLocalParameterIivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]c_int) callconv(APIENTRY) void,
+glGetNamedProgramLocalParameterIuivEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]c_uint) callconv(APIENTRY) void,
+glEnableClientStateiEXT: *const fn (array: Enum, index: c_uint) callconv(APIENTRY) void,
+glDisableClientStateiEXT: *const fn (array: Enum, index: c_uint) callconv(APIENTRY) void,
+glGetFloati_vEXT: *const fn (pname: Enum, index: c_uint, params: [*c]f32) callconv(APIENTRY) void,
+glGetDoublei_vEXT: *const fn (pname: Enum, index: c_uint, params: [*c]f64) callconv(APIENTRY) void,
+glGetPointeri_vEXT: *const fn (pname: Enum, index: c_uint, params: [*c]?*anyopaque) callconv(APIENTRY) void,
+glNamedProgramStringEXT: *const fn (program: c_uint, target: Enum, format: Enum, len: c_int, string: ?*const anyopaque) callconv(APIENTRY) void,
+glNamedProgramLocalParameter4dEXT: *const fn (program: c_uint, target: Enum, index: c_uint, x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
+glNamedProgramLocalParameter4dvEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]const f64) callconv(APIENTRY) void,
+glNamedProgramLocalParameter4fEXT: *const fn (program: c_uint, target: Enum, index: c_uint, x: f32, y: f32, z: f32, w: f32) callconv(APIENTRY) void,
+glNamedProgramLocalParameter4fvEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]const f32) callconv(APIENTRY) void,
+glGetNamedProgramLocalParameterdvEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]f64) callconv(APIENTRY) void,
+glGetNamedProgramLocalParameterfvEXT: *const fn (program: c_uint, target: Enum, index: c_uint, params: [*c]f32) callconv(APIENTRY) void,
+glGetNamedProgramivEXT: *const fn (program: c_uint, target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGetNamedProgramStringEXT: *const fn (program: c_uint, target: Enum, pname: Enum, string: ?*anyopaque) callconv(APIENTRY) void,
+glNamedRenderbufferStorageEXT: *const fn (renderbuffer: c_uint, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glGetNamedRenderbufferParameterivEXT: *const fn (renderbuffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glNamedRenderbufferStorageMultisampleEXT: *const fn (renderbuffer: c_uint, samples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glNamedRenderbufferStorageMultisampleCoverageEXT: *const fn (renderbuffer: c_uint, coverageSamples: c_int, colorSamples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glCheckNamedFramebufferStatusEXT: *const fn (framebuffer: c_uint, target: Enum) callconv(APIENTRY) Enum,
+glNamedFramebufferTexture1DEXT: *const fn (framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTexture2DEXT: *const fn (framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTexture3DEXT: *const fn (framebuffer: c_uint, attachment: Enum, textarget: Enum, texture: c_uint, level: c_int, zoffset: c_int) callconv(APIENTRY) void,
+glNamedFramebufferRenderbufferEXT: *const fn (framebuffer: c_uint, attachment: Enum, renderbuffertarget: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glGetNamedFramebufferAttachmentParameterivEXT: *const fn (framebuffer: c_uint, attachment: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glGenerateTextureMipmapEXT: *const fn (texture: c_uint, target: Enum) callconv(APIENTRY) void,
+glGenerateMultiTexMipmapEXT: *const fn (texunit: Enum, target: Enum) callconv(APIENTRY) void,
+glFramebufferDrawBufferEXT: *const fn (framebuffer: c_uint, mode: Enum) callconv(APIENTRY) void,
+glFramebufferDrawBuffersEXT: *const fn (framebuffer: c_uint, n: c_int, bufs: [*c]const Enum) callconv(APIENTRY) void,
+glFramebufferReadBufferEXT: *const fn (framebuffer: c_uint, mode: Enum) callconv(APIENTRY) void,
+glGetFramebufferParameterivEXT: *const fn (framebuffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glNamedCopyBufferSubDataEXT: *const fn (readBuffer: c_uint, writeBuffer: c_uint, readOffset: c_long, writeOffset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glNamedFramebufferTextureEXT: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTextureLayerEXT: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, layer: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTextureFaceEXT: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, face: Enum) callconv(APIENTRY) void,
+glTextureRenderbufferEXT: *const fn (texture: c_uint, target: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glMultiTexRenderbufferEXT: *const fn (texunit: Enum, target: Enum, renderbuffer: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayColorOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayEdgeFlagOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayIndexOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayNormalOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayTexCoordOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayMultiTexCoordOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, texunit: Enum, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayFogCoordOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArraySecondaryColorOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayVertexAttribOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glVertexArrayVertexAttribIOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glEnableVertexArrayEXT: *const fn (vaobj: c_uint, array: Enum) callconv(APIENTRY) void,
+glDisableVertexArrayEXT: *const fn (vaobj: c_uint, array: Enum) callconv(APIENTRY) void,
+glEnableVertexArrayAttribEXT: *const fn (vaobj: c_uint, index: c_uint) callconv(APIENTRY) void,
+glDisableVertexArrayAttribEXT: *const fn (vaobj: c_uint, index: c_uint) callconv(APIENTRY) void,
+glGetVertexArrayIntegervEXT: *const fn (vaobj: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexArrayPointervEXT: *const fn (vaobj: c_uint, pname: Enum, param: [*c]?*anyopaque) callconv(APIENTRY) void,
+glGetVertexArrayIntegeri_vEXT: *const fn (vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]c_int) callconv(APIENTRY) void,
+glGetVertexArrayPointeri_vEXT: *const fn (vaobj: c_uint, index: c_uint, pname: Enum, param: [*c]?*anyopaque) callconv(APIENTRY) void,
+glMapNamedBufferRangeEXT: *const fn (buffer: c_uint, offset: c_long, length: c_ulong, access: Bitfield) callconv(APIENTRY) ?*anyopaque,
+glFlushMappedNamedBufferRangeEXT: *const fn (buffer: c_uint, offset: c_long, length: c_ulong) callconv(APIENTRY) void,
+glNamedBufferStorageEXT: *const fn (buffer: c_uint, size: c_ulong, data: ?*const anyopaque, flags: Bitfield) callconv(APIENTRY) void,
+glClearNamedBufferDataEXT: *const fn (buffer: c_uint, internalformat: Enum, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glClearNamedBufferSubDataEXT: *const fn (buffer: c_uint, internalformat: Enum, offset: c_ulong, size: c_ulong, format: Enum, @"type": Enum, data: ?*const anyopaque) callconv(APIENTRY) void,
+glNamedFramebufferParameteriEXT: *const fn (framebuffer: c_uint, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glGetNamedFramebufferParameterivEXT: *const fn (framebuffer: c_uint, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glProgramUniform1dEXT: *const fn (program: c_uint, location: c_int, x: f64) callconv(APIENTRY) void,
+glProgramUniform2dEXT: *const fn (program: c_uint, location: c_int, x: f64, y: f64) callconv(APIENTRY) void,
+glProgramUniform3dEXT: *const fn (program: c_uint, location: c_int, x: f64, y: f64, z: f64) callconv(APIENTRY) void,
+glProgramUniform4dEXT: *const fn (program: c_uint, location: c_int, x: f64, y: f64, z: f64, w: f64) callconv(APIENTRY) void,
+glProgramUniform1dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform2dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform3dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniform4dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix2dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix2x3dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix2x4dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3x2dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix3x4dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4x2dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glProgramUniformMatrix4x3dvEXT: *const fn (program: c_uint, location: c_int, count: c_int, transpose: Boolean, value: [*c]const f64) callconv(APIENTRY) void,
+glTextureBufferRangeEXT: *const fn (texture: c_uint, target: Enum, internalformat: Enum, buffer: c_uint, offset: c_long, size: c_ulong) callconv(APIENTRY) void,
+glTextureStorage1DEXT: *const fn (texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int) callconv(APIENTRY) void,
+glTextureStorage2DEXT: *const fn (texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTextureStorage3DEXT: *const fn (texture: c_uint, target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) callconv(APIENTRY) void,
+glTextureStorage2DMultisampleEXT: *const fn (texture: c_uint, target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glTextureStorage3DMultisampleEXT: *const fn (texture: c_uint, target: Enum, samples: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glVertexArrayBindVertexBufferEXT: *const fn (vaobj: c_uint, bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) callconv(APIENTRY) void,
+glVertexArrayVertexAttribFormatEXT: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, normalized: Boolean, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexAttribIFormatEXT: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexAttribLFormatEXT: *const fn (vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": Enum, relativeoffset: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexAttribBindingEXT: *const fn (vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexBindingDivisorEXT: *const fn (vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glVertexArrayVertexAttribLOffsetEXT: *const fn (vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": Enum, stride: c_int, offset: c_long) callconv(APIENTRY) void,
+glTexturePageCommitmentEXT: *const fn (texture: c_uint, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, commit: Boolean) callconv(APIENTRY) void,
+glVertexArrayVertexAttribDivisorEXT: *const fn (vaobj: c_uint, index: c_uint, divisor: c_uint) callconv(APIENTRY) void,
+glDrawArraysInstancedEXT: *const fn (mode: Enum, start: c_int, count: c_int, primcount: c_int) callconv(APIENTRY) void,
+glDrawElementsInstancedEXT: *const fn (mode: Enum, count: c_int, @"type": Enum, indices: ?*const anyopaque, primcount: c_int) callconv(APIENTRY) void,
+glPolygonOffsetClampEXT: *const fn (factor: f32, units: f32, clamp: f32) callconv(APIENTRY) void,
+glRasterSamplesEXT: *const fn (samples: c_uint, fixedsamplelocations: Boolean) callconv(APIENTRY) void,
+glUseShaderProgramEXT: *const fn (@"type": Enum, program: c_uint) callconv(APIENTRY) void,
+glActiveProgramEXT: *const fn (program: c_uint) callconv(APIENTRY) void,
+glCreateShaderProgramEXT: *const fn (@"type": Enum, string: [*c]const u8) callconv(APIENTRY) c_uint,
+glFramebufferFetchBarrierEXT: *const fn () callconv(APIENTRY) void,
+glTexStorage1DEXT: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int) callconv(APIENTRY) void,
+glTexStorage2DEXT: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glTexStorage3DEXT: *const fn (target: Enum, levels: c_int, internalformat: Enum, width: c_int, height: c_int, depth: c_int) callconv(APIENTRY) void,
+glWindowRectanglesEXT: *const fn (mode: Enum, count: c_int, box: [*c]const c_int) callconv(APIENTRY) void,
+glApplyFramebufferAttachmentCMAAINTEL: *const fn () callconv(APIENTRY) void,
+glBeginPerfQueryINTEL: *const fn (queryHandle: c_uint) callconv(APIENTRY) void,
+glCreatePerfQueryINTEL: *const fn (queryId: c_uint, queryHandle: [*c]c_uint) callconv(APIENTRY) void,
+glDeletePerfQueryINTEL: *const fn (queryHandle: c_uint) callconv(APIENTRY) void,
+glEndPerfQueryINTEL: *const fn (queryHandle: c_uint) callconv(APIENTRY) void,
+glGetFirstPerfQueryIdINTEL: *const fn (queryId: [*c]c_uint) callconv(APIENTRY) void,
+glGetNextPerfQueryIdINTEL: *const fn (queryId: c_uint, nextQueryId: [*c]c_uint) callconv(APIENTRY) void,
+glGetPerfCounterInfoINTEL: *const fn (queryId: c_uint, counterId: c_uint, counterNameLength: c_uint, counterName: [*c]u8, counterDescLength: c_uint, counterDesc: [*c]u8, counterOffset: [*c]c_uint, counterDataSize: [*c]c_uint, counterTypeEnum: [*c]c_uint, counterDataTypeEnum: [*c]c_uint, rawCounterMaxValue: [*c]u64) callconv(APIENTRY) void,
+glGetPerfQueryDataINTEL: *const fn (queryHandle: c_uint, flags: c_uint, dataSize: c_int, data: ?*anyopaque, bytesWritten: [*c]c_uint) callconv(APIENTRY) void,
+glGetPerfQueryIdByNameINTEL: *const fn (queryName: [*c]u8, queryId: [*c]c_uint) callconv(APIENTRY) void,
+glGetPerfQueryInfoINTEL: *const fn (queryId: c_uint, queryNameLength: c_uint, queryName: [*c]u8, dataSize: [*c]c_uint, noCounters: [*c]c_uint, noInstances: [*c]c_uint, capsMask: [*c]c_uint) callconv(APIENTRY) void,
+glFramebufferParameteriMESA: *const fn (target: Enum, pname: Enum, param: c_int) callconv(APIENTRY) void,
+glGetFramebufferParameterivMESA: *const fn (target: Enum, pname: Enum, params: [*c]c_int) callconv(APIENTRY) void,
+glMultiDrawArraysIndirectBindlessNV: *const fn (mode: Enum, indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsIndirectBindlessNV: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawCount: c_int, stride: c_int, vertexBufferCount: c_int) callconv(APIENTRY) void,
+glMultiDrawArraysIndirectBindlessCountNV: *const fn (mode: Enum, indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) callconv(APIENTRY) void,
+glMultiDrawElementsIndirectBindlessCountNV: *const fn (mode: Enum, @"type": Enum, indirect: ?*const anyopaque, drawCount: c_int, maxDrawCount: c_int, stride: c_int, vertexBufferCount: c_int) callconv(APIENTRY) void,
+glGetTextureHandleNV: *const fn (texture: c_uint) callconv(APIENTRY) u64,
+glGetTextureSamplerHandleNV: *const fn (texture: c_uint, sampler: c_uint) callconv(APIENTRY) u64,
+glMakeTextureHandleResidentNV: *const fn (handle: u64) callconv(APIENTRY) void,
+glMakeTextureHandleNonResidentNV: *const fn (handle: u64) callconv(APIENTRY) void,
+glGetImageHandleNV: *const fn (texture: c_uint, level: c_int, layered: Boolean, layer: c_int, format: Enum) callconv(APIENTRY) u64,
+glMakeImageHandleResidentNV: *const fn (handle: u64, access: Enum) callconv(APIENTRY) void,
+glMakeImageHandleNonResidentNV: *const fn (handle: u64) callconv(APIENTRY) void,
+glUniformHandleui64NV: *const fn (location: c_int, value: u64) callconv(APIENTRY) void,
+glUniformHandleui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniformHandleui64NV: *const fn (program: c_uint, location: c_int, value: u64) callconv(APIENTRY) void,
+glProgramUniformHandleui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, values: [*c]const u64) callconv(APIENTRY) void,
+glIsTextureHandleResidentNV: *const fn (handle: u64) callconv(APIENTRY) Boolean,
+glIsImageHandleResidentNV: *const fn (handle: u64) callconv(APIENTRY) Boolean,
+glBlendParameteriNV: *const fn (pname: Enum, value: c_int) callconv(APIENTRY) void,
+glBlendBarrierNV: *const fn () callconv(APIENTRY) void,
+glViewportPositionWScaleNV: *const fn (index: c_uint, xcoeff: f32, ycoeff: f32) callconv(APIENTRY) void,
+glCreateStatesNV: *const fn (n: c_int, states: [*c]c_uint) callconv(APIENTRY) void,
+glDeleteStatesNV: *const fn (n: c_int, states: [*c]const c_uint) callconv(APIENTRY) void,
+glIsStateNV: *const fn (state: c_uint) callconv(APIENTRY) Boolean,
+glStateCaptureNV: *const fn (state: c_uint, mode: Enum) callconv(APIENTRY) void,
+glGetCommandHeaderNV: *const fn (tokenID: Enum, size: c_uint) callconv(APIENTRY) c_uint,
+glGetStageIndexNV: *const fn (shadertype: Enum) callconv(APIENTRY) c_ushort,
+glDrawCommandsNV: *const fn (primitiveMode: Enum, buffer: c_uint, indirects: [*c]const c_long, sizes: [*c]const c_int, count: c_uint) callconv(APIENTRY) void,
+glDrawCommandsAddressNV: *const fn (primitiveMode: Enum, indirects: [*c]const u64, sizes: [*c]const c_int, count: c_uint) callconv(APIENTRY) void,
+glDrawCommandsStatesNV: *const fn (buffer: c_uint, indirects: [*c]const c_long, sizes: [*c]const c_int, states: [*c]const c_uint, fbos: [*c]const c_uint, count: c_uint) callconv(APIENTRY) void,
+glDrawCommandsStatesAddressNV: *const fn (indirects: [*c]const u64, sizes: [*c]const c_int, states: [*c]const c_uint, fbos: [*c]const c_uint, count: c_uint) callconv(APIENTRY) void,
+glCreateCommandListsNV: *const fn (n: c_int, lists: [*c]c_uint) callconv(APIENTRY) void,
+glDeleteCommandListsNV: *const fn (n: c_int, lists: [*c]const c_uint) callconv(APIENTRY) void,
+glIsCommandListNV: *const fn (list: c_uint) callconv(APIENTRY) Boolean,
+glListDrawCommandsStatesClientNV: *const fn (list: c_uint, segment: c_uint, indirects: [*c]?*const anyopaque, sizes: [*c]const c_int, states: [*c]const c_uint, fbos: [*c]const c_uint, count: c_uint) callconv(APIENTRY) void,
+glCommandListSegmentsNV: *const fn (list: c_uint, segments: c_uint) callconv(APIENTRY) void,
+glCompileCommandListNV: *const fn (list: c_uint) callconv(APIENTRY) void,
+glCallCommandListNV: *const fn (list: c_uint) callconv(APIENTRY) void,
+glBeginConditionalRenderNV: *const fn (id: c_uint, mode: Enum) callconv(APIENTRY) void,
+glEndConditionalRenderNV: *const fn () callconv(APIENTRY) void,
+glSubpixelPrecisionBiasNV: *const fn (xbits: c_uint, ybits: c_uint) callconv(APIENTRY) void,
+glConservativeRasterParameterfNV: *const fn (pname: Enum, value: f32) callconv(APIENTRY) void,
+glConservativeRasterParameteriNV: *const fn (pname: Enum, param: c_int) callconv(APIENTRY) void,
+glDepthRangedNV: *const fn (zNear: f64, zFar: f64) callconv(APIENTRY) void,
+glClearDepthdNV: *const fn (depth: f64) callconv(APIENTRY) void,
+glDepthBoundsdNV: *const fn (zmin: f64, zmax: f64) callconv(APIENTRY) void,
+glDrawVkImageNV: *const fn (vkImage: u64, sampler: c_uint, x0: f32, y0: f32, x1: f32, y1: f32, z: f32, s0: f32, t0: f32, s1: f32, t1: f32) callconv(APIENTRY) void,
+glGetVkProcAddrNV: *const fn (name: [*c]const u8) callconv(APIENTRY) GLVULKANPROCNV,
+glWaitVkSemaphoreNV: *const fn (vkSemaphore: u64) callconv(APIENTRY) void,
+glSignalVkSemaphoreNV: *const fn (vkSemaphore: u64) callconv(APIENTRY) void,
+glSignalVkFenceNV: *const fn (vkFence: u64) callconv(APIENTRY) void,
+glFragmentCoverageColorNV: *const fn (color: c_uint) callconv(APIENTRY) void,
+glCoverageModulationTableNV: *const fn (n: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glGetCoverageModulationTableNV: *const fn (bufSize: c_int, v: [*c]f32) callconv(APIENTRY) void,
+glCoverageModulationNV: *const fn (components: Enum) callconv(APIENTRY) void,
+glRenderbufferStorageMultisampleCoverageNV: *const fn (target: Enum, coverageSamples: c_int, colorSamples: c_int, internalformat: Enum, width: c_int, height: c_int) callconv(APIENTRY) void,
+glUniform1i64NV: *const fn (location: c_int, x: i64) callconv(APIENTRY) void,
+glUniform2i64NV: *const fn (location: c_int, x: i64, y: i64) callconv(APIENTRY) void,
+glUniform3i64NV: *const fn (location: c_int, x: i64, y: i64, z: i64) callconv(APIENTRY) void,
+glUniform4i64NV: *const fn (location: c_int, x: i64, y: i64, z: i64, w: i64) callconv(APIENTRY) void,
+glUniform1i64vNV: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform2i64vNV: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform3i64vNV: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform4i64vNV: *const fn (location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glUniform1ui64NV: *const fn (location: c_int, x: u64) callconv(APIENTRY) void,
+glUniform2ui64NV: *const fn (location: c_int, x: u64, y: u64) callconv(APIENTRY) void,
+glUniform3ui64NV: *const fn (location: c_int, x: u64, y: u64, z: u64) callconv(APIENTRY) void,
+glUniform4ui64NV: *const fn (location: c_int, x: u64, y: u64, z: u64, w: u64) callconv(APIENTRY) void,
+glUniform1ui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform2ui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform3ui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glUniform4ui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glGetUniformi64vNV: *const fn (program: c_uint, location: c_int, params: [*c]i64) callconv(APIENTRY) void,
+glProgramUniform1i64NV: *const fn (program: c_uint, location: c_int, x: i64) callconv(APIENTRY) void,
+glProgramUniform2i64NV: *const fn (program: c_uint, location: c_int, x: i64, y: i64) callconv(APIENTRY) void,
+glProgramUniform3i64NV: *const fn (program: c_uint, location: c_int, x: i64, y: i64, z: i64) callconv(APIENTRY) void,
+glProgramUniform4i64NV: *const fn (program: c_uint, location: c_int, x: i64, y: i64, z: i64, w: i64) callconv(APIENTRY) void,
+glProgramUniform1i64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform2i64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform3i64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform4i64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const i64) callconv(APIENTRY) void,
+glProgramUniform1ui64NV: *const fn (program: c_uint, location: c_int, x: u64) callconv(APIENTRY) void,
+glProgramUniform2ui64NV: *const fn (program: c_uint, location: c_int, x: u64, y: u64) callconv(APIENTRY) void,
+glProgramUniform3ui64NV: *const fn (program: c_uint, location: c_int, x: u64, y: u64, z: u64) callconv(APIENTRY) void,
+glProgramUniform4ui64NV: *const fn (program: c_uint, location: c_int, x: u64, y: u64, z: u64, w: u64) callconv(APIENTRY) void,
+glProgramUniform1ui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform2ui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform3ui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glProgramUniform4ui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glGetInternalformatSampleivNV: *const fn (target: Enum, internalformat: Enum, samples: c_int, pname: Enum, count: c_int, params: [*c]c_int) callconv(APIENTRY) void,
+glGetMemoryObjectDetachedResourcesuivNV: *const fn (memory: c_uint, pname: Enum, first: c_int, count: c_int, params: [*c]c_uint) callconv(APIENTRY) void,
+glResetMemoryObjectParameterNV: *const fn (memory: c_uint, pname: Enum) callconv(APIENTRY) void,
+glTexAttachMemoryNV: *const fn (target: Enum, memory: c_uint, offset: u64) callconv(APIENTRY) void,
+glBufferAttachMemoryNV: *const fn (target: Enum, memory: c_uint, offset: u64) callconv(APIENTRY) void,
+glTextureAttachMemoryNV: *const fn (texture: c_uint, memory: c_uint, offset: u64) callconv(APIENTRY) void,
+glNamedBufferAttachMemoryNV: *const fn (buffer: c_uint, memory: c_uint, offset: u64) callconv(APIENTRY) void,
+glBufferPageCommitmentMemNV: *const fn (target: Enum, offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: Boolean) callconv(APIENTRY) void,
+glTexPageCommitmentMemNV: *const fn (target: Enum, layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: Boolean) callconv(APIENTRY) void,
+glNamedBufferPageCommitmentMemNV: *const fn (buffer: c_uint, offset: c_long, size: c_ulong, memory: c_uint, memOffset: u64, commit: Boolean) callconv(APIENTRY) void,
+glTexturePageCommitmentMemNV: *const fn (texture: c_uint, layer: c_int, level: c_int, xoffset: c_int, yoffset: c_int, zoffset: c_int, width: c_int, height: c_int, depth: c_int, memory: c_uint, offset: u64, commit: Boolean) callconv(APIENTRY) void,
+glDrawMeshTasksNV: *const fn (first: c_uint, count: c_uint) callconv(APIENTRY) void,
+glDrawMeshTasksIndirectNV: *const fn (indirect: c_long) callconv(APIENTRY) void,
+glMultiDrawMeshTasksIndirectNV: *const fn (indirect: c_long, drawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glMultiDrawMeshTasksIndirectCountNV: *const fn (indirect: c_long, drawcount: c_long, maxdrawcount: c_int, stride: c_int) callconv(APIENTRY) void,
+glGenPathsNV: *const fn (range: c_int) callconv(APIENTRY) c_uint,
+glDeletePathsNV: *const fn (path: c_uint, range: c_int) callconv(APIENTRY) void,
+glIsPathNV: *const fn (path: c_uint) callconv(APIENTRY) Boolean,
+glPathCommandsNV: *const fn (path: c_uint, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) callconv(APIENTRY) void,
+glPathCoordsNV: *const fn (path: c_uint, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) callconv(APIENTRY) void,
+glPathSubCommandsNV: *const fn (path: c_uint, commandStart: c_int, commandsToDelete: c_int, numCommands: c_int, commands: [*c]const u8, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) callconv(APIENTRY) void,
+glPathSubCoordsNV: *const fn (path: c_uint, coordStart: c_int, numCoords: c_int, coordType: Enum, coords: ?*const anyopaque) callconv(APIENTRY) void,
+glPathStringNV: *const fn (path: c_uint, format: Enum, length: c_int, pathString: ?*const anyopaque) callconv(APIENTRY) void,
+glPathGlyphsNV: *const fn (firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, numGlyphs: c_int, @"type": Enum, charcodes: ?*const anyopaque, handleMissingGlyphs: Enum, pathParameterTemplate: c_uint, emScale: f32) callconv(APIENTRY) void,
+glPathGlyphRangeNV: *const fn (firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyph: c_uint, numGlyphs: c_int, handleMissingGlyphs: Enum, pathParameterTemplate: c_uint, emScale: f32) callconv(APIENTRY) void,
+glWeightPathsNV: *const fn (resultPath: c_uint, numPaths: c_int, paths: [*c]const c_uint, weights: [*c]const f32) callconv(APIENTRY) void,
+glCopyPathNV: *const fn (resultPath: c_uint, srcPath: c_uint) callconv(APIENTRY) void,
+glInterpolatePathsNV: *const fn (resultPath: c_uint, pathA: c_uint, pathB: c_uint, weight: f32) callconv(APIENTRY) void,
+glTransformPathNV: *const fn (resultPath: c_uint, srcPath: c_uint, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glPathParameterivNV: *const fn (path: c_uint, pname: Enum, value: [*c]const c_int) callconv(APIENTRY) void,
+glPathParameteriNV: *const fn (path: c_uint, pname: Enum, value: c_int) callconv(APIENTRY) void,
+glPathParameterfvNV: *const fn (path: c_uint, pname: Enum, value: [*c]const f32) callconv(APIENTRY) void,
+glPathParameterfNV: *const fn (path: c_uint, pname: Enum, value: f32) callconv(APIENTRY) void,
+glPathDashArrayNV: *const fn (path: c_uint, dashCount: c_int, dashArray: [*c]const f32) callconv(APIENTRY) void,
+glPathStencilFuncNV: *const fn (func: Enum, ref: c_int, mask: c_uint) callconv(APIENTRY) void,
+glPathStencilDepthOffsetNV: *const fn (factor: f32, units: f32) callconv(APIENTRY) void,
+glStencilFillPathNV: *const fn (path: c_uint, fillMode: Enum, mask: c_uint) callconv(APIENTRY) void,
+glStencilStrokePathNV: *const fn (path: c_uint, reference: c_int, mask: c_uint) callconv(APIENTRY) void,
+glStencilFillPathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, fillMode: Enum, mask: c_uint, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glStencilStrokePathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glPathCoverDepthFuncNV: *const fn (func: Enum) callconv(APIENTRY) void,
+glCoverFillPathNV: *const fn (path: c_uint, coverMode: Enum) callconv(APIENTRY) void,
+glCoverStrokePathNV: *const fn (path: c_uint, coverMode: Enum) callconv(APIENTRY) void,
+glCoverFillPathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glCoverStrokePathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glGetPathParameterivNV: *const fn (path: c_uint, pname: Enum, value: [*c]c_int) callconv(APIENTRY) void,
+glGetPathParameterfvNV: *const fn (path: c_uint, pname: Enum, value: [*c]f32) callconv(APIENTRY) void,
+glGetPathCommandsNV: *const fn (path: c_uint, commands: [*c]u8) callconv(APIENTRY) void,
+glGetPathCoordsNV: *const fn (path: c_uint, coords: [*c]f32) callconv(APIENTRY) void,
+glGetPathDashArrayNV: *const fn (path: c_uint, dashArray: [*c]f32) callconv(APIENTRY) void,
+glGetPathMetricsNV: *const fn (metricQueryMask: Bitfield, numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, stride: c_int, metrics: [*c]f32) callconv(APIENTRY) void,
+glGetPathMetricRangeNV: *const fn (metricQueryMask: Bitfield, firstPathName: c_uint, numPaths: c_int, stride: c_int, metrics: [*c]f32) callconv(APIENTRY) void,
+glGetPathSpacingNV: *const fn (pathListMode: Enum, numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, advanceScale: f32, kerningScale: f32, transformType: Enum, returnedSpacing: [*c]f32) callconv(APIENTRY) void,
+glIsPointInFillPathNV: *const fn (path: c_uint, mask: c_uint, x: f32, y: f32) callconv(APIENTRY) Boolean,
+glIsPointInStrokePathNV: *const fn (path: c_uint, x: f32, y: f32) callconv(APIENTRY) Boolean,
+glGetPathLengthNV: *const fn (path: c_uint, startSegment: c_int, numSegments: c_int) callconv(APIENTRY) f32,
+glPointAlongPathNV: *const fn (path: c_uint, startSegment: c_int, numSegments: c_int, distance: f32, x: [*c]f32, y: [*c]f32, tangentX: [*c]f32, tangentY: [*c]f32) callconv(APIENTRY) Boolean,
+glMatrixLoad3x2fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixLoad3x3fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixLoadTranspose3x3fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixMult3x2fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixMult3x3fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glMatrixMultTranspose3x3fNV: *const fn (matrixMode: Enum, m: [*c]const f32) callconv(APIENTRY) void,
+glStencilThenCoverFillPathNV: *const fn (path: c_uint, fillMode: Enum, mask: c_uint, coverMode: Enum) callconv(APIENTRY) void,
+glStencilThenCoverStrokePathNV: *const fn (path: c_uint, reference: c_int, mask: c_uint, coverMode: Enum) callconv(APIENTRY) void,
+glStencilThenCoverFillPathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, fillMode: Enum, mask: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glStencilThenCoverStrokePathInstancedNV: *const fn (numPaths: c_int, pathNameType: Enum, paths: ?*const anyopaque, pathBase: c_uint, reference: c_int, mask: c_uint, coverMode: Enum, transformType: Enum, transformValues: [*c]const f32) callconv(APIENTRY) void,
+glPathGlyphIndexRangeNV: *const fn (fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, pathParameterTemplate: c_uint, emScale: f32, baseAndCount: [*c]c_uint) callconv(APIENTRY) Enum,
+glPathGlyphIndexArrayNV: *const fn (firstPathName: c_uint, fontTarget: Enum, fontName: ?*const anyopaque, fontStyle: Bitfield, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) callconv(APIENTRY) Enum,
+glPathMemoryGlyphIndexArrayNV: *const fn (firstPathName: c_uint, fontTarget: Enum, fontSize: c_ulong, fontData: ?*const anyopaque, faceIndex: c_int, firstGlyphIndex: c_uint, numGlyphs: c_int, pathParameterTemplate: c_uint, emScale: f32) callconv(APIENTRY) Enum,
+glProgramPathFragmentInputGenNV: *const fn (program: c_uint, location: c_int, genMode: Enum, components: c_int, coeffs: [*c]const f32) callconv(APIENTRY) void,
+glGetProgramResourcefvNV: *const fn (program: c_uint, programInterface: Enum, index: c_uint, propCount: c_int, props: [*c]const Enum, count: c_int, length: [*c]c_int, params: [*c]f32) callconv(APIENTRY) void,
+glFramebufferSampleLocationsfvNV: *const fn (target: Enum, start: c_uint, count: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glNamedFramebufferSampleLocationsfvNV: *const fn (framebuffer: c_uint, start: c_uint, count: c_int, v: [*c]const f32) callconv(APIENTRY) void,
+glResolveDepthValuesNV: *const fn () callconv(APIENTRY) void,
+glScissorExclusiveNV: *const fn (x: c_int, y: c_int, width: c_int, height: c_int) callconv(APIENTRY) void,
+glScissorExclusiveArrayvNV: *const fn (first: c_uint, count: c_int, v: [*c]const c_int) callconv(APIENTRY) void,
+glMakeBufferResidentNV: *const fn (target: Enum, access: Enum) callconv(APIENTRY) void,
+glMakeBufferNonResidentNV: *const fn (target: Enum) callconv(APIENTRY) void,
+glIsBufferResidentNV: *const fn (target: Enum) callconv(APIENTRY) Boolean,
+glMakeNamedBufferResidentNV: *const fn (buffer: c_uint, access: Enum) callconv(APIENTRY) void,
+glMakeNamedBufferNonResidentNV: *const fn (buffer: c_uint) callconv(APIENTRY) void,
+glIsNamedBufferResidentNV: *const fn (buffer: c_uint) callconv(APIENTRY) Boolean,
+glGetBufferParameterui64vNV: *const fn (target: Enum, pname: Enum, params: [*c]u64) callconv(APIENTRY) void,
+glGetNamedBufferParameterui64vNV: *const fn (buffer: c_uint, pname: Enum, params: [*c]u64) callconv(APIENTRY) void,
+glGetIntegerui64vNV: *const fn (value: Enum, result: [*c]u64) callconv(APIENTRY) void,
+glUniformui64NV: *const fn (location: c_int, value: u64) callconv(APIENTRY) void,
+glUniformui64vNV: *const fn (location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glGetUniformui64vNV: *const fn (program: c_uint, location: c_int, params: [*c]u64) callconv(APIENTRY) void,
+glProgramUniformui64NV: *const fn (program: c_uint, location: c_int, value: u64) callconv(APIENTRY) void,
+glProgramUniformui64vNV: *const fn (program: c_uint, location: c_int, count: c_int, value: [*c]const u64) callconv(APIENTRY) void,
+glBindShadingRateImageNV: *const fn (texture: c_uint) callconv(APIENTRY) void,
+glGetShadingRateImagePaletteNV: *const fn (viewport: c_uint, entry: c_uint, rate: [*c]Enum) callconv(APIENTRY) void,
+glGetShadingRateSampleLocationivNV: *const fn (rate: Enum, samples: c_uint, index: c_uint, location: [*c]c_int) callconv(APIENTRY) void,
+glShadingRateImageBarrierNV: *const fn (synchronize: Boolean) callconv(APIENTRY) void,
+glShadingRateImagePaletteNV: *const fn (viewport: c_uint, first: c_uint, count: c_int, rates: [*c]const Enum) callconv(APIENTRY) void,
+glShadingRateSampleOrderNV: *const fn (order: Enum) callconv(APIENTRY) void,
+glShadingRateSampleOrderCustomNV: *const fn (rate: Enum, samples: c_uint, locations: [*c]const c_int) callconv(APIENTRY) void,
+glTextureBarrierNV: *const fn () callconv(APIENTRY) void,
+glVertexAttribL1i64NV: *const fn (index: c_uint, x: i64) callconv(APIENTRY) void,
+glVertexAttribL2i64NV: *const fn (index: c_uint, x: i64, y: i64) callconv(APIENTRY) void,
+glVertexAttribL3i64NV: *const fn (index: c_uint, x: i64, y: i64, z: i64) callconv(APIENTRY) void,
+glVertexAttribL4i64NV: *const fn (index: c_uint, x: i64, y: i64, z: i64, w: i64) callconv(APIENTRY) void,
+glVertexAttribL1i64vNV: *const fn (index: c_uint, v: [*c]const i64) callconv(APIENTRY) void,
+glVertexAttribL2i64vNV: *const fn (index: c_uint, v: [*c]const i64) callconv(APIENTRY) void,
+glVertexAttribL3i64vNV: *const fn (index: c_uint, v: [*c]const i64) callconv(APIENTRY) void,
+glVertexAttribL4i64vNV: *const fn (index: c_uint, v: [*c]const i64) callconv(APIENTRY) void,
+glVertexAttribL1ui64NV: *const fn (index: c_uint, x: u64) callconv(APIENTRY) void,
+glVertexAttribL2ui64NV: *const fn (index: c_uint, x: u64, y: u64) callconv(APIENTRY) void,
+glVertexAttribL3ui64NV: *const fn (index: c_uint, x: u64, y: u64, z: u64) callconv(APIENTRY) void,
+glVertexAttribL4ui64NV: *const fn (index: c_uint, x: u64, y: u64, z: u64, w: u64) callconv(APIENTRY) void,
+glVertexAttribL1ui64vNV: *const fn (index: c_uint, v: [*c]const u64) callconv(APIENTRY) void,
+glVertexAttribL2ui64vNV: *const fn (index: c_uint, v: [*c]const u64) callconv(APIENTRY) void,
+glVertexAttribL3ui64vNV: *const fn (index: c_uint, v: [*c]const u64) callconv(APIENTRY) void,
+glVertexAttribL4ui64vNV: *const fn (index: c_uint, v: [*c]const u64) callconv(APIENTRY) void,
+glGetVertexAttribLi64vNV: *const fn (index: c_uint, pname: Enum, params: [*c]i64) callconv(APIENTRY) void,
+glGetVertexAttribLui64vNV: *const fn (index: c_uint, pname: Enum, params: [*c]u64) callconv(APIENTRY) void,
+glVertexAttribLFormatNV: *const fn (index: c_uint, size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glBufferAddressRangeNV: *const fn (pname: Enum, index: c_uint, address: u64, length: c_ulong) callconv(APIENTRY) void,
+glVertexFormatNV: *const fn (size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glNormalFormatNV: *const fn (@"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glColorFormatNV: *const fn (size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glIndexFormatNV: *const fn (@"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glTexCoordFormatNV: *const fn (size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glEdgeFlagFormatNV: *const fn (stride: c_int) callconv(APIENTRY) void,
+glSecondaryColorFormatNV: *const fn (size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glFogCoordFormatNV: *const fn (@"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glVertexAttribFormatNV: *const fn (index: c_uint, size: c_int, @"type": Enum, normalized: Boolean, stride: c_int) callconv(APIENTRY) void,
+glVertexAttribIFormatNV: *const fn (index: c_uint, size: c_int, @"type": Enum, stride: c_int) callconv(APIENTRY) void,
+glGetIntegerui64i_vNV: *const fn (value: Enum, index: c_uint, result: [*c]u64) callconv(APIENTRY) void,
+glViewportSwizzleNV: *const fn (index: c_uint, swizzlex: Enum, swizzley: Enum, swizzlez: Enum, swizzlew: Enum) callconv(APIENTRY) void,
+glFramebufferTextureMultiviewOVR: *const fn (target: Enum, attachment: Enum, texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) callconv(APIENTRY) void,
+glNamedFramebufferTextureMultiviewOVR: *const fn (framebuffer: c_uint, attachment: Enum, texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void,
 
 pub fn init(loader: anytype) !@This() {
     var procs: @This() = undefined;

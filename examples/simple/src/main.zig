@@ -31,8 +31,8 @@ pub fn main() !void {
 
     while (!window.shouldClose()) {
         glfw.io.events.poll();
-        gl.clearColor(0.1, 0.5, 0.3, 1.0);
-        gl.clear(.{ .color = true });
+        gl.clear.color(0.1, 0.5, 0.3, 1.0);
+        gl.clear.buffer(.{ .color = true });
 
         if (glfw.io.Key.a.get(window)) {
             std.debug.print("A\n", .{});
