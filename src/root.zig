@@ -21,6 +21,6 @@ pub fn clear(mask: packed struct(u3) {
     depth: bool = false,
     stencil: bool = false,
 }) void {
-    const bitmask: c_uint = @intCast(if (mask.color) c.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0);
+    const bitmask: c_uint = @intCast(if (mask.color) C.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) C.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) C.GL_STENCIL_BUFFER_BIT else 0);
     c.glClear(bitmask);
 }

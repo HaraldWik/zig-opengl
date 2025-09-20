@@ -19,7 +19,7 @@ pub fn main() !void {
 
     try gl.init(glfw.opengl.getProcAddress);
 
-    std.debug.print("{d}\n", .{@sizeOf(gl.Procs)});
+    std.debug.print("{d}\n", .{@sizeOf(gl.C)});
 
     while (!window.shouldClose()) {
         glfw.io.events.poll();
