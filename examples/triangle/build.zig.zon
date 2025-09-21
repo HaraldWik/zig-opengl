@@ -1,0 +1,20 @@
+.{
+    .name = .triangle,
+    .version = "0.0.0",
+    .fingerprint = 0xdf976d8771181575,
+    .minimum_zig_version = "0.16.0-dev.253+4314c9653",
+    .dependencies = .{
+        .zig_opengl = .{
+            .path = "../..",
+        },
+        .zig_glfw = .{
+            .url = "git+https://github.com/HaraldWik/zig-glfw#fe78dec6641b94e5a4c6575e560a76e00e06376c",
+            .hash = "zig_glfw-0.1.0-u6zPwz3BAADmUJGq09_ysDJlgxvnhV967U9Y5S_WTH_Y",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

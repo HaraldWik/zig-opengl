@@ -5,6 +5,21 @@ pub const c = @import("c.zig");
 pub var procs: Procs = undefined;
 
 pub fn init(loader: anytype) !void {
+    // switch (@typeInfo(@TypeOf(loader))) {
+    //     .@"fn" => |func| {
+    //         if (func.return_type) |T| switch (@typeInfo(T)) {
+    //             .@"fn" => {},
+    //             else => @compileError(std.fmt.comptimePrint("loader return type must be type of 'function' not type of '{any}'", .{@typeInfo(@TypeOf(loader))})),
+    //         };
+    //         if (func.params.len > 1) @compileError("loader has to many parameters");
+    //         if (func.params[0].type) |T| switch (@typeInfo(T)) {
+    //             .array => |arr| if (arr.child != u8) @compileError("loader parameter must be any type of 'string'"),
+    //             else => @compileError("loader parameter must be any type of 'string'"),
+    //         };
+    //     },
+    //     else => @compileError("loader must be type of 'function'"),
+    // }
+
     procs = try .init(loader);
     c.procs = &procs;
 }
@@ -181,6 +196,12 @@ pub const Program = enum(c_uint) {
     }
 };
 
+pub const ElementType = enum(c_ushort) {
+    u8 = c.GL_UNSIGNED_BYTE,
+    u16 = c.GL_UNSIGNED_SHORT,
+    u32 = c.GL_UNSIGNED_INT,
+};
+
 pub const draw = struct {
     pub const Mode = enum(c_ushort) {
         points = c.GL_POINTS,
@@ -203,4 +224,24 @@ pub const draw = struct {
     pub fn elements(mode: Mode, count: usize, indices: usize) void {
         c.glDrawElements(@intFromEnum(mode), @intCast(count), c.GL_UNSIGNED_INT, @ptrFromInt(indices));
     }
+
+    pub const indirect = struct {
+        pub fn arrays(mode: Mode, i: *const anyopaque) void {
+            c.glDrawArraysIndirect(@intFromEnum(mode), i);
+        }
+
+        pub fn elements(mode: Mode, @"type": ElementType, i: *const anyopaque) void {
+            c.glDrawElementsIndirect(@intFromEnum(mode), @intFromEnum(@"type"), @ptrCast(i));
+        }
+    };
+
+    pub const instanced = struct {
+        pub fn arrays(mode: Mode, first: usize, count: usize, instance_count: usize) void {
+            c.glDrawArraysInstanced(@intFromEnum(mode), @intCast(first), @intCast(count), @intCast(instance_count));
+        }
+
+        pub fn elements(mode: Mode, count: usize, @"type": ElementType, indices: *const anyopaque, instance_count: usize) void {
+            c.glDrawElementsInstanced(@intFromEnum(mode), @intCast(count), @intFromEnum(@"type"), @ptrCast(indices), @intCast(instance_count));
+        }
+    };
 };

@@ -3254,11 +3254,11 @@ pub inline fn glGenVertexArrays(n: c_int, arrays: [*c]c_uint) void {
 pub inline fn glIsVertexArray(array: c_uint) @"bool" {
     return procs.glIsVertexArray(array);
 }
-pub inline fn glDrawArraysInstanced(mode: @"enum", first: c_int, count: c_int, instancecount: c_int) void {
-    procs.glDrawArraysInstanced(mode, first, count, instancecount);
+pub inline fn glDrawArraysInstanced(mode: @"enum", first: c_int, count: c_int, instance_count: c_int) void {
+    procs.glDrawArraysInstanced(mode, first, count, instance_count);
 }
-pub inline fn glDrawElementsInstanced(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int) void {
-    procs.glDrawElementsInstanced(mode, count, @"type", indices, instancecount);
+pub inline fn glDrawElementsInstanced(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instance_count: c_int) void {
+    procs.glDrawElementsInstanced(mode, count, @"type", indices, instance_count);
 }
 pub inline fn glTexBuffer(target: @"enum", internalformat: @"enum", buffer: c_uint) void {
     procs.glTexBuffer(target, internalformat, buffer);
@@ -3296,8 +3296,8 @@ pub inline fn glDrawElementsBaseVertex(mode: @"enum", count: c_int, @"type": @"e
 pub inline fn glDrawRangeElementsBaseVertex(mode: @"enum", start: c_uint, end: c_uint, count: c_int, @"type": @"enum", indices: ?*const anyopaque, basevertex: c_int) void {
     procs.glDrawRangeElementsBaseVertex(mode, start, end, count, @"type", indices, basevertex);
 }
-pub inline fn glDrawElementsInstancedBaseVertex(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int) void {
-    procs.glDrawElementsInstancedBaseVertex(mode, count, @"type", indices, instancecount, basevertex);
+pub inline fn glDrawElementsInstancedBaseVertex(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instance_count: c_int, basevertex: c_int) void {
+    procs.glDrawElementsInstancedBaseVertex(mode, count, @"type", indices, instance_count, basevertex);
 }
 pub inline fn glMultiDrawElementsBaseVertex(mode: @"enum", count: [*c]const c_int, @"type": @"enum", indices: [*c]const ?*const anyopaque, drawcount: c_int, basevertex: [*c]const c_int) void {
     procs.glMultiDrawElementsBaseVertex(mode, count, @"type", indices, drawcount, basevertex);
@@ -3833,14 +3833,14 @@ pub inline fn glGetFloati_v(target: @"enum", index: c_uint, data: [*c]f32) void 
 pub inline fn glGetDoublei_v(target: @"enum", index: c_uint, data: [*c]f64) void {
     procs.glGetDoublei_v(target, index, data);
 }
-pub inline fn glDrawArraysInstancedBaseInstance(mode: @"enum", first: c_int, count: c_int, instancecount: c_int, baseinstance: c_uint) void {
-    procs.glDrawArraysInstancedBaseInstance(mode, first, count, instancecount, baseinstance);
+pub inline fn glDrawArraysInstancedBaseInstance(mode: @"enum", first: c_int, count: c_int, instance_count: c_int, baseinstance: c_uint) void {
+    procs.glDrawArraysInstancedBaseInstance(mode, first, count, instance_count, baseinstance);
 }
-pub inline fn glDrawElementsInstancedBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, baseinstance: c_uint) void {
-    procs.glDrawElementsInstancedBaseInstance(mode, count, @"type", indices, instancecount, baseinstance);
+pub inline fn glDrawElementsInstancedBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instance_count: c_int, baseinstance: c_uint) void {
+    procs.glDrawElementsInstancedBaseInstance(mode, count, @"type", indices, instance_count, baseinstance);
 }
-pub inline fn glDrawElementsInstancedBaseVertexBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instancecount: c_int, basevertex: c_int, baseinstance: c_uint) void {
-    procs.glDrawElementsInstancedBaseVertexBaseInstance(mode, count, @"type", indices, instancecount, basevertex, baseinstance);
+pub inline fn glDrawElementsInstancedBaseVertexBaseInstance(mode: @"enum", count: c_int, @"type": @"enum", indices: ?*const anyopaque, instance_count: c_int, basevertex: c_int, baseinstance: c_uint) void {
+    procs.glDrawElementsInstancedBaseVertexBaseInstance(mode, count, @"type", indices, instance_count, basevertex, baseinstance);
 }
 pub inline fn glGetInternalformativ(target: @"enum", internalformat: @"enum", pname: @"enum", count: c_int, params: [*c]c_int) void {
     procs.glGetInternalformativ(target, internalformat, pname, count, params);
@@ -3863,11 +3863,11 @@ pub inline fn glTexStorage2D(target: @"enum", levels: c_int, internalformat: @"e
 pub inline fn glTexStorage3D(target: @"enum", levels: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int) void {
     procs.glTexStorage3D(target, levels, internalformat, width, height, depth);
 }
-pub inline fn glDrawTransformFeedbackInstanced(mode: @"enum", id: c_uint, instancecount: c_int) void {
-    procs.glDrawTransformFeedbackInstanced(mode, id, instancecount);
+pub inline fn glDrawTransformFeedbackInstanced(mode: @"enum", id: c_uint, instance_count: c_int) void {
+    procs.glDrawTransformFeedbackInstanced(mode, id, instance_count);
 }
-pub inline fn glDrawTransformFeedbackStreamInstanced(mode: @"enum", id: c_uint, stream: c_uint, instancecount: c_int) void {
-    procs.glDrawTransformFeedbackStreamInstanced(mode, id, stream, instancecount);
+pub inline fn glDrawTransformFeedbackStreamInstanced(mode: @"enum", id: c_uint, stream: c_uint, instance_count: c_int) void {
+    procs.glDrawTransformFeedbackStreamInstanced(mode, id, stream, instance_count);
 }
 pub inline fn glClearBufferData(target: @"enum", internalformat: @"enum", format: @"enum", @"type": @"enum", data: ?*const anyopaque) void {
     procs.glClearBufferData(target, internalformat, format, @"type", data);
