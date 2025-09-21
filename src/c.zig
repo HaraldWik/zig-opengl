@@ -1,5 +1,6 @@
 pub const Procs = @import("Procs.zig");
 
+pub const init = @import("root.zig").init;
 pub var procs: *Procs = undefined;
 
 pub const Sync = Procs.Sync;
