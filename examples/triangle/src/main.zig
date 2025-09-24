@@ -23,8 +23,9 @@ pub const vertex: [*:0]const u8 =
 pub const fragment: [*:0]const u8 =
     \\#version 460 core
     \\out vec4 FragColor;
+    \\uniform vec4 color;
     \\void main() {
-    \\    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f); // Orange color
+    \\    FragColor = color;
     \\}
 ;
 
@@ -93,9 +94,9 @@ pub fn main() !void {
 
         gl.draw.elements(.triangles, indices.len * @sizeOf(u32), .u32, null);
 
-        if (glfw.io.Key.a.get(window)) {
-            std.debug.print("A\n", .{});
-        }
+        const color: [4]f32 = if (glfw.io.Key.a.get(window)) .{ 0.3, 0.2, 1.0, 1.0 } else .{ 1.0, 0.5, 0.2, 1.0 };
+
+        try program.setUniform("color", .{ .f32x4 = color });
 
         try glfw.opengl.swapBuffers(window);
     }

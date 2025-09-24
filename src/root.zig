@@ -53,10 +53,6 @@ pub const clear = struct {
     pub fn color(r: f32, g: f32, b: f32, a: f32) void {
         c.glClearColor(r, g, b, a);
     }
-
-    pub fn index(mask: u32) void {
-        c.glIndexMask(@intCast(mask));
-    }
 };
 
 pub const color = struct {
@@ -152,7 +148,7 @@ pub const Program = enum(c_uint) {
                 .u32 => |x| c.glProgramUniform1ui(@intFromEnum(program), location, @intCast(x)),
                 .f32 => |x| c.glProgramUniform1f(@intFromEnum(program), location, x),
                 .f64 => |x| c.glProgramUniform1d(@intFromEnum(program), location, x),
-                .i32x2 => |v| c.glProgramUniform2iv(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1])),
+                .i32x2 => |v| c.glProgramUniform2i(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1])),
                 .u32x2 => |v| c.glProgramUniform2ui(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1])),
                 .f32x2 => |v| c.glProgramUniform2f(@intFromEnum(program), location, v[0], v[1]),
                 .f64x2 => |v| c.glProgramUniform2d(@intFromEnum(program), location, v[0], v[1]),
@@ -161,27 +157,27 @@ pub const Program = enum(c_uint) {
                 .f32x3 => |v| c.glProgramUniform3f(@intFromEnum(program), location, v[0], v[1], v[2]),
                 .f64x3 => |v| c.glProgramUniform3d(@intFromEnum(program), location, v[0], v[1], v[2]),
                 .i32x4 => |v| c.glProgramUniform4i(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2]), @intCast(v[3])),
-                .u32x4 => |v| c.glProgramUniform4f(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2]), @intCast(v[3])),
-                .f32x4 => |v| c.glProgramUniform4d(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
-                .f64x4 => |v| c.glProgramUniform4ui(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
-                .f32x2x2 => |m| c.glProgramUniformMatrix2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x3x3 => |m| c.glProgramUniformMatrix3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x4x4 => |m| c.glProgramUniformMatrix4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x2x2 => |m| c.glProgramUniformMatrix2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x3x3 => |m| c.glProgramUniformMatrix3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x4x4 => |m| c.glProgramUniformMatrix4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x2x3 => |m| c.glProgramUniformMatrix2x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x3x2 => |m| c.glProgramUniformMatrix3x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x2x4 => |m| c.glProgramUniformMatrix2x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x4x2 => |m| c.glProgramUniformMatrix4x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x3x4 => |m| c.glProgramUniformMatrix3x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f32x4x3 => |m| c.glProgramUniformMatrix4x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x2x3 => |m| c.glProgramUniformMatrix2x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x3x2 => |m| c.glProgramUniformMatrix3x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x2x4 => |m| c.glProgramUniformMatrix2x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x4x2 => |m| c.glProgramUniformMatrix4x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x3x4 => |m| c.glProgramUniformMatrix3x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
-                .f64x4x3 => |m| c.glProgramUniformMatrix4x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .u32x4 => |v| c.glProgramUniform4ui(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2]), @intCast(v[3])),
+                .f32x4 => |v| c.glProgramUniform4f(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
+                .f64x4 => |v| c.glProgramUniform4d(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
+                .f32x2x2 => |m| c.glProgramUniformMatrix2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x3x3 => |m| c.glProgramUniformMatrix3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x4x4 => |m| c.glProgramUniformMatrix4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x2x2 => |m| c.glProgramUniformMatrix2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x3x3 => |m| c.glProgramUniformMatrix3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x4x4 => |m| c.glProgramUniformMatrix4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x2x3 => |m| c.glProgramUniformMatrix2x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x3x2 => |m| c.glProgramUniformMatrix3x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x2x4 => |m| c.glProgramUniformMatrix2x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x4x2 => |m| c.glProgramUniformMatrix4x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x3x4 => |m| c.glProgramUniformMatrix3x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f32x4x3 => |m| c.glProgramUniformMatrix4x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x2x3 => |m| c.glProgramUniformMatrix2x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x3x2 => |m| c.glProgramUniformMatrix3x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x2x4 => |m| c.glProgramUniformMatrix2x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x4x2 => |m| c.glProgramUniformMatrix4x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x3x4 => |m| c.glProgramUniformMatrix3x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
+                .f64x4x3 => |m| c.glProgramUniformMatrix4x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m[0..].ptr)),
             }
         }
     };

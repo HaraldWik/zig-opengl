@@ -98,7 +98,7 @@ pub fn main() !void {
 
         program.use();
         vao.bind();
-        gl.draw.elements(.triangles, 1, .u32, 0);
+        gl.draw.elements(.triangles, 0, .u32, 0);
 
         try glfw.opengl.swapBuffers(window);
     }
