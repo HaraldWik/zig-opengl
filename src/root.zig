@@ -5,39 +5,41 @@ pub const c = @import("c.zig");
 
 pub var procs: Procs = undefined;
 
-pub fn init(loader: anytype, debug: ?bool) !void {
+pub fn init(loader: anytype) !void {
     procs = try .init(loader);
     c.procs = &procs;
-    if (debug orelse (builtin.mode == .Debug)) enableDebug();
 }
 
-fn enableDebug() void {
-    const callback = struct {
-        fn debug(src: c_ushort, @"type": c_ushort, id: c_uint, severity: c_ushort, len: c_int, message: [*c]const u8, user_data: ?*const anyopaque) callconv(.c) void {
-            _ = user_data;
-            // gl.c.GL_DEBUG_TYPE_ERROR
-            std.debug.print("{s} {d}: src: {d} type: {d} id: {d}\n{s}\n", .{
-                switch (severity) {
-                    c.GL_DEBUG_SEVERITY_HIGH => "error",
-                    c.GL_DEBUG_SEVERITY_MEDIUM => "warn",
-                    c.GL_DEBUG_SEVERITY_LOW => "info",
-                    c.GL_DEBUG_SEVERITY_NOTIFICATION => "note",
-                    else => unreachable,
-                },
-                severity,
-                src,
-                @"type",
-                id,
-                message[0..@intCast(len)],
-            });
+pub const debug = struct {
+    /// Null will enable when release mode is set to 'debug'
+    pub fn set(config: ?bool) void {
+        if (config orelse (builtin.mode == .Debug)) {
+            c.glDebugMessageControl(c.GL_DONT_CARE, c.GL_DONT_CARE, c.GL_DONT_CARE, 0, null, c.GL_TRUE);
+            c.glDebugMessageCallback(callback, null);
+            c.glEnable(c.GL_DEBUG_OUTPUT);
+            c.glEnable(c.GL_DEBUG_OUTPUT_SYNCHRONOUS);
         }
-    }.debug;
+    }
 
-    c.glDebugMessageControl(c.GL_DONT_CARE, c.GL_DONT_CARE, c.GL_DONT_CARE, 0, null, c.GL_TRUE);
-    c.glDebugMessageCallback(callback, null);
-    c.glEnable(c.GL_DEBUG_OUTPUT);
-    c.glEnable(c.GL_DEBUG_OUTPUT_SYNCHRONOUS);
-}
+    pub fn callback(src: c_ushort, @"type": c_ushort, id: c_uint, severity: c_ushort, len: c_int, message: [*c]const u8, user_data: ?*const anyopaque) callconv(.c) void {
+        _ = user_data;
+        // gl.c.GL_DEBUG_TYPE_ERROR
+        std.debug.print("{s} {d}: src: {d} type: {d} id: {d}\n{s}\n", .{
+            switch (severity) {
+                c.GL_DEBUG_SEVERITY_HIGH => "error",
+                c.GL_DEBUG_SEVERITY_MEDIUM => "warn",
+                c.GL_DEBUG_SEVERITY_LOW => "info",
+                c.GL_DEBUG_SEVERITY_NOTIFICATION => "note",
+                else => unreachable,
+            },
+            severity,
+            src,
+            @"type",
+            id,
+            message[0..@intCast(len)],
+        });
+    }
+};
 
 pub const clear = struct {
     pub const BufferMask = packed struct(u3) {
