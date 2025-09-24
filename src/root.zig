@@ -185,8 +185,9 @@ pub const Program = enum(c_uint) {
     };
 
     /// Same as 'glCreateProgram'
-    pub fn init() @This() {
-        return @enumFromInt(c.glCreateProgram());
+    pub fn init() !@This() {
+        const id = c.glCreateProgram();
+        return if (id != 0) @enumFromInt(id) else error.InitBuffer;
     }
 
     /// Same as 'glDeleteProgram'
@@ -248,7 +249,7 @@ pub const Vao = enum(c_uint) {
     pub fn init() !@This() {
         var id: c_uint = undefined;
         c.glCreateVertexArrays(1, &id);
-        return if (id != 0) @enumFromInt(id) else return error.GenVao;
+        return if (id != 0) @enumFromInt(id) else return error.InitVao;
     }
 
     pub fn deinit(self: @This()) void {
@@ -302,7 +303,7 @@ pub const Buffer = enum(c_uint) {
     pub fn init() !@This() {
         var id: c_uint = undefined;
         c.glCreateBuffers(1, &id);
-        return if (id != 0) @enumFromInt(id) else error.GenBuffer;
+        return if (id != 0) @enumFromInt(id) else error.InitBuffer;
     }
 
     pub fn deinit(self: @This()) void {
@@ -314,6 +315,82 @@ pub const Buffer = enum(c_uint) {
     pub fn bufferData(self: @This(), usage: Usage, data: anytype) void {
         const Inner = @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
         c.glNamedBufferData(@intFromEnum(self), @intCast(data.len * @sizeOf(Inner)), @ptrCast(data), @intFromEnum(usage));
+    }
+};
+
+pub const Texture = enum(c_uint) {
+    _,
+
+    pub const Target = enum(c_uint) {
+        @"1d" = c.GL_TEXTURE_1D,
+        @"2d" = c.GL_TEXTURE_2D,
+        @"3d" = c.GL_TEXTURE_3D,
+        @"1d_array" = c.GL_TEXTURE_1D_ARRAY,
+        @"2d_array" = c.GL_TEXTURE_2D_ARRAY,
+        rectangle = c.GL_TEXTURE_RECTANGLE,
+        cube_map = c.GL_TEXTURE_CUBE_MAP,
+        cube_map_array = c.GL_TEXTURE_CUBE_MAP_ARRAY,
+        buffer = c.GL_TEXTURE_BUFFER,
+        @"2d_multisample" = c.GL_TEXTURE_2D_MULTISAMPLE,
+        @"2d_multisample_array" = c.GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
+    };
+
+    pub const Paramater = union(enum) {
+        pub const Swizzle = enum(c_int) { red = c.GL_RED, green = c.GL_GREEN, blue = c.GL_BLUE, _ };
+        pub const Warp = enum(c_int) { repeat = c.GL_REPEAT, mirrored_repeat = c.GL_MIRRORED_REPEAT, clamp_to_edge = c.GL_CLAMP_TO_EDGE, clamp_to_border = c.GL_CLAMP_TO_BORDER, _ };
+        depth_stencil_mode: enum(c_int) { depth_component = c.GL_DEPTH_COMPONENT, stencil_index = c.GL_STENCIL_INDEX, _ },
+        base_level: enum(c_int) { max_level = c.GL_TEXTURE_MAX_LEVEL, _ },
+        compare_func: enum(c_int) { lequal = c.GL_LEQUAL, gequal = c.GL_GEQUAL, less = c.GL_LESS, greater = c.GL_GREATER, equal = c.GL_EQUAL, notequal = c.GL_NOTEQUAL, always = c.GL_ALWAYS, never = c.GL_NEVER, _ },
+        compare_mode: enum(c_int) { none = c.GL_NONE, ref_to = c.GL_COMPARE_REF_TO_TEXTURE, _ },
+        min_filter: enum(c_int) { nearest = c.GL_NEAREST, linear = c.GL_LINEAR, nearest_mipmap_nearest = c.GL_NEAREST_MIPMAP_NEAREST, linear_mipmap_nearest = c.GL_LINEAR_MIPMAP_NEAREST, nearest_mipmap_linear = c.GL_NEAREST_MIPMAP_LINEAR, linear_mipmap_linear = c.GL_LINEAR_MIPMAP_LINEAR, _ },
+        mag_filter: enum(c_int) { nearest = c.GL_NEAREST, linear = c.GL_LINEAR },
+        lod_bias: f32,
+        min_lod: f32,
+        max_lod: f32,
+        max_level: i32,
+        swizzle: struct { r: ?Swizzle = null, g: ?Swizzle = null, b: ?Swizzle = null, a: ?enum(c_int) { zero = c.GL_ZERO, one = c.GL_ONE } = null },
+        wrap: struct { s: ?Warp = null, t: ?Warp = null, r: ?Warp = null },
+
+        pub fn set(self: @This(), texture: Texture) void {
+            switch (self) {
+                .depth_stencil_mode => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_DEPTH_STENCIL_TEXTURE_MODE, @intFromEnum(param)),
+                .base_level => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_BASE_LEVEL, @intFromEnum(param)),
+                .compare_func => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_COMPARE_FUNC, @intFromEnum(param)),
+                .compare_mode => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_COMPARE_MODE, @intFromEnum(param)),
+                .min_filter => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_MIN_FILTER, @intFromEnum(param)),
+                .mag_filter => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_MAG_FILTER, @intFromEnum(param)),
+                .lod_bias => |param| c.glTextureParameterf(@intFromEnum(texture), c.GL_TEXTURE_LOD_BIAS, param),
+                .min_lod => |param| c.glTextureParameterf(@intFromEnum(texture), c.GL_TEXTURE_MIN_LOD, param),
+                .max_lod => |param| c.glTextureParameterf(@intFromEnum(texture), c.GL_TEXTURE_MAX_LOD, param),
+                .max_level => |param| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_MAX_LEVEL, @intCast(param)),
+                .swizzle => |param| {
+                    if (param.r) |swizzle| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_SWIZZLE_R, @intFromEnum(swizzle));
+                    if (param.g) |swizzle| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_SWIZZLE_G, @intFromEnum(swizzle));
+                    if (param.b) |swizzle| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_SWIZZLE_B, @intFromEnum(swizzle));
+                    if (param.a) |swizzle| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_SWIZZLE_A, @intFromEnum(swizzle));
+                },
+                .wrap => |param| {
+                    if (param.s) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_S, @intFromEnum(warp));
+                    if (param.t) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_T, @intFromEnum(warp));
+                    if (param.r) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_R, @intFromEnum(warp));
+                },
+            }
+        }
+    };
+
+    pub fn init(target: Target) !@This() {
+        var id: c_uint = undefined;
+        c.glCreateTextures(@intFromEnum(target), 1, &id);
+        return if (id != 0) @enumFromInt(id) else error.InitTexure;
+    }
+
+    pub fn deinit(self: @This()) void {
+        var id: c_uint = @intFromEnum(self);
+        c.glDeleteTextures(1, &id);
+    }
+
+    pub fn setParamater(self: @This(), param: Paramater) void {
+        param.set(self);
     }
 };
 

@@ -56,6 +56,14 @@ pub fn main() !void {
     try gl.init(glfw.opengl.getProcAddress);
     gl.debug.set(null);
 
+    const renderer = gl.c.glGetString(gl.c.GL_RENDERER);
+    const vendor = gl.c.glGetString(gl.c.GL_VENDOR);
+    const version = gl.c.glGetString(gl.c.GL_VERSION);
+
+    std.debug.print("Renderer: {s}\n", .{renderer});
+    std.debug.print("Vendor:   {s}\n", .{vendor});
+    std.debug.print("Version:  {s}\n", .{version});
+
     const vertex_shader: gl.Shader = .init(.vertex);
     defer vertex_shader.deinit();
     vertex_shader.source(vertex);
@@ -66,7 +74,7 @@ pub fn main() !void {
     fragment_shader.source(fragment);
     try fragment_shader.compile();
 
-    const program: gl.Program = .init();
+    const program: gl.Program = try .init();
     defer program.deinit();
     program.attach(vertex_shader);
     program.attach(fragment_shader);

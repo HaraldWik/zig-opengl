@@ -60,7 +60,7 @@ pub fn main() !void {
     fragment_shader.source(fragment);
     try fragment_shader.compile();
 
-    const program: gl.Program = .init();
+    const program: gl.Program = try .init();
     defer program.deinit();
     program.attach(vertex_shader);
     program.attach(fragment_shader);
