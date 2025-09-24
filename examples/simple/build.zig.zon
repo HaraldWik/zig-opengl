@@ -8,8 +8,8 @@
             .path = "../..",
         },
         .zig_glfw = .{
-            .url = "git+https://github.com/HaraldWik/zig-glfw#fe78dec6641b94e5a4c6575e560a76e00e06376c",
-            .hash = "zig_glfw-0.1.0-u6zPwz3BAADmUJGq09_ysDJlgxvnhV967U9Y5S_WTH_Y",
+            .url = "git+https://github.com/HaraldWik/zig-glfw#5ba7757c55a89dc2f4c3ec8dbcfa8f873190a77a",
+            .hash = "zig_glfw-0.1.0-u6zPw5q_AADrfa7TB9gmCOTRfEl7f34wrBhlfRNVxQ0X",
         },
     },
     .paths = .{

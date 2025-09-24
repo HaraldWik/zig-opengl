@@ -1,27 +1,42 @@
 const std = @import("std");
+const builtin = @import("builtin");
 pub const Procs = @import("Procs.zig");
 pub const c = @import("c.zig");
 
 pub var procs: Procs = undefined;
 
-pub fn init(loader: anytype) !void {
-    // switch (@typeInfo(@TypeOf(loader))) {
-    //     .@"fn" => |func| {
-    //         if (func.return_type) |T| switch (@typeInfo(T)) {
-    //             .@"fn" => {},
-    //             else => @compileError(std.fmt.comptimePrint("loader return type must be type of 'function' not type of '{any}'", .{@typeInfo(@TypeOf(loader))})),
-    //         };
-    //         if (func.params.len > 1) @compileError("loader has to many parameters");
-    //         if (func.params[0].type) |T| switch (@typeInfo(T)) {
-    //             .array => |arr| if (arr.child != u8) @compileError("loader parameter must be any type of 'string'"),
-    //             else => @compileError("loader parameter must be any type of 'string'"),
-    //         };
-    //     },
-    //     else => @compileError("loader must be type of 'function'"),
-    // }
-
+pub fn init(loader: anytype, debug: ?bool) !void {
     procs = try .init(loader);
     c.procs = &procs;
+    if (debug orelse (builtin.mode == .Debug)) enableDebug();
+}
+
+fn enableDebug() void {
+    const callback = struct {
+        fn debug(src: c_ushort, @"type": c_ushort, id: c_uint, severity: c_ushort, len: c_int, message: [*c]const u8, user_data: ?*const anyopaque) callconv(.c) void {
+            _ = user_data;
+            // gl.c.GL_DEBUG_TYPE_ERROR
+            std.debug.print("{s} {d}: src: {d} type: {d} id: {d}\n{s}\n", .{
+                switch (severity) {
+                    c.GL_DEBUG_SEVERITY_HIGH => "error",
+                    c.GL_DEBUG_SEVERITY_MEDIUM => "warn",
+                    c.GL_DEBUG_SEVERITY_LOW => "info",
+                    c.GL_DEBUG_SEVERITY_NOTIFICATION => "note",
+                    else => unreachable,
+                },
+                severity,
+                src,
+                @"type",
+                id,
+                message[0..@intCast(len)],
+            });
+        }
+    }.debug;
+
+    c.glDebugMessageControl(c.GL_DONT_CARE, c.GL_DONT_CARE, c.GL_DONT_CARE, 0, null, c.GL_TRUE);
+    c.glDebugMessageCallback(callback, null);
+    c.glEnable(c.GL_DEBUG_OUTPUT);
+    c.glEnable(c.GL_DEBUG_OUTPUT_SYNCHRONOUS);
 }
 
 pub const clear = struct {
@@ -32,90 +47,23 @@ pub const clear = struct {
     };
 
     pub fn buffer(mask: BufferMask) void {
-        procs.glClear(@intCast(if (mask.color) c.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0));
+        c.glClear(@intCast(if (mask.color) c.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0));
     }
 
     pub fn color(r: f32, g: f32, b: f32, a: f32) void {
-        procs.glClearColor(r, g, b, a);
+        c.glClearColor(r, g, b, a);
     }
 
     pub fn index(mask: u32) void {
-        procs.glIndexMask(@intCast(mask));
+        c.glIndexMask(@intCast(mask));
     }
 };
-
-// pub const index = struct {
-//     pub fn clear(i: f32) void {
-//         procs.glClearIndex(i);
-//     }
-// };
 
 pub const color = struct {
     pub const Mask = struct { r: bool, g: bool, b: bool, a: bool };
 
     pub fn mask(m: @Vector(4, bool)) void {
-        procs.glColorMask(@intFromBool(m[0]), @intFromBool(m[1]), @intFromBool(m[2]), @intFromBool(m[3]));
-    }
-};
-
-pub const Vao = enum(c_uint) {
-    _,
-
-    pub fn gen() !@This() {
-        var vao: c_uint = undefined;
-        c.glGenVertexArrays(1, &vao);
-        return if (vao != 0) @enumFromInt(vao) else return error.GenVao;
-    }
-
-    pub fn bind(self: @This()) void {
-        c.glBindBuffer(c.GL_ARRAY_BUFFER, @intFromEnum(self));
-    }
-
-    pub fn bindBuffer(self: @This(), buffer: Buffer) void {
-        c.glBindBuffer(@intFromEnum(self), @intFromEnum(buffer));
-    }
-
-    pub fn vertexAttribPointer(_: @This(), index: usize, size: usize, @"type": ?c_ushort) void {
-        c.glVertexAttribPointer(@intCast(index), @intCast(size), @"type" orelse c.GL_FLOAT, c.GL_FALSE, 3 * @sizeOf(f32), @ptrFromInt(0));
-        c.glEnableVertexAttribArray(@intCast(index));
-    }
-};
-
-pub const Buffer = enum(c_uint) {
-    _,
-
-    pub const Target = enum(c_ushort) {
-        array = c.GL_ARRAY_BUFFER,
-        element_array = c.GL_ELEMENT_ARRAY_BUFFER,
-        uniform = c.GL_UNIFORM_BUFFER,
-        shader_storage = c.GL_SHADER_STORAGE_BUFFER,
-        pixel_pack = c.GL_PIXEL_PACK_BUFFER,
-        pixel_unpack = c.GL_PIXEL_UNPACK_BUFFER,
-        transform_feedback = c.GL_TRANSFORM_FEEDBACK_BUFFER,
-    };
-
-    pub const Usage = enum(c_ushort) {
-        static_draw = c.GL_STATIC_DRAW,
-        static_read = c.GL_STATIC_READ,
-        static_copy = c.GL_STATIC_COPY,
-        dynamic_draw = c.GL_DYNAMIC_DRAW,
-        dynamic_read = c.GL_DYNAMIC_READ,
-        dynamic_copy = c.GL_DYNAMIC_COPY,
-        stream_draw = c.GL_STREAM_DRAW,
-        stream_read = c.GL_STREAM_READ,
-        stream_copy = c.GL_STREAM_COPY,
-    };
-
-    pub fn gen() !@This() {
-        var buffer: c_uint = undefined;
-        c.glGenBuffers(1, &buffer);
-        return if (buffer != 0) @enumFromInt(buffer) else error.GenBuffer;
-    }
-
-    /// Example 'vbo.bufferData(&vertices, .static_draw)'
-    pub fn bufferData(_: @This(), target: Target, usage: Usage, data: anytype) void {
-        const Inner = @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
-        c.glBufferData(@intFromEnum(target), @intCast(data.len * @sizeOf(Inner)), @ptrCast(data), @intFromEnum(usage));
+        c.glColorMask(@intFromBool(m[0]), @intFromBool(m[1]), @intFromBool(m[2]), @intFromBool(m[3]));
     }
 };
 
@@ -159,6 +107,85 @@ pub const Shader = enum(c_uint) {
 pub const Program = enum(c_uint) {
     _,
 
+    pub const Uniform = union(enum) {
+        i32: i32,
+        u32: u32,
+        f32: f32,
+        f64: f64,
+        i32x2: [2]i32,
+        u32x2: [2]u32,
+        f32x2: [2]f32,
+        f64x2: [2]f64,
+        i32x3: [3]i32,
+        u32x3: [3]u32,
+        f32x3: [3]f32,
+        f64x3: [3]f64,
+        i32x4: [4]i32,
+        u32x4: [4]u32,
+        f32x4: [4]f32,
+        f64x4: [4]f64,
+        f32x2x2: [2 * 2]f32,
+        f32x3x3: [3 * 3]f32,
+        f32x4x4: [4 * 4]f32,
+        f64x2x2: [2 * 2]f64,
+        f64x3x3: [3 * 3]f64,
+        f64x4x4: [4 * 4]f64,
+        f32x2x3: [2 * 3]f32,
+        f32x3x2: [3 * 2]f32,
+        f32x2x4: [2 * 4]f32,
+        f32x4x2: [4 * 2]f32,
+        f32x3x4: [3 * 4]f32,
+        f32x4x3: [4 * 3]f32,
+        f64x2x3: [2 * 3]f64,
+        f64x3x2: [3 * 2]f64,
+        f64x2x4: [2 * 4]f64,
+        f64x4x2: [4 * 2]f64,
+        f64x3x4: [3 * 4]f64,
+        f64x4x3: [4 * 3]f64,
+
+        pub fn set(self: @This(), name: [*:0]const u8, program: Program) !void {
+            const location = c.glGetUniformLocation(@intFromEnum(program), name);
+            if (location == -1) return error.LocationNotFound;
+
+            switch (self) {
+                .i32 => |x| c.glProgramUniform1i(@intFromEnum(program), location, @intCast(x)),
+                .u32 => |x| c.glProgramUniform1ui(@intFromEnum(program), location, @intCast(x)),
+                .f32 => |x| c.glProgramUniform1f(@intFromEnum(program), location, x),
+                .f64 => |x| c.glProgramUniform1d(@intFromEnum(program), location, x),
+                .i32x2 => |v| c.glProgramUniform2iv(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1])),
+                .u32x2 => |v| c.glProgramUniform2ui(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1])),
+                .f32x2 => |v| c.glProgramUniform2f(@intFromEnum(program), location, v[0], v[1]),
+                .f64x2 => |v| c.glProgramUniform2d(@intFromEnum(program), location, v[0], v[1]),
+                .i32x3 => |v| c.glProgramUniform3i(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2])),
+                .u32x3 => |v| c.glProgramUniform3ui(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2])),
+                .f32x3 => |v| c.glProgramUniform3f(@intFromEnum(program), location, v[0], v[1], v[2]),
+                .f64x3 => |v| c.glProgramUniform3d(@intFromEnum(program), location, v[0], v[1], v[2]),
+                .i32x4 => |v| c.glProgramUniform4i(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2]), @intCast(v[3])),
+                .u32x4 => |v| c.glProgramUniform4f(@intFromEnum(program), location, @intCast(v[0]), @intCast(v[1]), @intCast(v[2]), @intCast(v[3])),
+                .f32x4 => |v| c.glProgramUniform4d(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
+                .f64x4 => |v| c.glProgramUniform4ui(@intFromEnum(program), location, v[0], v[1], v[2], v[3]),
+                .f32x2x2 => |m| c.glProgramUniformMatrix2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x3x3 => |m| c.glProgramUniformMatrix3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x4x4 => |m| c.glProgramUniformMatrix4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x2x2 => |m| c.glProgramUniformMatrix2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x3x3 => |m| c.glProgramUniformMatrix3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x4x4 => |m| c.glProgramUniformMatrix4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x2x3 => |m| c.glProgramUniformMatrix2x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x3x2 => |m| c.glProgramUniformMatrix3x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x2x4 => |m| c.glProgramUniformMatrix2x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x4x2 => |m| c.glProgramUniformMatrix4x2fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x3x4 => |m| c.glProgramUniformMatrix3x4fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f32x4x3 => |m| c.glProgramUniformMatrix4x3fv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x2x3 => |m| c.glProgramUniformMatrix2x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x3x2 => |m| c.glProgramUniformMatrix3x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x2x4 => |m| c.glProgramUniformMatrix2x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x4x2 => |m| c.glProgramUniformMatrix4x2dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x3x4 => |m| c.glProgramUniformMatrix3x4dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+                .f64x4x3 => |m| c.glProgramUniformMatrix4x3dv(@intFromEnum(program), location, 1, c.GL_FALSE, @ptrCast(m)),
+            }
+        }
+    };
+
     /// Same as 'glCreateProgram'
     pub fn init() @This() {
         return @enumFromInt(c.glCreateProgram());
@@ -194,12 +221,102 @@ pub const Program = enum(c_uint) {
     pub fn use(self: @This()) void {
         c.glUseProgram(@intFromEnum(self));
     }
+
+    pub fn setUniform(self: @This(), name: [*:0]const u8, uniform: Uniform) !void {
+        try Uniform.set(uniform, name, self);
+    }
 };
 
-pub const ElementType = enum(c_ushort) {
+pub const NumType = enum(c_ushort) {
+    i8 = c.GL_BYTE,
+    i16 = c.GL_SHORT,
+    i32 = c.GL_INT,
     u8 = c.GL_UNSIGNED_BYTE,
     u16 = c.GL_UNSIGNED_SHORT,
     u32 = c.GL_UNSIGNED_INT,
+    f32 = c.GL_FLOAT,
+    f64 = c.GL_DOUBLE,
+
+    pub const Element = enum(c_ushort) {
+        u8 = c.GL_UNSIGNED_BYTE,
+        u16 = c.GL_UNSIGNED_SHORT,
+        u32 = c.GL_UNSIGNED_INT,
+    };
+};
+
+pub const Vao = enum(c_uint) {
+    _,
+
+    pub fn init() !@This() {
+        var id: c_uint = undefined;
+        c.glCreateVertexArrays(1, &id);
+        return if (id != 0) @enumFromInt(id) else return error.GenVao;
+    }
+
+    pub fn deinit(self: @This()) void {
+        var id: c_uint = @intFromEnum(self);
+        c.glDeleteVertexArrays(1, &id);
+    }
+
+    pub fn bind(self: @This()) void {
+        c.glBindVertexArray(@intFromEnum(self));
+    }
+
+    // pub fn bufferStorage(self: @This()) void {
+    //     c.glNamedBufferStorage(
+    //         @intFromEnum(self),
+    //     );
+    // }
+
+    pub fn vertexBuffer(self: @This(), vbo: Buffer, bind_index: usize, offset: usize, stride: usize) void {
+        c.glVertexArrayVertexBuffer(@intFromEnum(self), @intCast(bind_index), @intFromEnum(vbo), @intCast(offset), @intCast(stride));
+    }
+
+    pub fn elementBuffer(self: @This(), ebo: Buffer) void {
+        c.glVertexArrayElementBuffer(@intFromEnum(self), @intFromEnum(ebo));
+    }
+
+    /// If `normalized` is true, integer attributes are scaled to the [0,1] (unsigned) or [-1,1] (signed) range in the shader.
+    /// For example, a `u8` value of 255 becomes 1.0 in the shader.
+    /// This flag has no effect for floating-point attributes (`f32`/`f64`).
+    pub fn vertexAttribute(self: @This(), index: usize, binding_index: usize, size: usize, @"type": NumType, normalized: bool, relative_offset: usize) void {
+        c.glEnableVertexArrayAttrib(@intFromEnum(self), @intCast(index));
+        c.glVertexArrayAttribBinding(@intFromEnum(self), @intCast(index), @intCast(binding_index));
+        c.glVertexArrayAttribFormat(@intFromEnum(self), @intCast(index), @intCast(size), @intFromEnum(@"type"), @intFromBool(normalized), @intCast(relative_offset));
+    }
+};
+
+pub const Buffer = enum(c_uint) {
+    _,
+
+    pub const Usage = enum(c_ushort) {
+        static_draw = c.GL_STATIC_DRAW,
+        static_read = c.GL_STATIC_READ,
+        static_copy = c.GL_STATIC_COPY,
+        dynamic_draw = c.GL_DYNAMIC_DRAW,
+        dynamic_read = c.GL_DYNAMIC_READ,
+        dynamic_copy = c.GL_DYNAMIC_COPY,
+        stream_draw = c.GL_STREAM_DRAW,
+        stream_read = c.GL_STREAM_READ,
+        stream_copy = c.GL_STREAM_COPY,
+    };
+
+    pub fn init() !@This() {
+        var id: c_uint = undefined;
+        c.glCreateBuffers(1, &id);
+        return if (id != 0) @enumFromInt(id) else error.GenBuffer;
+    }
+
+    pub fn deinit(self: @This()) void {
+        var id: c_uint = @intFromEnum(self);
+        c.glDeleteBuffers(1, &id);
+    }
+
+    /// Example 'vbo.bufferData(.static_draw, &vertices)'
+    pub fn bufferData(self: @This(), usage: Usage, data: anytype) void {
+        const Inner = @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
+        c.glNamedBufferData(@intFromEnum(self), @intCast(data.len * @sizeOf(Inner)), @ptrCast(data), @intFromEnum(usage));
+    }
 };
 
 pub const draw = struct {
@@ -221,8 +338,8 @@ pub const draw = struct {
         c.glDrawArrays(@intFromEnum(mode), @intCast(first), @intCast(count));
     }
 
-    pub fn elements(mode: Mode, count: usize, indices: usize) void {
-        c.glDrawElements(@intFromEnum(mode), @intCast(count), c.GL_UNSIGNED_INT, @ptrFromInt(indices));
+    pub fn elements(mode: Mode, count: usize, @"type": NumType.Element, offset: ?usize) void {
+        c.glDrawElements(@intFromEnum(mode), @intCast(count), @intFromEnum(@"type"), if (offset != null) @ptrFromInt(offset.? * @sizeOf(u32)) else null);
     }
 
     pub const indirect = struct {
@@ -230,7 +347,7 @@ pub const draw = struct {
             c.glDrawArraysIndirect(@intFromEnum(mode), i);
         }
 
-        pub fn elements(mode: Mode, @"type": ElementType, i: *const anyopaque) void {
+        pub fn elements(mode: Mode, @"type": NumType.Element, i: *const anyopaque) void {
             c.glDrawElementsIndirect(@intFromEnum(mode), @intFromEnum(@"type"), @ptrCast(i));
         }
     };
@@ -240,7 +357,7 @@ pub const draw = struct {
             c.glDrawArraysInstanced(@intFromEnum(mode), @intCast(first), @intCast(count), @intCast(instance_count));
         }
 
-        pub fn elements(mode: Mode, count: usize, @"type": ElementType, indices: *const anyopaque, instance_count: usize) void {
+        pub fn elements(mode: Mode, count: usize, @"type": NumType.Element, indices: *const anyopaque, instance_count: usize) void {
             c.glDrawElementsInstanced(@intFromEnum(mode), @intCast(count), @intFromEnum(@"type"), @ptrCast(indices), @intCast(instance_count));
         }
     };

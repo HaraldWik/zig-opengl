@@ -188,7 +188,6 @@ pub const GL_TEXTURE_MIN_FILTER: c_int = 0x2801;
 pub const GL_TEXTURE_WRAP_S: c_int = 0x2802;
 pub const GL_TEXTURE_WRAP_T: c_int = 0x2803;
 pub const GL_REPEAT: c_int = 0x2901;
-pub const GL_VERSION_1_1: c_int = 1;
 pub const GL_COLOR_LOGIC_OP: c_int = 0x0BF2;
 pub const GL_POLYGON_OFFSET_UNITS: c_int = 0x2A00;
 pub const GL_POLYGON_OFFSET_POINT: c_int = 0x2A01;
@@ -220,7 +219,6 @@ pub const GL_RGB10_A2: c_int = 0x8059;
 pub const GL_RGBA12: c_int = 0x805A;
 pub const GL_RGBA16: c_int = 0x805B;
 pub const GL_VERTEX_ARRAY: c_int = 0x8074;
-pub const GL_VERSION_1_2: c_int = 1;
 pub const GL_UNSIGNED_BYTE_3_3_2: c_int = 0x8032;
 pub const GL_UNSIGNED_SHORT_4_4_4_4: c_int = 0x8033;
 pub const GL_UNSIGNED_SHORT_5_5_5_1: c_int = 0x8034;
@@ -257,7 +255,6 @@ pub const GL_SMOOTH_POINT_SIZE_GRANULARITY: c_int = 0x0B13;
 pub const GL_SMOOTH_LINE_WIDTH_RANGE: c_int = 0x0B22;
 pub const GL_SMOOTH_LINE_WIDTH_GRANULARITY: c_int = 0x0B23;
 pub const GL_ALIASED_LINE_WIDTH_RANGE: c_int = 0x846E;
-pub const GL_VERSION_1_3: c_int = 1;
 pub const GL_TEXTURE0: c_int = 0x84C0;
 pub const GL_TEXTURE1: c_int = 0x84C1;
 pub const GL_TEXTURE2: c_int = 0x84C2;
@@ -317,7 +314,6 @@ pub const GL_TEXTURE_COMPRESSED: c_int = 0x86A1;
 pub const GL_NUM_COMPRESSED_TEXTURE_FORMATS: c_int = 0x86A2;
 pub const GL_COMPRESSED_TEXTURE_FORMATS: c_int = 0x86A3;
 pub const GL_CLAMP_TO_BORDER: c_int = 0x812D;
-pub const GL_VERSION_1_4: c_int = 1;
 pub const GL_BLEND_DST_RGB: c_int = 0x80C8;
 pub const GL_BLEND_SRC_RGB: c_int = 0x80C9;
 pub const GL_BLEND_DST_ALPHA: c_int = 0x80CA;
@@ -345,7 +341,6 @@ pub const GL_FUNC_REVERSE_SUBTRACT: c_int = 0x800B;
 pub const GL_FUNC_SUBTRACT: c_int = 0x800A;
 pub const GL_MIN: c_int = 0x8007;
 pub const GL_MAX: c_int = 0x8008;
-pub const GL_VERSION_1_5: c_int = 1;
 pub const GL_BUFFER_SIZE: c_int = 0x8764;
 pub const GL_BUFFER_USAGE: c_int = 0x8765;
 pub const GL_QUERY_COUNTER_BITS: c_int = 0x8864;
@@ -374,7 +369,6 @@ pub const GL_DYNAMIC_READ: c_int = 0x88E9;
 pub const GL_DYNAMIC_COPY: c_int = 0x88EA;
 pub const GL_SAMPLES_PASSED: c_int = 0x8914;
 pub const GL_SRC1_ALPHA: c_int = 0x8589;
-pub const GL_VERSION_2_0: c_int = 1;
 pub const GL_BLEND_EQUATION_RGB: c_int = 0x8009;
 pub const GL_VERTEX_ATTRIB_ARRAY_ENABLED: c_int = 0x8622;
 pub const GL_VERTEX_ATTRIB_ARRAY_SIZE: c_int = 0x8623;
@@ -455,7 +449,6 @@ pub const GL_UPPER_LEFT: c_int = 0x8CA2;
 pub const GL_STENCIL_BACK_REF: c_int = 0x8CA3;
 pub const GL_STENCIL_BACK_VALUE_MASK: c_int = 0x8CA4;
 pub const GL_STENCIL_BACK_WRITEMASK: c_int = 0x8CA5;
-pub const GL_VERSION_2_1: c_int = 1;
 pub const GL_PIXEL_PACK_BUFFER: c_int = 0x88EB;
 pub const GL_PIXEL_UNPACK_BUFFER: c_int = 0x88EC;
 pub const GL_PIXEL_PACK_BUFFER_BINDING: c_int = 0x88ED;
@@ -472,7 +465,6 @@ pub const GL_SRGB_ALPHA: c_int = 0x8C42;
 pub const GL_SRGB8_ALPHA8: c_int = 0x8C43;
 pub const GL_COMPRESSED_SRGB: c_int = 0x8C48;
 pub const GL_COMPRESSED_SRGB_ALPHA: c_int = 0x8C49;
-pub const GL_VERSION_3_0: c_int = 1;
 pub const GL_COMPARE_REF_TO_TEXTURE: c_int = 0x884E;
 pub const GL_CLIP_DISTANCE0: c_int = 0x3000;
 pub const GL_CLIP_DISTANCE1: c_int = 0x3001;
@@ -704,7 +696,6 @@ pub const GL_RG16UI: c_int = 0x823A;
 pub const GL_RG32I: c_int = 0x823B;
 pub const GL_RG32UI: c_int = 0x823C;
 pub const GL_VERTEX_ARRAY_BINDING: c_int = 0x85B5;
-pub const GL_VERSION_3_1: c_int = 1;
 pub const GL_SAMPLER_2D_RECT: c_int = 0x8B63;
 pub const GL_SAMPLER_2D_RECT_SHADOW: c_int = 0x8B64;
 pub const GL_SAMPLER_BUFFER: c_int = 0x8DC2;
@@ -766,7 +757,6 @@ pub const GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER: c_int = 0x8A44;
 pub const GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER: c_int = 0x8A45;
 pub const GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER: c_int = 0x8A46;
 pub const GL_INVALID_INDEX: c_int = 0xFFFFFFFF;
-pub const GL_VERSION_3_2: c_int = 1;
 pub const GL_CONTEXT_CORE_PROFILE_BIT: c_int = 0x00000001;
 pub const GL_CONTEXT_COMPATIBILITY_PROFILE_BIT: c_int = 0x00000002;
 pub const GL_LINES_ADJACENCY: c_int = 0x000A;
@@ -831,7 +821,6 @@ pub const GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY: c_int = 0x910D;
 pub const GL_MAX_COLOR_TEXTURE_SAMPLES: c_int = 0x910E;
 pub const GL_MAX_DEPTH_TEXTURE_SAMPLES: c_int = 0x910F;
 pub const GL_MAX_INTEGER_SAMPLES: c_int = 0x9110;
-pub const GL_VERSION_3_3: c_int = 1;
 pub const GL_VERTEX_ATTRIB_ARRAY_DIVISOR: c_int = 0x88FE;
 pub const GL_SRC1_COLOR: c_int = 0x88F9;
 pub const GL_ONE_MINUS_SRC1_COLOR: c_int = 0x88FA;
@@ -848,7 +837,6 @@ pub const GL_TEXTURE_SWIZZLE_RGBA: c_int = 0x8E46;
 pub const GL_TIME_ELAPSED: c_int = 0x88BF;
 pub const GL_TIMESTAMP: c_int = 0x8E28;
 pub const GL_INT_2_10_10_10_REV: c_int = 0x8D9F;
-pub const GL_VERSION_4_0: c_int = 1;
 pub const GL_SAMPLE_SHADING: c_int = 0x8C36;
 pub const GL_MIN_SAMPLE_SHADING_VALUE: c_int = 0x8C37;
 pub const GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET: c_int = 0x8E5E;
@@ -926,7 +914,6 @@ pub const GL_TRANSFORM_FEEDBACK_BUFFER_PAUSED: c_int = 0x8E23;
 pub const GL_TRANSFORM_FEEDBACK_BUFFER_ACTIVE: c_int = 0x8E24;
 pub const GL_TRANSFORM_FEEDBACK_BINDING: c_int = 0x8E25;
 pub const GL_MAX_TRANSFORM_FEEDBACK_BUFFERS: c_int = 0x8E70;
-pub const GL_VERSION_4_1: c_int = 1;
 pub const GL_FIXED: c_int = 0x140C;
 pub const GL_IMPLEMENTATION_COLOR_READ_TYPE: c_int = 0x8B9A;
 pub const GL_IMPLEMENTATION_COLOR_READ_FORMAT: c_int = 0x8B9B;
@@ -962,7 +949,6 @@ pub const GL_VIEWPORT_BOUNDS_RANGE: c_int = 0x825D;
 pub const GL_LAYER_PROVOKING_VERTEX: c_int = 0x825E;
 pub const GL_VIEWPORT_INDEX_PROVOKING_VERTEX: c_int = 0x825F;
 pub const GL_UNDEFINED_VERTEX: c_int = 0x8260;
-pub const GL_VERSION_4_2: c_int = 1;
 pub const GL_COPY_READ_BUFFER_BINDING: c_int = 0x8F36;
 pub const GL_COPY_WRITE_BUFFER_BINDING: c_int = 0x8F37;
 pub const GL_TRANSFORM_FEEDBACK_ACTIVE: c_int = 0x8E24;
@@ -1075,7 +1061,6 @@ pub const GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM: c_int = 0x8E8D;
 pub const GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT: c_int = 0x8E8E;
 pub const GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT: c_int = 0x8E8F;
 pub const GL_TEXTURE_IMMUTABLE_FORMAT: c_int = 0x912F;
-pub const GL_VERSION_4_3: c_int = 1;
 pub const GL_NUM_SHADING_LANGUAGE_VERSIONS: c_int = 0x82E9;
 pub const GL_VERTEX_ATTRIB_ARRAY_LONG: c_int = 0x874E;
 pub const GL_COMPRESSED_RGB8_ETC2: c_int = 0x9274;
@@ -1334,7 +1319,6 @@ pub const GL_VERTEX_BINDING_STRIDE: c_int = 0x82D8;
 pub const GL_MAX_VERTEX_ATTRIB_RELATIVE_OFFSET: c_int = 0x82D9;
 pub const GL_MAX_VERTEX_ATTRIB_BINDINGS: c_int = 0x82DA;
 pub const GL_VERTEX_BINDING_BUFFER: c_int = 0x8F4F;
-pub const GL_VERSION_4_4: c_int = 1;
 pub const GL_MAX_VERTEX_ATTRIB_STRIDE: c_int = 0x82E5;
 pub const GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED: c_int = 0x8221;
 pub const GL_TEXTURE_BUFFER_BINDING: c_int = 0x8C2A;
@@ -1354,7 +1338,6 @@ pub const GL_QUERY_BUFFER_BARRIER_BIT: c_int = 0x00008000;
 pub const GL_QUERY_BUFFER_BINDING: c_int = 0x9193;
 pub const GL_QUERY_RESULT_NO_WAIT: c_int = 0x9194;
 pub const GL_MIRROR_CLAMP_TO_EDGE: c_int = 0x8743;
-pub const GL_VERSION_4_5: c_int = 1;
 pub const GL_CONTEXT_LOST: c_int = 0x0507;
 pub const GL_NEGATIVE_ONE_TO_ONE: c_int = 0x935E;
 pub const GL_ZERO_TO_ONE: c_int = 0x935F;
@@ -1377,7 +1360,6 @@ pub const GL_NO_RESET_NOTIFICATION: c_int = 0x8261;
 pub const GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT: c_int = 0x00000004;
 pub const GL_CONTEXT_RELEASE_BEHAVIOR: c_int = 0x82FB;
 pub const GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH: c_int = 0x82FC;
-pub const GL_VERSION_4_6: c_int = 1;
 pub const GL_SHADER_BINARY_FORMAT_SPIR_V: c_int = 0x9551;
 pub const GL_SPIR_V_BINARY: c_int = 0x9552;
 pub const GL_PARAMETER_BUFFER: c_int = 0x80EE;
@@ -3951,23 +3933,23 @@ pub inline fn glTexStorage3DMultisample(target: @"enum", samples: c_int, interna
 pub inline fn glTextureView(texture: c_uint, target: @"enum", origtexture: c_uint, internalformat: @"enum", minlevel: c_uint, numlevels: c_uint, minlayer: c_uint, numlayers: c_uint) void {
     procs.glTextureView(texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers);
 }
-pub inline fn glBindVertexBuffer(bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
-    procs.glBindVertexBuffer(bindingindex, buffer, offset, stride);
+pub inline fn glBindVertexBuffer(binding_index: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
+    procs.glBindVertexBuffer(binding_index, buffer, offset, stride);
 }
-pub inline fn glVertexAttribFormat(attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
-    procs.glVertexAttribFormat(attribindex, size, @"type", normalized, relativeoffset);
+pub inline fn glVertexAttribFormat(attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relative_offset: c_uint) void {
+    procs.glVertexAttribFormat(attribindex, size, @"type", normalized, relative_offset);
 }
-pub inline fn glVertexAttribIFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexAttribIFormat(attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexAttribIFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexAttribIFormat(attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexAttribLFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexAttribLFormat(attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexAttribLFormat(attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexAttribLFormat(attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexAttribBinding(attribindex: c_uint, bindingindex: c_uint) void {
-    procs.glVertexAttribBinding(attribindex, bindingindex);
+pub inline fn glVertexAttribBinding(attribindex: c_uint, binding_index: c_uint) void {
+    procs.glVertexAttribBinding(attribindex, binding_index);
 }
-pub inline fn glVertexBindingDivisor(bindingindex: c_uint, divisor: c_uint) void {
-    procs.glVertexBindingDivisor(bindingindex, divisor);
+pub inline fn glVertexBindingDivisor(binding_index: c_uint, divisor: c_uint) void {
+    procs.glVertexBindingDivisor(binding_index, divisor);
 }
 pub inline fn glDebugMessageControl(source: @"enum", @"type": @"enum", severity: @"enum", count: c_int, ids: [*c]const c_uint, enabled: @"bool") void {
     procs.glDebugMessageControl(source, @"type", severity, count, ids, enabled);
@@ -4269,26 +4251,26 @@ pub inline fn glEnableVertexArrayAttrib(vaobj: c_uint, index: c_uint) void {
 pub inline fn glVertexArrayElementBuffer(vaobj: c_uint, buffer: c_uint) void {
     procs.glVertexArrayElementBuffer(vaobj, buffer);
 }
-pub inline fn glVertexArrayVertexBuffer(vaobj: c_uint, bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
-    procs.glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset, stride);
+pub inline fn glVertexArrayVertexBuffer(vaobj: c_uint, binding_index: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
+    procs.glVertexArrayVertexBuffer(vaobj, binding_index, buffer, offset, stride);
 }
 pub inline fn glVertexArrayVertexBuffers(vaobj: c_uint, first: c_uint, count: c_int, buffers: [*c]const c_uint, offsets: [*c]const c_long, strides: [*c]const c_int) void {
     procs.glVertexArrayVertexBuffers(vaobj, first, count, buffers, offsets, strides);
 }
-pub inline fn glVertexArrayAttribBinding(vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) void {
-    procs.glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
+pub inline fn glVertexArrayAttribBinding(vaobj: c_uint, attribindex: c_uint, binding_index: c_uint) void {
+    procs.glVertexArrayAttribBinding(vaobj, attribindex, binding_index);
 }
-pub inline fn glVertexArrayAttribFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
-    procs.glVertexArrayAttribFormat(vaobj, attribindex, size, @"type", normalized, relativeoffset);
+pub inline fn glVertexArrayAttribFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relative_offset: c_uint) void {
+    procs.glVertexArrayAttribFormat(vaobj, attribindex, size, @"type", normalized, relative_offset);
 }
-pub inline fn glVertexArrayAttribIFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexArrayAttribIFormat(vaobj, attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexArrayAttribIFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexArrayAttribIFormat(vaobj, attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexArrayAttribLFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexArrayAttribLFormat(vaobj, attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexArrayAttribLFormat(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexArrayAttribLFormat(vaobj, attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexArrayBindingDivisor(vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) void {
-    procs.glVertexArrayBindingDivisor(vaobj, bindingindex, divisor);
+pub inline fn glVertexArrayBindingDivisor(vaobj: c_uint, binding_index: c_uint, divisor: c_uint) void {
+    procs.glVertexArrayBindingDivisor(vaobj, binding_index, divisor);
 }
 pub inline fn glGetVertexArrayiv(vaobj: c_uint, pname: @"enum", param: [*c]c_int) void {
     procs.glGetVertexArrayiv(vaobj, pname, param);
@@ -5469,23 +5451,23 @@ pub inline fn glTextureStorage2DMultisampleEXT(texture: c_uint, target: @"enum",
 pub inline fn glTextureStorage3DMultisampleEXT(texture: c_uint, target: @"enum", samples: c_int, internalformat: @"enum", width: c_int, height: c_int, depth: c_int, fixedsamplelocations: @"bool") void {
     procs.glTextureStorage3DMultisampleEXT(texture, target, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
-pub inline fn glVertexArrayBindVertexBufferEXT(vaobj: c_uint, bindingindex: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
-    procs.glVertexArrayBindVertexBufferEXT(vaobj, bindingindex, buffer, offset, stride);
+pub inline fn glVertexArrayBindVertexBufferEXT(vaobj: c_uint, binding_index: c_uint, buffer: c_uint, offset: c_long, stride: c_int) void {
+    procs.glVertexArrayBindVertexBufferEXT(vaobj, binding_index, buffer, offset, stride);
 }
-pub inline fn glVertexArrayVertexAttribFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relativeoffset: c_uint) void {
-    procs.glVertexArrayVertexAttribFormatEXT(vaobj, attribindex, size, @"type", normalized, relativeoffset);
+pub inline fn glVertexArrayVertexAttribFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", normalized: @"bool", relative_offset: c_uint) void {
+    procs.glVertexArrayVertexAttribFormatEXT(vaobj, attribindex, size, @"type", normalized, relative_offset);
 }
-pub inline fn glVertexArrayVertexAttribIFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexArrayVertexAttribIFormatEXT(vaobj, attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexArrayVertexAttribIFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexArrayVertexAttribIFormatEXT(vaobj, attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexArrayVertexAttribLFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relativeoffset: c_uint) void {
-    procs.glVertexArrayVertexAttribLFormatEXT(vaobj, attribindex, size, @"type", relativeoffset);
+pub inline fn glVertexArrayVertexAttribLFormatEXT(vaobj: c_uint, attribindex: c_uint, size: c_int, @"type": @"enum", relative_offset: c_uint) void {
+    procs.glVertexArrayVertexAttribLFormatEXT(vaobj, attribindex, size, @"type", relative_offset);
 }
-pub inline fn glVertexArrayVertexAttribBindingEXT(vaobj: c_uint, attribindex: c_uint, bindingindex: c_uint) void {
-    procs.glVertexArrayVertexAttribBindingEXT(vaobj, attribindex, bindingindex);
+pub inline fn glVertexArrayVertexAttribBindingEXT(vaobj: c_uint, attribindex: c_uint, binding_index: c_uint) void {
+    procs.glVertexArrayVertexAttribBindingEXT(vaobj, attribindex, binding_index);
 }
-pub inline fn glVertexArrayVertexBindingDivisorEXT(vaobj: c_uint, bindingindex: c_uint, divisor: c_uint) void {
-    procs.glVertexArrayVertexBindingDivisorEXT(vaobj, bindingindex, divisor);
+pub inline fn glVertexArrayVertexBindingDivisorEXT(vaobj: c_uint, binding_index: c_uint, divisor: c_uint) void {
+    procs.glVertexArrayVertexBindingDivisorEXT(vaobj, binding_index, divisor);
 }
 pub inline fn glVertexArrayVertexAttribLOffsetEXT(vaobj: c_uint, buffer: c_uint, index: c_uint, size: c_int, @"type": @"enum", stride: c_int, offset: c_long) void {
     procs.glVertexArrayVertexAttribLOffsetEXT(vaobj, buffer, index, size, @"type", stride, offset);
