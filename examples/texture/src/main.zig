@@ -87,7 +87,7 @@ pub fn main() !void {
     ebo.bufferData(.static_draw, &indices);
 
     vao.vertexAttribute(0, 0, 3, .f32, false, 0);
-    vao.vertexAttribute(1, 0, 3, .f32, false, 3 * @sizeOf(f32));
+    vao.vertexAttribute(1, 0, 2, .f32, false, 3 * @sizeOf(f32));
 
     vao.vertexBuffer(vbo, 0, 0, 5 * @sizeOf(f32));
     vao.elementBuffer(ebo);
@@ -97,6 +97,7 @@ pub fn main() !void {
         var height: c_int = undefined;
         var channels: c_int = undefined;
         // 4 = RGBA
+        stb.stbi_set_flip_vertically_on_load(@intFromBool(true));
         const pixels = stb.stbi_load("example.png", &width, &height, &channels, 4) orelse {
             std.log.err("Failed to load image: {s}", .{stb.stbi_failure_reason()});
             return error.LoadImage;
