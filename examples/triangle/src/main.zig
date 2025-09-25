@@ -36,7 +36,6 @@ pub fn main() !void {
     glfw.Window.Hint.set(.{ .context_version_major = 4 });
     glfw.Window.Hint.set(.{ .context_version_minor = 6 });
     glfw.Window.Hint.set(.{ .opengl_profile = .core });
-    glfw.Window.Hint.set(.{ .context_robustness = .no_reset_notification });
 
     const window: *glfw.Window = try .init(.{
         .title = "Hello, world!",

@@ -1,6 +1,7 @@
 const std = @import("std");
 const gl = @import("gl");
 const glfw = @import("glfw");
+const stb = @import("stb");
 
 var vertices = [_]f32{
     -0.5, -0.5, 0.0, 0.0, 0.0,
@@ -59,14 +60,6 @@ pub fn main() !void {
     try gl.init(glfw.opengl.getProcAddress);
     gl.debug.set(null);
 
-    const renderer = gl.c.glGetString(gl.c.GL_RENDERER);
-    const vendor = gl.c.glGetString(gl.c.GL_VENDOR);
-    const version = gl.c.glGetString(gl.c.GL_VERSION);
-
-    std.debug.print("Renderer: {s}\n", .{renderer});
-    std.debug.print("Vendor:   {s}\n", .{vendor});
-    std.debug.print("Version:  {s}\n", .{version});
-
     const vertex_shader: gl.Shader = .init(.vertex);
     defer vertex_shader.deinit();
     vertex_shader.source(vertex);
@@ -94,31 +87,29 @@ pub fn main() !void {
     ebo.bufferData(.static_draw, &indices);
 
     vao.vertexAttribute(0, 0, 3, .f32, false, 0);
-    vao.vertexAttribute(1, 0, 2, .f32, false, @sizeOf(f32) * 3);
+    vao.vertexAttribute(1, 0, 3, .f32, false, 3 * @sizeOf(f32));
 
-    vao.vertexBuffer(vbo, 0, 0, @sizeOf(f32) * 5);
+    vao.vertexBuffer(vbo, 0, 0, 5 * @sizeOf(f32));
     vao.elementBuffer(ebo);
 
-    var pixels = [_]u8{
-        255, 0, 0,   0, 255, 0,
-        0,   0, 255, 0, 255, 255,
-    };
-    const image: struct {
-        width: usize,
-        height: usize,
-        pixels: [*]u8,
-    } = .{
-        .width = 2,
-        .height = 2,
-        .pixels = &pixels,
+    const image: struct { width: usize, height: usize, pixels: [*]u8 } = blk: {
+        var width: c_int = undefined;
+        var height: c_int = undefined;
+        var channels: c_int = undefined;
+        // 4 = RGBA
+        const pixels = stb.stbi_load("example.png", &width, &height, &channels, 4) orelse {
+            std.log.err("Failed to load image: {s}", .{stb.stbi_failure_reason()});
+            return error.LoadImage;
+        };
+        break :blk .{ .width = @intCast(width), .height = @intCast(height), .pixels = @ptrCast(pixels) };
     };
 
     const texture: gl.Texture = try .init(.@"2d");
     defer texture.deinit();
 
-    texture.setParamater(.{ .min_filter = .linear });
-    texture.setParamater(.{ .mag_filter = .linear });
-    texture.setParamater(.{ .wrap = .{ .s = .repeat, .t = .repeat } });
+    texture.setParamater(.{ .min_filter = .nearest });
+    texture.setParamater(.{ .mag_filter = .nearest });
+    texture.setParamater(.{ .wrap = .{ .s = .mirrored_repeat, .t = .mirrored_repeat } });
 
     texture.store(.{ .@"2d" = .{ .levels = 1, .format = .rgba8, .width = image.width, .height = image.height } });
     texture.setSubImage(.{ .@"2d" = .{ .width = image.width, .height = image.height } }, 0, .rgba8, image.pixels);
@@ -135,10 +126,10 @@ pub fn main() !void {
         program.use();
         vao.bind();
 
-        texture.bind(0);
         try program.setUniform("tex", .{ .i32 = 0 });
+        texture.bind(0);
 
-        gl.draw.elements(.triangles, 0, .u32, 0);
+        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), .u32, null);
 
         try glfw.opengl.swapBuffers(window);
     }

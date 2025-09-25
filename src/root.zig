@@ -321,7 +321,80 @@ pub const Buffer = enum(c_uint) {
 pub const Texture = enum(c_uint) {
     _,
 
-    pub const Target = enum(c_uint) {
+    pub const Format = enum(c_ushort) {
+        r8 = c.GL_R8,
+        rg8 = c.GL_RG8,
+        rgb8 = c.GL_RGB8,
+        rgba8 = c.GL_RGBA8,
+        r16 = c.GL_R16,
+        rg16 = c.GL_RG16,
+        rgb16 = c.GL_RGB16,
+        rgba16 = c.GL_RGBA16,
+
+        // Floating point
+        r16f = c.GL_R16F,
+        rg16f = c.GL_RG16F,
+        rgb16f = c.GL_RGB16F,
+        rgba16f = c.GL_RGBA16F,
+        r32f = c.GL_R32F,
+        rg32f = c.GL_RG32F,
+        rgb32f = c.GL_RGB32F,
+        rgba32f = c.GL_RGBA32F,
+
+        // Integer
+        r8i = c.GL_R8I,
+        r8ui = c.GL_R8UI,
+        rg8i = c.GL_RG8I,
+        rg8ui = c.GL_RG8UI,
+        rgb8i = c.GL_RGB8I,
+        rgb8ui = c.GL_RGB8UI,
+        rgba8i = c.GL_RGBA8I,
+        rgba8ui = c.GL_RGBA8UI,
+        r32i = c.GL_R32I,
+        r32ui = c.GL_R32UI,
+        rg32i = c.GL_RG32I,
+        rg32ui = c.GL_RG32UI,
+        rgb32i = c.GL_RGB32I,
+        rgb32ui = c.GL_RGB32UI,
+        rgba32i = c.GL_RGBA32I,
+        rgba32ui = c.GL_RGBA32UI,
+
+        // Depth / stencil
+        depth_component16 = c.GL_DEPTH_COMPONENT16,
+        depth_component24 = c.GL_DEPTH_COMPONENT24,
+        depth_component32f = c.GL_DEPTH_COMPONENT32F,
+        depth24_stencil8 = c.GL_DEPTH24_STENCIL8,
+        depth32f_stencil8 = c.GL_DEPTH32F_STENCIL8,
+
+        // sRGB
+        srgb8 = c.GL_SRGB8,
+        srgb8_alpha8 = c.GL_SRGB8_ALPHA8,
+
+        pub fn @"break"(self: @This()) ?[2]c_ushort {
+            return switch (self) {
+                .r8 => .{ c.GL_RED, c.GL_UNSIGNED_BYTE },
+                .rg8 => .{ c.GL_RG, c.GL_UNSIGNED_BYTE },
+                .rgb8 => .{ c.GL_RGB, c.GL_UNSIGNED_BYTE },
+                .rgba8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
+
+                .r16f => .{ c.GL_RED, c.GL_HALF_FLOAT },
+                .rgba32f => .{ c.GL_RGBA, c.GL_FLOAT },
+
+                .r8i => .{ c.GL_RED_INTEGER, c.GL_BYTE },
+                .rgba32ui => .{ c.GL_RGBA_INTEGER, c.GL_UNSIGNED_INT },
+
+                .depth_component16 => .{ c.GL_DEPTH_COMPONENT, c.GL_UNSIGNED_SHORT },
+                .depth24_stencil8 => .{ c.GL_DEPTH_STENCIL, c.GL_UNSIGNED_INT_24_8 },
+
+                .srgb8 => .{ c.GL_RGB, c.GL_UNSIGNED_BYTE },
+                .srgb8_alpha8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
+
+                else => null,
+            };
+        }
+    };
+
+    pub const Target = enum(c_ushort) {
         @"1d" = c.GL_TEXTURE_1D,
         @"2d" = c.GL_TEXTURE_2D,
         @"3d" = c.GL_TEXTURE_3D,
@@ -333,11 +406,30 @@ pub const Texture = enum(c_uint) {
         buffer = c.GL_TEXTURE_BUFFER,
         @"2d_multisample" = c.GL_TEXTURE_2D_MULTISAMPLE,
         @"2d_multisample_array" = c.GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
+        _,
+
+        pub const Storage = union(enum) {
+            @"1d": struct { levels: usize, format: Format, width: usize },
+            @"2d": struct { levels: usize, format: Format, width: usize, height: usize },
+            @"3d": struct { levels: usize, format: Format, width: usize, height: usize, depth: usize },
+            @"2d_multisample": struct { samples: usize, levels: usize, format: Format, width: usize, height: usize, fixed_sample_locations: u8 },
+            @"3d_multisample": struct { samples: usize, format: Format, width: usize, height: usize, depth: usize, fixed_sample_locations: u8 },
+
+            pub fn store(self: @This(), texture: Texture) void {
+                switch (self) {
+                    .@"1d" => |d| c.glTextureStorage1D(@intFromEnum(texture), @intCast(d.levels), @intFromEnum(d.format), @intCast(d.width)),
+                    .@"2d" => |d| c.glTextureStorage2D(@intFromEnum(texture), @intCast(d.levels), @intFromEnum(d.format), @intCast(d.width), @intCast(d.height)),
+                    .@"3d" => |d| c.glTextureStorage3D(@intFromEnum(texture), @intCast(d.levels), @intFromEnum(d.format), @intCast(d.width), @intCast(d.height), @intCast(d.depth)),
+                    .@"2d_multisample" => |d| c.glTextureStorage2DMultisample(@intFromEnum(texture), @intCast(d.samples), @intFromEnum(d.format), @intCast(d.width), @intCast(d.height), d.fixed_sample_locations),
+                    .@"3d_multisample" => |d| c.glTextureStorage3DMultisample(@intFromEnum(texture), @intCast(d.samples), @intFromEnum(d.format), @intCast(d.width), @intCast(d.height), @intCast(d.depth), d.fixed_sample_locations),
+                }
+            }
+        };
     };
 
     pub const Paramater = union(enum) {
         pub const Swizzle = enum(c_int) { red = c.GL_RED, green = c.GL_GREEN, blue = c.GL_BLUE, _ };
-        pub const Warp = enum(c_int) { repeat = c.GL_REPEAT, mirrored_repeat = c.GL_MIRRORED_REPEAT, clamp_to_edge = c.GL_CLAMP_TO_EDGE, clamp_to_border = c.GL_CLAMP_TO_BORDER, _ };
+        pub const Wrap = enum(c_int) { repeat = c.GL_REPEAT, mirrored_repeat = c.GL_MIRRORED_REPEAT, clamp_to_edge = c.GL_CLAMP_TO_EDGE, clamp_to_border = c.GL_CLAMP_TO_BORDER, _ };
         depth_stencil_mode: enum(c_int) { depth_component = c.GL_DEPTH_COMPONENT, stencil_index = c.GL_STENCIL_INDEX, _ },
         base_level: enum(c_int) { max_level = c.GL_TEXTURE_MAX_LEVEL, _ },
         compare_func: enum(c_int) { lequal = c.GL_LEQUAL, gequal = c.GL_GEQUAL, less = c.GL_LESS, greater = c.GL_GREATER, equal = c.GL_EQUAL, notequal = c.GL_NOTEQUAL, always = c.GL_ALWAYS, never = c.GL_NEVER, _ },
@@ -349,7 +441,7 @@ pub const Texture = enum(c_uint) {
         max_lod: f32,
         max_level: i32,
         swizzle: struct { r: ?Swizzle = null, g: ?Swizzle = null, b: ?Swizzle = null, a: ?enum(c_int) { zero = c.GL_ZERO, one = c.GL_ONE } = null },
-        wrap: struct { s: ?Warp = null, t: ?Warp = null, r: ?Warp = null },
+        wrap: struct { s: ?Wrap = null, t: ?Wrap = null, r: ?Wrap = null },
 
         pub fn set(self: @This(), texture: Texture) void {
             switch (self) {
@@ -370,14 +462,28 @@ pub const Texture = enum(c_uint) {
                     if (param.a) |swizzle| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_SWIZZLE_A, @intFromEnum(swizzle));
                 },
                 .wrap => |param| {
-                    if (param.s) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_S, @intFromEnum(warp));
-                    if (param.t) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_T, @intFromEnum(warp));
-                    if (param.r) |warp| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_R, @intFromEnum(warp));
+                    if (param.s) |wrap| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_S, @intFromEnum(wrap));
+                    if (param.t) |wrap| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_T, @intFromEnum(wrap));
+                    if (param.r) |wrap| c.glTextureParameteri(@intFromEnum(texture), c.GL_TEXTURE_WRAP_R, @intFromEnum(wrap));
                 },
             }
         }
     };
 
+    pub const SubImage = union(enum) {
+        @"1d": struct { offset: usize = 0, width: usize },
+        @"2d": struct { offset: [2]usize = .{ 0, 0 }, width: usize, height: usize },
+        @"3d": struct { offset: [3]usize = .{ 0, 0, 0 }, width: usize, height: usize, depth: usize },
+
+        pub fn set(self: @This(), texture: Texture, level: usize, format: Format, pixels: [*]u8) void {
+            const fmt, const @"type" = (format.@"break"() orelse @panic("kk"));
+            switch (self) {
+                .@"1d" => |d| c.glTextureSubImage1D(@intFromEnum(texture), @intCast(level), @intCast(d.offset), @intCast(d.width), fmt, @"type", @ptrCast(pixels)),
+                .@"2d" => |d| c.glTextureSubImage2D(@intFromEnum(texture), @intCast(level), @intCast(d.offset[0]), @intCast(d.offset[1]), @intCast(d.width), @intCast(d.height), fmt, @"type", @ptrCast(pixels)),
+                .@"3d" => |d| c.glTextureSubImage3D(@intFromEnum(texture), @intCast(level), @intCast(d.offset[0]), @intCast(d.offset[1]), @intCast(d.offset[2]), @intCast(d.width), @intCast(d.height), @intCast(d.depth), fmt, @"type", @ptrCast(pixels)),
+            }
+        }
+    };
     pub fn init(target: Target) !@This() {
         var id: c_uint = undefined;
         c.glCreateTextures(@intFromEnum(target), 1, &id);
@@ -391,6 +497,22 @@ pub const Texture = enum(c_uint) {
 
     pub fn setParamater(self: @This(), param: Paramater) void {
         param.set(self);
+    }
+
+    pub fn store(self: @This(), storage: Target.Storage) void {
+        storage.store(self);
+    }
+
+    pub fn setSubImage(self: @This(), sub_image: SubImage, level: usize, format: Format, pixels: [*]u8) void {
+        sub_image.set(self, level, format, pixels);
+    }
+
+    pub fn generateMipmap(self: @This()) void {
+        c.glGenerateTextureMipmap(@intFromEnum(self));
+    }
+
+    pub fn bind(self: @This(), unit: usize) void {
+        c.glBindTextureUnit(@intCast(unit), @intFromEnum(self));
     }
 };
 

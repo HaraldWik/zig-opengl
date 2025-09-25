@@ -1,0 +1,24 @@
+.{
+    .name = .texture,
+    .version = "0.0.0",
+    .fingerprint = 0x82660d724d063a1b,
+    .minimum_zig_version = "0.16.0-dev.253+4314c9653",
+    .dependencies = .{
+        .zig_opengl = .{
+            .path = "../..",
+        },
+        .zig_glfw = .{
+            .url = "git+https://github.com/HaraldWik/zig-glfw#5ba7757c55a89dc2f4c3ec8dbcfa8f873190a77a",
+            .hash = "zig_glfw-0.1.0-u6zPw5q_AADrfa7TB9gmCOTRfEl7f34wrBhlfRNVxQ0X",
+        },
+        .stb = .{
+            .url = "git+https://github.com/nothings/stb#fede005abaf93d9d7f3a679d1999b2db341b360f",
+            .hash = "N-V-__8AACIvTgCTqOj6KM32YnqNx1bcsaMuGAeKQEIWZ8Ph",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
