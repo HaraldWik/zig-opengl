@@ -227,7 +227,16 @@ pub const Buffer = enum(c_uint) {
 
     /// Example 'vbo.bufferData(.static_draw, &vertices)'
     pub fn bufferData(self: @This(), usage: Usage, data: anytype) void {
-        const Inner = @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
+        const Inner: type = blk: {
+            const T = @TypeOf(data);
+            switch (@typeInfo(T)) {
+                .pointer => |ptr| break :blk ptr.child,
+                .array => |arr| break :blk arr.child,
+                else => @compileError("type of '" ++ @typeName(T) ++ "' not allowed"),
+            }
+        };
+
+        // @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
         c.glNamedBufferData(@intFromEnum(self), @intCast(data.len * @sizeOf(Inner)), @ptrCast(data), @intFromEnum(usage));
     }
 };

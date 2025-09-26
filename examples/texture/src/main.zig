@@ -106,7 +106,7 @@ pub fn main() !void {
     };
 
     gl.State.enable(.blend, null);
-    gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA);
+    gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA); // TODO: use wrapped implementation (doesn't exist yet)
 
     const texture: gl.Texture = try .init(.@"2d");
     defer texture.deinit();
@@ -120,19 +120,17 @@ pub fn main() !void {
 
     while (!window.shouldClose()) {
         glfw.io.events.poll();
-        gl.clear.color(0.1, 0.5, 0.3, 1.0);
-        gl.clear.buffer(.{ .color = true });
-
         const width: usize, const height: usize = window.getSize().toArray();
 
+        gl.clear.color(0.1, 0.5, 0.3, 1.0);
+        gl.clear.buffer(.{ .color = true });
         gl.draw.viewport(0, 0, width, height);
 
         program.use();
         vao.bind();
-
         texture.bind(0);
 
-        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), u32, null);
+        gl.draw.elements(.triangles, indices.len, u32, null);
 
         try glfw.opengl.swapBuffers(window);
     }

@@ -80,21 +80,35 @@ pub fn main() !void {
     vao.vertexBuffer(vbo, 0, 0, 3 * @sizeOf(f32));
     vao.elementBuffer(ebo);
 
+    var color: [4]f32 = .{ 0.3, 0.2, 1.0, 1.0 };
+    var prng: std.Random.DefaultPrng = .init(67);
+    const random = prng.random();
+
+    var cooldown: f64 = 0;
+    var last_time = glfw.time.get();
     while (!window.shouldClose()) {
         glfw.io.events.poll();
-        gl.clear.color(0.1, 0.5, 0.3, 1.0);
-        gl.clear.buffer(.{ .color = true });
+
+        const current_time = glfw.time.get();
+        const delta_time = current_time - last_time;
+        last_time = current_time;
+        cooldown += delta_time;
 
         const width: usize, const height: usize = window.getSize().toArray();
 
+        gl.clear.color(0.1, 0.5, 0.3, 1.0);
+        gl.clear.buffer(.{ .color = true });
         gl.draw.viewport(0, 0, width, height);
 
         program.use();
         vao.bind();
 
-        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), u32, null);
+        gl.draw.elements(.triangles, indices.len, u32, null);
 
-        const color: [4]f32 = if (glfw.io.Key.a.get(window)) .{ 0.3, 0.2, 1.0, 1.0 } else .{ 1.0, 0.5, 0.2, 1.0 };
+        if (glfw.io.Key.a.get(window) and cooldown >= 0.2) {
+            color = .{ random.float(f32), random.float(f32), random.float(f32), random.float(f32) };
+            cooldown = 0;
+        }
 
         try program.setUniform("color", .{ .f32x4 = color });
 

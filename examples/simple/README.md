@@ -1,0 +1,1 @@
+This "simple" project is more of a testing ground, don't learn from it. Code will most likely be outdated, learn from 'texture' or 'triangle'
