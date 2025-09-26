@@ -28,7 +28,7 @@ pub fn build(b: *std.Build) void {
     stb.addIncludePath(b.dependency("stb", .{}).path("."));
 
     const exe = b.addExecutable(.{
-        .name = "triangle",
+        .name = "texture",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .target = target,

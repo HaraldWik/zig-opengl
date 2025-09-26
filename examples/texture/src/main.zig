@@ -130,7 +130,6 @@ pub fn main() !void {
         program.use();
         vao.bind();
 
-        try program.setUniform("tex", .{ .i32 = 0 });
         texture.bind(0);
 
         gl.draw.elements(.triangles, indices.len * @sizeOf(u32), u32, null);
