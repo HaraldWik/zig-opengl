@@ -75,7 +75,7 @@ pub fn main() !void {
     vbo.bufferData(.static_draw, &vertices);
     ebo.bufferData(.static_draw, &indices);
 
-    vao.vertexAttribute(0, 0, 3, .f32, false, 0);
+    vao.vertexAttribute(0, 0, 3, f32, false, 0);
 
     vao.vertexBuffer(vbo, 0, 0, 3 * @sizeOf(f32));
     vao.elementBuffer(ebo);
@@ -92,7 +92,7 @@ pub fn main() !void {
         program.use();
         vao.bind();
 
-        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), .u32, null);
+        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), u32, null);
 
         const color: [4]f32 = if (glfw.io.Key.a.get(window)) .{ 0.3, 0.2, 1.0, 1.0 } else .{ 1.0, 0.5, 0.2, 1.0 };
 

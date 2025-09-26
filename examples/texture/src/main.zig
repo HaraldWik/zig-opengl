@@ -86,8 +86,8 @@ pub fn main() !void {
     vbo.bufferData(.static_draw, &vertices);
     ebo.bufferData(.static_draw, &indices);
 
-    vao.vertexAttribute(0, 0, 3, .f32, false, 0);
-    vao.vertexAttribute(1, 0, 2, .f32, false, 3 * @sizeOf(f32));
+    vao.vertexAttribute(0, 0, 3, f32, false, 0);
+    vao.vertexAttribute(1, 0, 2, f32, false, 3 * @sizeOf(f32));
 
     vao.vertexBuffer(vbo, 0, 0, 5 * @sizeOf(f32));
     vao.elementBuffer(ebo);
@@ -105,7 +105,7 @@ pub fn main() !void {
         break :blk .{ .width = @intCast(width), .height = @intCast(height), .pixels = @ptrCast(pixels) };
     };
 
-    gl.c.glEnable(gl.c.GL_BLEND);
+    gl.State.enable(.blend, null);
     gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA);
 
     const texture: gl.Texture = try .init(.@"2d");
@@ -133,7 +133,7 @@ pub fn main() !void {
         try program.setUniform("tex", .{ .i32 = 0 });
         texture.bind(0);
 
-        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), .u32, null);
+        gl.draw.elements(.triangles, indices.len * @sizeOf(u32), u32, null);
 
         try glfw.opengl.swapBuffers(window);
     }
