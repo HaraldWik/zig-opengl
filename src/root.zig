@@ -1,13 +1,12 @@
 const std = @import("std");
 const builtin = @import("builtin");
-pub const Procs = @import("Procs.zig");
 pub const c = @import("c.zig");
 
-pub var procs: Procs = undefined;
+pub var procs: *c.Procs = undefined;
 
 pub fn init(loader: anytype) !void {
-    procs = try .init(loader);
-    c.procs = &procs;
+    try c.Procs.init(loader);
+    procs = &c.procs;
 }
 
 pub const debug = struct {

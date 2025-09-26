@@ -105,12 +105,15 @@ pub fn main() !void {
         break :blk .{ .width = @intCast(width), .height = @intCast(height), .pixels = @ptrCast(pixels) };
     };
 
+    gl.c.glEnable(gl.c.GL_BLEND);
+    gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA);
+
     const texture: gl.Texture = try .init(.@"2d");
     defer texture.deinit();
 
-    texture.setParamater(.{ .min_filter = .nearest });
-    texture.setParamater(.{ .mag_filter = .nearest });
-    texture.setParamater(.{ .wrap = .{ .s = .mirrored_repeat, .t = .mirrored_repeat } });
+    texture.setParamater(.{ .min_filter = .linear });
+    texture.setParamater(.{ .mag_filter = .linear });
+    texture.setParamater(.{ .wrap = .{ .s = .repeat, .t = .repeat } });
 
     texture.store(.{ .@"2d" = .{ .levels = 1, .format = .rgba8, .width = image.width, .height = image.height } });
     texture.setSubImage(.{ .@"2d" = .{ .width = image.width, .height = image.height } }, 0, .rgba8, image.pixels);
