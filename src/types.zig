@@ -439,6 +439,30 @@ pub const Texture = enum(c_uint) {
     }
 };
 
+pub const Framebuffer = enum(c_uint) {
+    _,
+
+    pub fn init() !@This() {
+        var id: c_uint = undefined;
+        c.glCreateFramebuffers(1, &id);
+        return if (id != 0) @enumFromInt(id) else error.InitFramebuffer;
+    }
+
+    pub fn deinit(self: @This()) void {
+        var id: c_uint = @intFromEnum(self);
+        c.glDeleteFramebuffers(1, &id);
+    }
+
+    pub fn setTexture(self: @This(), attachment: ?ColorAttachment, texture: Texture, level: usize) void {
+        c.glNamedFramebufferTexture(@intFromEnum(self), @intCast(@intFromEnum(attachment)), @intFromEnum(texture), @intFromEnum(level));
+    }
+
+    pub fn checkStatus(self: @This()) ?u16 {
+        const status = c.glCheckNamedFramebufferStatus(@intFromEnum(self), c.GL_FRAMEBUFFER);
+        return if (status != c.GL_FRAMEBUFFER_COMPLETE) @intCast(status) else null;
+    }
+};
+
 pub const ColorAttachment = enum(c_uint) {
     _,
 
