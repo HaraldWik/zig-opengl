@@ -16,6 +16,20 @@ pub fn init(loader: anytype) !void {
     procs = &c.procs;
 }
 
+pub fn fromType(comptime T: type) c.@"enum" {
+    return switch (T) {
+        i8 => c.GL_BYTE,
+        i16 => c.GL_SHORT,
+        i32 => c.GL_INT,
+        u8 => c.GL_UNSIGNED_BYTE,
+        u16 => c.GL_UNSIGNED_SHORT,
+        u32 => c.GL_UNSIGNED_INT,
+        f32 => c.GL_FLOAT,
+        f64 => c.GL_DOUBLE,
+        else => @compileError("Unsupported OpenGL type: '" ++ @typeName(T) ++ "'"),
+    };
+}
+
 pub const debug = struct {
     /// Null will enable when release mode is set to 'debug'
     pub fn set(config: ?bool) void {
@@ -55,11 +69,19 @@ pub const clear = struct {
     };
 
     pub fn buffer(mask: BufferMask) void {
-        c.glClear(@intCast(if (mask.color) c.GL_COLOR_BUFFER_BIT else 0 | if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0 | if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0));
+        const bits =
+            (if (mask.color) c.GL_COLOR_BUFFER_BIT else 0) |
+            (if (mask.depth) c.GL_DEPTH_BUFFER_BIT else 0) |
+            (if (mask.stencil) c.GL_STENCIL_BUFFER_BIT else 0);
+        c.glClear(@intCast(bits));
     }
 
     pub fn color(r: f32, g: f32, b: f32, a: f32) void {
         c.glClearColor(r, g, b, a);
+    }
+
+    pub fn depth(value: f64) void {
+        c.glClearDepth(value);
     }
 };
 
@@ -70,20 +92,6 @@ pub const color = struct {
         c.glColorMask(@intFromBool(m[0]), @intFromBool(m[1]), @intFromBool(m[2]), @intFromBool(m[3]));
     }
 };
-
-pub fn fromType(comptime T: type) c.@"enum" {
-    return switch (T) {
-        i8 => c.GL_BYTE,
-        i16 => c.GL_SHORT,
-        i32 => c.GL_INT,
-        u8 => c.GL_UNSIGNED_BYTE,
-        u16 => c.GL_UNSIGNED_SHORT,
-        u32 => c.GL_UNSIGNED_INT,
-        f32 => c.GL_FLOAT,
-        f64 => c.GL_DOUBLE,
-        else => @compileError("Unsupported OpenGL type: '" ++ @typeName(T) ++ "'"),
-    };
-}
 
 pub const draw = struct {
     pub const Mode = enum(c_ushort) {

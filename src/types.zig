@@ -496,6 +496,50 @@ pub const State = enum(c.@"enum") {
     sample_mask = c.GL_SAMPLE_MASK,
     _,
 
+    // pub const Blend = struct {
+    //     const std = @import("std");
+
+    //     // pub const BlendFactor = enum(c.@"enum") {
+    //     //     zero = c.GL_ZERO,
+    //     //     one = c.GL_ONE,
+    //     //     src_color = c.GL_SRC_COLOR,
+    //     //     one_minus_src_color = c.GL_ONE_MINUS_SRC_COLOR,
+    //     //     dst_color = c.GL_DST_COLOR,
+    //     //     one_minus_dst_color = c.GL_ONE_MINUS_DST_COLOR,
+    //     //     src_alpha = c.GL_SRC_ALPHA,
+    //     //     one_minus_src_alpha = c.GL_ONE_MINUS_SRC_ALPHA,
+    //     //     dst_alpha = c.GL_DST_ALPHA,
+    //     //     one_minus_dst_alpha = c.GL_ONE_MINUS_DST_ALPHA,
+    //     //     constant_color = c.GL_CONSTANT_COLOR,
+    //     //     one_minus_constant_color = c.GL_ONE_MINUS_CONSTANT_COLOR,
+    //     //     constant_alpha = c.GL_CONSTANT_ALPHA,
+    //     //     one_minus_constant_alpha = c.GL_ONE_MINUS_CONSTANT_ALPHA,
+    //     //     src_alpha_saturate = c.GL_SRC_ALPHA_SATURATE,
+    //     // };
+
+    //     pub const Factor = union(enum) {
+    //         pub const Alpha = enum(c.@"enum") {
+    //             one_minus = c.GL_ONE_MINUS_SRC_ALPHA,
+    //             _,
+    //         };
+
+    //         source_alpha: Alpha,
+    //         dest_alpha: Alpha,
+
+    //         pub fn set(self: @This()) {
+    //             // c.GL_SRC_ALPHA
+    //         }
+    //     };
+
+    //     pub const Equation = enum(c.@"enum") {
+    //         func_add = c.GL_FUNC_ADD,
+    //         func_subtract = c.GL_FUNC_SUBTRACT,
+    //         func_reverse_subtract = c.GL_FUNC_REVERSE_SUBTRACT,
+    //         min = c.GL_MIN,
+    //         max = c.GL_MAX,
+    //     };
+    // };
+
     pub fn enable(self: @This(), attachment: ?ColorAttachment) void {
         if (attachment == null) c.glEnable(@intFromEnum(self)) else c.glEnablei(@intFromEnum(self), @intFromEnum(attachment.?));
     }
@@ -504,5 +548,8 @@ pub const State = enum(c.@"enum") {
         if (attachment == null) c.glDisable(@intFromEnum(self)) else c.glDisablei(@intFromEnum(self), @intFromEnum(attachment.?));
     }
 
-    // pub fn blendFunc(self: @This()) void {}
+    // pub fn blendFunc(self: @This()) void {
+    //     glBlendFunc(@intFromEnum(BlendFactor.src_alpha), @intFromEnum(BlendFactor.one_minus_src_alpha));
+    //     glBlendEquation(@intFromEnum(BlendEquation.func_add));
+    // }
 };

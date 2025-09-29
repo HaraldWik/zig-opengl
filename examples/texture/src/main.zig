@@ -60,6 +60,9 @@ pub fn main() !void {
     try gl.init(glfw.opengl.getProcAddress);
     gl.debug.set(null);
 
+    gl.State.enable(.blend, null);
+    gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA); // TODO: use wrapped implementation (doesn't exist yet)
+
     const vertex_shader: gl.Shader = .init(.vertex);
     defer vertex_shader.deinit();
     vertex_shader.source(vertex);
@@ -92,21 +95,8 @@ pub fn main() !void {
     vao.vertexBuffer(vbo, 0, 0, 5 * @sizeOf(f32));
     vao.elementBuffer(ebo);
 
-    const image: struct { width: usize, height: usize, pixels: [*]u8 } = blk: {
-        var width: c_int = undefined;
-        var height: c_int = undefined;
-        var channels: c_int = undefined;
-        // 4 = RGBA
-        stb.stbi_set_flip_vertically_on_load(@intFromBool(true));
-        const pixels = stb.stbi_load("example.png", &width, &height, &channels, 4) orelse {
-            std.log.err("Failed to load image: {s}", .{stb.stbi_failure_reason()});
-            return error.LoadImage;
-        };
-        break :blk .{ .width = @intCast(width), .height = @intCast(height), .pixels = @ptrCast(pixels) };
-    };
-
-    gl.State.enable(.blend, null);
-    gl.c.glBlendFunc(gl.c.GL_SRC_ALPHA, gl.c.GL_ONE_MINUS_SRC_ALPHA); // TODO: use wrapped implementation (doesn't exist yet)
+    const image: Image = try .init("example.png");
+    defer image.deinit();
 
     const texture: gl.Texture = try .init(.@"2d");
     defer texture.deinit();
@@ -135,3 +125,26 @@ pub fn main() !void {
         try glfw.opengl.swapBuffers(window);
     }
 }
+
+pub const Image = struct {
+    width: usize,
+    height: usize,
+    pixels: [*]u8,
+
+    pub fn init(file_path: [*:0]const u8) !@This() {
+        var width: c_int = undefined;
+        var height: c_int = undefined;
+        var channels: c_int = undefined;
+        // 4 = RGBA
+        stb.stbi_set_flip_vertically_on_load(@intFromBool(true));
+        const pixels = stb.stbi_load(file_path, &width, &height, &channels, 4) orelse {
+            std.log.err("Failed to load image: {s}", .{stb.stbi_failure_reason()});
+            return error.LoadImage;
+        };
+        return .{ .width = @intCast(width), .height = @intCast(height), .pixels = @ptrCast(pixels) };
+    }
+
+    pub fn deinit(self: @This()) void {
+        stb.stbi_image_free(@ptrCast(self.pixels));
+    }
+};
