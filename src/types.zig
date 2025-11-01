@@ -291,7 +291,7 @@ pub const Texture = enum(c_uint) {
 
         // sRGB
         srgb8 = c.GL_SRGB8,
-        srgb8_alpha8 = c.GL_SRGB8_ALPHA8,
+        srgba8 = c.GL_SRGB8_ALPHA8,
 
         pub fn @"break"(self: @This()) ?[2]c.@"enum" {
             return switch (self) {
@@ -310,7 +310,7 @@ pub const Texture = enum(c_uint) {
                 .depth24_stencil8 => .{ c.GL_DEPTH_STENCIL, c.GL_UNSIGNED_INT_24_8 },
 
                 .srgb8 => .{ c.GL_RGB, c.GL_UNSIGNED_BYTE },
-                .srgb8_alpha8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
+                .srgba8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
 
                 else => null,
             };

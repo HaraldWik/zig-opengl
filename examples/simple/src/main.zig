@@ -56,7 +56,7 @@ pub fn main() !void {
     glfw.opengl.makeContextCurrent(window);
     defer glfw.opengl.makeContextCurrent(null);
 
-    try gl.init(glfw.opengl.getProcAddress);
+    try gl.init(glfw.opengl.getProcAddress, true, true);
     gl.debug.set(null);
 
     const renderer = gl.c.glGetString(gl.c.GL_RENDERER);
@@ -93,8 +93,8 @@ pub fn main() !void {
     vbo.bufferData(.static_draw, &vertices);
     ebo.bufferData(.static_draw, &indices);
 
-    vao.vertexAttribute(0, 0, 3, .f32, false, 0);
-    vao.vertexAttribute(1, 0, 2, .f32, false, @sizeOf(f32) * 3);
+    vao.vertexAttribute(0, 0, 3, f32, false, 0);
+    vao.vertexAttribute(1, 0, 2, f32, false, @sizeOf(f32) * 3);
 
     vao.vertexBuffer(vbo, 0, 0, @sizeOf(f32) * 5);
     vao.elementBuffer(ebo);
@@ -138,7 +138,7 @@ pub fn main() !void {
         texture.bind(0);
         try program.setUniform("tex", .{ .i32 = 0 });
 
-        gl.draw.elements(.triangles, 0, .u32, 0);
+        gl.draw.elements(.triangles, 0, u32, 0);
 
         try glfw.opengl.swapBuffers(window);
     }

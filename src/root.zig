@@ -11,8 +11,8 @@ pub const State = @import("types.zig").State;
 
 pub var procs: *c.Procs = undefined;
 
-pub fn init(loader: anytype) !void {
-    try c.Procs.init(loader);
+pub fn init(loader: anytype, log: ?bool, err: bool) !void {
+    try c.Procs.init(loader, log, err);
     procs = &c.procs;
 }
 
