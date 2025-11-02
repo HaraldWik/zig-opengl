@@ -2,6 +2,7 @@ const std = @import("std");
 const builtin = @import("builtin");
 pub const c = @import("c.zig");
 
+pub const String = @import("types.zig").String;
 pub const Shader = @import("types.zig").Shader;
 pub const Program = @import("types.zig").Program;
 pub const Vao = @import("types.zig").Vao;
@@ -9,12 +10,7 @@ pub const Buffer = @import("types.zig").Buffer;
 pub const Texture = @import("types.zig").Texture;
 pub const State = @import("types.zig").State;
 
-pub var procs: *c.Procs = undefined;
-
-pub fn init(loader: anytype, log: ?bool, err: bool) !void {
-    try c.Procs.init(loader, log, err);
-    procs = &c.procs;
-}
+pub const load = c.Procs.load;
 
 pub fn fromType(comptime T: type) c.@"enum" {
     return switch (T) {
@@ -136,3 +132,5 @@ pub const draw = struct {
         }
     };
 };
+
+pub const getString = String.get;

@@ -56,7 +56,7 @@ pub fn main() !void {
     glfw.opengl.makeContextCurrent(window);
     defer glfw.opengl.makeContextCurrent(null);
 
-    try gl.init(glfw.opengl.getProcAddress, true, true);
+    gl.load(glfw.opengl.getProcAddress, true);
     gl.debug.set(null);
 
     const renderer = gl.c.glGetString(gl.c.GL_RENDERER);

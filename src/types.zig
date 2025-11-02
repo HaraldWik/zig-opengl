@@ -2,6 +2,20 @@ const std = @import("std");
 const c = @import("c.zig");
 const fromType = @import("root.zig").fromType;
 
+pub const String = enum(c_ushort) {
+    vendor = c.GL_VENDOR,
+    renderer = c.GL_RENDERER,
+    version = c.GL_VERSION,
+    /// Requires that you pass an index
+    extensions = c.GL_EXTENSIONS,
+    shading_language_version = c.GL_SHADING_LANGUAGE_VERSION,
+    _,
+
+    pub fn get(self: @This(), i: ?usize) ?[*:0]const u8 {
+        return if (i != null) c.glGetStringi(@intFromEnum(self), @intCast(i.?)) else c.glGetString(@intFromEnum(self));
+    }
+};
+
 pub const Shader = enum(c_uint) {
     _,
 

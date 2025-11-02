@@ -1,5 +1,7 @@
-pub const init = @import("root.zig").init;
-pub const APIENTRY: @import("std").builtin.CallingConvention = if (@import("builtin").os.tag == .windows) .winapi else .c;
+const std = @import("std");
+const builtin = @import("builtin");
+
+pub const APIENTRY: std.builtin.CallingConvention = if (builtin.os.tag == .windows) .winapi else .c;
 
 pub const Sync = *opaque {};
 pub const @"enum" = c_ushort;
@@ -1296,16 +1298,19 @@ pub const Procs = struct {
     glFramebufferTextureMultiviewOVR: ?*const fn (target: @"enum", attachment: @"enum", texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) callconv(APIENTRY) void,
     glNamedFramebufferTextureMultiviewOVR: ?*const fn (framebuffer: c_uint, attachment: @"enum", texture: c_uint, level: c_int, baseViewIndex: c_int, numViews: c_int) void,
 
-    pub fn init(loader: anytype, log: ?bool, err: bool) !void {
-        @setEvalBranchQuota(1500);
-        inline for (@typeInfo(@TypeOf(procs)).@"struct".fields) |proc| {
+    pub fn load(loader: anytype, log: ?bool) void {
+        const fields = @typeInfo(@TypeOf(procs)).@"struct".fields;
+        @setEvalBranchQuota(fields.len);
+        inline for (fields) |proc| {
             @field(procs, proc.name) = @ptrCast(loader(proc.name) orelse blk: {
-                if (log orelse (@import("builtin").mode == .Debug)) @import("std").log.err("Proc '{s}' not found", .{proc.name});
-                if (err) return error.ProcNotFound else break :blk null;
+                if (log orelse (builtin.mode == .Debug)) std.log.err("Proc '{s}' not found", .{proc.name});
+                break :blk null;
             });
         }
     }
 };
+
+pub const load = Procs.load;
 
 pub const GL_FALSE: c_int = 0;
 pub const GL_TRUE: c_int = 1;

@@ -46,8 +46,10 @@ pub fn main() !void {
     glfw.opengl.makeContextCurrent(window);
     defer glfw.opengl.makeContextCurrent(null);
 
-    try gl.init(glfw.opengl.getProcAddress);
+    gl.load(glfw.opengl.getProcAddress, true);
     gl.debug.set(null);
+
+    if (gl.getString(.version, null)) |version| std.debug.print("{s}\n", .{version});
 
     const vertex_shader: gl.Shader = .init(.vertex);
     defer vertex_shader.deinit();
