@@ -15,7 +15,7 @@ pub const struct__cl_event = opaque {};
 pub const GLeglImageOES = ?*anyopaque;
 pub const GLVULKANPROCNV = ?*const fn () callconv(.c) void;
 
-pub var procs: Procs = undefined;
+pub threadlocal var procs: Procs = undefined;
 
 pub const Procs = struct {
     glCullFace: ?*const fn (mode: @"enum") callconv(APIENTRY) void,
@@ -1302,10 +1302,10 @@ pub const Procs = struct {
         const fields = @typeInfo(@TypeOf(procs)).@"struct".fields;
         @setEvalBranchQuota(fields.len);
         inline for (fields) |proc| {
-            @field(procs, proc.name) = @ptrCast(loader(proc.name) orelse blk: {
+            @field(procs, proc.name) = @as(proc.type, @ptrCast(loader(proc.name))) orelse proc: {
                 if (log orelse (builtin.mode == .Debug)) std.log.err("Proc '{s}' not found", .{proc.name});
-                break :blk null;
-            });
+                break :proc null;
+            };
         }
     }
 };
