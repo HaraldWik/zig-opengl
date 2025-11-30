@@ -241,16 +241,13 @@ pub const Buffer = enum(c_uint) {
 
     /// Example 'vbo.bufferData(.static_draw, &vertices)'
     pub fn bufferData(self: @This(), usage: Usage, data: anytype) void {
-        const Inner: type = blk: {
-            const T = @TypeOf(data);
-            switch (@typeInfo(T)) {
-                .pointer => |ptr| break :blk ptr.child,
-                .array => |arr| break :blk arr.child,
-                else => @compileError("type of '" ++ @typeName(T) ++ "' not allowed"),
-            }
-        };
+        const Inner: type =
+            switch (@typeInfo(@TypeOf(data))) {
+                .pointer => |ptr| ptr.child,
+                .array => |arr| arr.child,
+                else => @compileError("type of '" ++ @typeName(@TypeOf(data)) ++ "' not allowed"),
+            };
 
-        // @typeInfo(@typeInfo(@TypeOf(data)).pointer.child).array.child;
         c.glNamedBufferData(@intFromEnum(self), @intCast(data.len * @sizeOf(Inner)), @ptrCast(data), @intFromEnum(usage));
     }
 };
@@ -413,7 +410,7 @@ pub const Texture = enum(c_uint) {
         @"3d": struct { offset: [3]usize = .{ 0, 0, 0 }, width: usize, height: usize, depth: usize },
 
         pub fn set(self: @This(), texture: Texture, level: usize, format: Format, pixels: [*]u8) void {
-            const fmt, const @"type" = (format.@"break"() orelse @panic("kk"));
+            const fmt, const @"type" = (format.@"break"() orelse @panic("invalid format"));
             switch (self) {
                 .@"1d" => |d| c.glTextureSubImage1D(@intFromEnum(texture), @intCast(level), @intCast(d.offset), @intCast(d.width), fmt, @"type", @ptrCast(pixels)),
                 .@"2d" => |d| c.glTextureSubImage2D(@intFromEnum(texture), @intCast(level), @intCast(d.offset[0]), @intCast(d.offset[1]), @intCast(d.width), @intCast(d.height), fmt, @"type", @ptrCast(pixels)),
