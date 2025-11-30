@@ -311,17 +311,11 @@ pub const Texture = enum(c_uint) {
                 .rgb8 => .{ c.GL_RGB, c.GL_UNSIGNED_BYTE },
                 .rgba8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
 
-                .r16f => .{ c.GL_RED, c.GL_HALF_FLOAT },
-                .rgba32f => .{ c.GL_RGBA, c.GL_FLOAT },
-
                 .r8i => .{ c.GL_RED_INTEGER, c.GL_BYTE },
                 .rgba32ui => .{ c.GL_RGBA_INTEGER, c.GL_UNSIGNED_INT },
 
                 .depth_component16 => .{ c.GL_DEPTH_COMPONENT, c.GL_UNSIGNED_SHORT },
                 .depth24_stencil8 => .{ c.GL_DEPTH_STENCIL, c.GL_UNSIGNED_INT_24_8 },
-
-                .srgb8 => .{ c.GL_RGB, c.GL_UNSIGNED_BYTE },
-                .srgba8 => .{ c.GL_RGBA, c.GL_UNSIGNED_BYTE },
 
                 else => null,
             };
